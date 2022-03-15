@@ -38,7 +38,7 @@ function endScreen(i) {
             }
 
             // dans tous les cas, on affiche le générique, avec un bouton pour revenir au menu home et vider le localStorage
-            txtToDisplay += `Developpement: Joël Rimaz</div><br/><br/><div class="textDiv bigTextDiv">Under the direction of: Isaac Pante</div><br/><br/><div class="textDiv bigTextDiv">For the course "Digital Publications"</div><br/><br/><div class="textDiv bigTextDiv">University of Lausanne</div><br/><input type="button" value="back to menu" class="buttonGoForward" id="buttonBackHome"/>`;
+            txtToDisplay += `Developpement: Joël Rimaz</div><br/><br/><div class="textDiv bigTextDiv">Under the direction of: Isaac Pante</div><br/><br/><div class="textDiv bigTextDiv">For the course "Digital Publications"</div><br/><br/><div class="textDiv bigTextDiv">University of Lausanne</div><br/><input type="button" value="retour au menu" class="buttonGoForward" id="buttonBackHome"/>`;
             gameDiv.innerHTML = txtToDisplay;
             document.getElementById("buttonBackHome").addEventListener("click", function () {
                 clickButton();

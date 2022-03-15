@@ -45,7 +45,7 @@ function actOne(isNewAct) {
         }
 
         // au texte généré dans la boucle précédente, on ajoute un retour et un bouton, le tout est injecté dans l'innerHTML
-        monTxt += `<br/><input type="button" value="proceed" class="buttonGo" id="buttonGo"/>`;
+        monTxt += `<br/><input type="button" value="Continuer" class="buttonGo" id="buttonGo"/>`;
         gameDiv.innerHTML = monTxt;
 
         // on attribue un eventListener au bouton #buttonGo pour accéder à la scène 0 de l'acte actuel
@@ -66,7 +66,7 @@ function actOne(isNewAct) {
     // CONDITION PRINCIPALE : si c'est la 8ème scène (en partant de 0)
     else if (myGameTxt.currentScene == 7) {
         gameDiv.style.textAlign = "center";
-        monTxt = `<br/><div class="titleDiv whiteText">${myGameTxt.scenes[7].title}</div><br/><div class = "sadWobble textDiv whiteText">${myGameTxt.scenes[7].text1}</div><br/><div class = "sadWobble textDiv whiteText">${myGameTxt.scenes[7].text2}</div><br/><br/><form id="maForm" autocomplete="off"><input type="text" placeholder="~~enter your name here~~" class="inputCommand" id="monUsername"/><br/><br/><input type="submit" value="Confirm" class="buttonGo submitName" id="buttonStart"/></form>`;
+        monTxt = `<br/><div class="titleDiv whiteText">${myGameTxt.scenes[7].title}</div><br/><div class = "sadWobble textDiv whiteText">${myGameTxt.scenes[7].text1}</div><br/><div class = "sadWobble textDiv whiteText">${myGameTxt.scenes[7].text2}</div><br/><br/><form id="maForm" autocomplete="off"><input type="text" placeholder="~~enter your name here~~" class="inputCommand" id="monUsername"/><br/><br/><input type="submit" value="Confirmer" class="buttonGo submitName" id="buttonStart"/></form>`;
 
         gameDiv.innerHTML = monTxt;
 

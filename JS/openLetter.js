@@ -29,8 +29,8 @@ function openLetter(k) {
     let monTxt = myGameTxt.scenes[myGameTxt.currentScene].items[0].useTxtOpen;
     let monTxtLength = monTxt.length;
     monTxt = monTxt[k];
-    if (k < monTxtLength - 1) monTxt += `<br /><br /><input type="button" value="Continue" class="buttonGoBack" id="buttonGoBack"/>`
-    else monTxt += `${myGameTxt.username}</div><br /><br /><input type="button" value="Close the letter" class="buttonGoBack" id="buttonGoBack"/>`
+    if (k < monTxtLength - 1) monTxt += `<br /><br /><input type="button" value="Continuer" class="buttonGoBack" id="buttonGoBack"/>`
+    else monTxt += `${myGameTxt.username}</div><br /><br /><input type="button" value="Fermer la lettre" class="buttonGoBack" id="buttonGoBack"/>`
     gameDiv.innerHTML = monTxt;
 
     // réduit la taille des caractères paragraphes pour cette occasion

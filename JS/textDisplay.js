@@ -81,7 +81,7 @@ function displayGameText() {
     function txtDisplay(canRun, i, j, element, txtFrag, index) {
         // gestion des intervals pour les timeout
         let interval1 = 0;
-        let interval2 = 43;
+        let interval2 = 30;
         let diviser = 1;
         // dans le cas spécifique de l'affichage de la lettre, on a besoin que ça s'affiche plus rapidement
         if (myGameTxt.currentAct >= 4 && myGameTxt.currentScene >= 5 && myGameTxt.scenes[5].items[0].lookingAtLetter == true) {
@@ -93,7 +93,7 @@ function displayGameText() {
             for (let k = 0; k < texts.length - 1; k++) {
                 previousTexts += texts[k].length;
             }
-            interval1 = (50 * previousTexts) / diviser;
+            interval1 = (35 * previousTexts) / diviser;
         }
 
         // 2 setimeout imbriqués :

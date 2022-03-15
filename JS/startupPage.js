@@ -16,20 +16,20 @@ function startUpSetUp() {
                 gameDiv.style.marginTop = "0%";
 
                 if (localStorage.username) {
-                    gameDiv.innerHTML = `<br/><div class="textDiv whiteText">There is an existing saved game:</div> 
+                    gameDiv.innerHTML = `<br/><div class="textDiv whiteText">Il existe déjà une sauvegarde :</div> 
                     <ul style="list-style:none;">
                         <li>
-                            <div class="textDiv whiteText">Act ${parseInt(localStorage.act) + 1}</div>
+                            <div class="textDiv whiteText">Acte ${parseInt(localStorage.act) + 1}</div>
                         </li>
                         <li>
-                            <div class="textDiv whiteText">Name: ${localStorage.username}</div>
+                            <div class="textDiv whiteText">Nom : ${localStorage.username}</div>
                         </li>
                     </ul>
-                    <div class="textDiv whiteText">Do you wish to erase it and start a new game?</div>
+                    <div class="textDiv whiteText">Voulez-vous l'écraser et créer une nouvelle partie ?</div>
                     <br/>
                     <br/>
-                    <input type="button" value="Yes, proceed" class="buttonAlert" id="alertButton2"/>
-                    <input type="button" value="Nope, cancel" class="buttonAlert" id="alertButton3"/>`;
+                    <input type="button" value="Écraser et continuer" class="buttonAlert" id="alertButton2"/>
+                    <input type="button" value="Annuler" class="buttonAlert" id="alertButton3"/>`;
 
                     document.getElementById("alertButton2").addEventListener("click", () => {
                         clickButton();
@@ -89,7 +89,7 @@ function startUpSetUp() {
                 // reset le style, et ajout d'un bouton en bas de l'écran pour revenir en arrière
                 gameDiv.style.textAlign = "left";
                 gameDiv.style.marginTop = "5%";
-                gameDiv.innerHTML = `<div class="textDiv wigglyTxt whiteText">Developper: Joël Rimaz</div><br /><br /><div class="textDiv whiteText">Under the direction of: Isaac Pante</div><br/><br/><div class="textDiv whiteText">For the course "Digital Publication"</div><br/><br/><div class="textDiv whiteText">University of Lausanne</div><br/><br/><div class="textDiv whiteText">Github - AnteJR</div><br/><br/><input type="button" value="back" class="buttonAlert" id="buttonBack"/>`;
+                gameDiv.innerHTML = `<div class="textDiv wigglyTxt whiteText">Développeur : Joël Rimaz</div><br /><br /><div class="textDiv whiteText">Directeur : Isaac Pante</div><br/><br/><div class="textDiv whiteText">Pour le cours "Publications numériques"</div><br/><br/><div class="textDiv whiteText">Université de Lausanne</div><br/><br/><div class="textDiv whiteText">Github - AnteJR</div><br/><br/><input type="button" value="Retour" class="buttonAlert" id="buttonBack"/>`;
                 document.getElementById("buttonBack").addEventListener("click", function () {
                     clickButton();
                     gameLaunch();

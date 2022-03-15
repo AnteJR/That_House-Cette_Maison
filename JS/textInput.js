@@ -11,12 +11,10 @@ monInput.addEventListener("keydown", (e) => {
         // s'il l'input a une valeur non-nulle, on envoie les données pour afficher les alerts
         if (document.getElementById("commandInput").value != "") {
             if (document.getElementById("boxAlert").style.display == "none") {
-                if (monInput.value == "leave") {
-                    monInput.value = "leave "
+                if (monInput.value == "quitter") {
+                    monInput.value = "quitter "
                 }
-                else if ((monInput.value.split(" ").length == 1 && monInput.value != "leave") || monInput.value.split(" ").length > 2) {
-                    monInput.value = "false statement";
-                }
+                else if (monInput.value.split(" ").length == 1 && monInput.value != "quitter") monInput.value = "false statement";
                 displayAlert(monInput.value);
                 monInput.value = "";
             }
@@ -89,12 +87,8 @@ window.addEventListener('keydown', (e) => {
             // s'il l'input a une valeur non-nulle, on envoie les données pour afficher les alerts
             if (document.getElementById("commandInput").value != "") {
                 if (document.getElementById("boxAlert").style.display == "none") {
-                    if (monInput.value.split(" ").length == 1 && monInput.value == "leave") {
-                        monInput.value = "leave "
-                    }
-                    else if ((monInput.value.split(" ").length == 1 && monInput.value != "leave") || monInput.value.split(" ").length > 2) {
-                        monInput.value = "false statement";
-                    }
+                    if (monInput.value.split(" ").length == 1 && monInput.value == "quitter") monInput.value = "quitter ";
+                    else if (monInput.value.split(" ").length < 2 && monInput.value != "quitter") monInput.value = "false statement";
                     displayAlert(monInput.value);
                     monInput.value = "";
                 }
@@ -153,7 +147,7 @@ mesCommandes.forEach((element) => {
         // insérer le mot lié à la commande dans l'input
         if (canBeUsed == true) {
             document.getElementById('commandInput').value = maCommande + " ";
-            if (maCommande.toLowerCase() == "leave") {
+            if (maCommande.toLowerCase() == "quitter") {
                 displayAlert("leave ")
                 document.getElementById('commandInput').value = "";
             }
@@ -172,7 +166,7 @@ function gameLaunch() {
     document.getElementsByClassName("bottomScreen")[0].style.display = "none";
 
     // insertion du texte contenant les élément du menu
-    gameDiv.innerHTML = `<div class="startButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 0s">~~~ New Game ~~~</div><br/><br/><div class="continueButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 1s">~~~ Continue Game ~~~</div><br/><br/><div class="aboutButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 2s">~~~ About ~~~</div>`;
+    gameDiv.innerHTML = `<div class="startButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 0s">~~~ Nouvelle partie ~~~</div><br/><br/><div class="continueButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 1s">~~~ Continuer ~~~</div><br/><br/><div class="aboutButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 2s">~~~ Informations ~~~</div>`;
 
     // lancement de la fonction startUpSetUp(), qui ajoute les eventListener aux textes
     startUpSetUp();

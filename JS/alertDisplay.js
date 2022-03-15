@@ -123,26 +123,18 @@ function findText(commandItem, textInput) {
     let maScene = myGameTxt.currentScene;
     let monItem = myGameTxt.scenes[maScene].items;
     let maCommande = commandItem[0].toLowerCase();
+    let monCurrentAct = myGameTxt.currentAct;
 
     // CONDITION PRINCIPALE : si maCommade est "leave"
-    if (maCommande == "leave") {
+    if (maCommande == "quitter") {
         // on récupère le dernier objet de l'array d'objet monItem
         let leaveItem = monItem[(monItem.length - 1)];
 
         // le texte à afficher dans l'alert est récupéré dans l'objet JSON myGameTxt
-        textAlert = leaveItem.leftTrue;
+        textAlert = leaveItem.leftTxt;
 
         // CONDITION SECONDAIRE : si la scène vaut 0 et que l'on ne peut pas leave, on indique qu'on ne peut pas
-        if (maScene == 0 && !leaveItem.canLeave) {
-            textAlert = leaveItem.leftFalse;
-        }
-
-        // CONDITION SECONDAIRE : si la scène vaut 0 ET que l'on peut leave ET que l'acte actuel est l'acte 1 ou 2 (en partant de 0)
-        else if (maScene == 0 && leaveItem.canLeave && myGameTxt.currentAct <= 1) {
-            nextActPlease(1);
-            playMusic("anger");
-            validInput == true;
-        }
+        if (maScene == 0) textAlert = leaveItem.leftTxt;
 
         // CONDITION SECONDAIRE : si la scène vaut entre 1 et 3 (entre 2 et 4 en partant de 0)
         else if (maScene == 1 || maScene == 2 || maScene == 3) {
@@ -150,17 +142,6 @@ function findText(commandItem, textInput) {
             myGameTxt.currentScene = maScene - 1;
             actOne(false);
             validInput = true;
-
-            // CONDITION TERTIAIRE : si la scène vaut 3 et l'acte 1 (acte 2, scène 4 en partant de 0)
-            if (maScene == 3 && myGameTxt.currentAct == 1) {
-                nextActPlease(2);
-                playMusic("bargain");
-            }
-            // CONDITION TERTIAIRE : si la scène vaut 2 et l'acte 2 (acte 3, scène 3 en partant de 0)
-            else if (maScene == 2 && myGameTxt.currentAct == 2) {
-                nextActPlease(3);
-                playMusic("depression");
-            }
         }
 
         // CONDITION SECONDAIRE : si la scène vaut 0 et que l'on ne peut pas leave
@@ -170,311 +151,83 @@ function findText(commandItem, textInput) {
             actOne(false);
             validInput = true;
         }
-
-        /*
-            LA FONCTION NEXTACTPLEASE() PARAMÈTRE LE PASSAGE À UN NOUVEL ACTE.
-        */
-        function nextActPlease(newAct) {
-            clearInterval(hintFunc1);
-            clearInterval(hintFunc2);
-            clearInterval(hintFunc3);
-            clearInterval(hintFunc4);
-            clearInterval(hintFunc5);
-            document.getElementById("scoreZ").style.display = "none";
-            myGameTxt = JSON.parse(JSON.stringify(baseGameTxt));
-
-            // on incrémente le numéro de l'acte et set la scène à 6
-            myGameTxt.currentAct = newAct;
-            myGameTxt.username = localStorage.username;
-            myGameTxt.currentScene = 6;
-            myGameTxt.mesInputs = countOutcomes();
-            myGameTxt.nbrInputs = myGameTxt.mesInputs.length;
-
-            // on désaffiche l'alert et on insère le texte normalement prévu à l'alert dans la div gameDiv, qui est centrée
-            document.getElementById("boxAlert").style.display = "none";
-            textAlert = `<br/><div class="textDiv whiteText">` + leaveItem.leftTrue
-            textAlert += `</div><br/><br/><input type="button" value="save and continue" class="buttonGoForward" id="buttonNewAct"/>`
-            gameDiv.innerHTML = textAlert;
-            gameDiv.style.textAlign = "center";
-
-            // on paramètre un eventListener pour le bouton, pour passer à l'acte suivant et sauvegarder dans le localStorage
-            document.getElementById("buttonNewAct").addEventListener("click", function () {
-                localStorage.act = newAct;
-                myGameTxt.previousInput = [];
-                actOne(true);
-                clickButton();
-            });
-
-            document.getElementById("buttonNewAct").addEventListener("mouseover", () => {
-                hoverButton();
-            });
-        }
     }
 
     // CONDITION PRINCIPALE : si maCommade est "false"
-    else if (maCommande == "false") {
-        textAlert = "I got really confused as of what I was doing there.";
-    }
+    else if (maCommande == "false") textAlert = "Je ne comprends pas ce que je suis censé faire.";
 
-    // CONDITION PRINCIPALE : si maCommade est "hint act1"
-    else if (maCommande == "hint" && textInput == "hint act1") {
-        textAlert = "I didn't feel like staying. There was nothing for me there. I didn't know that house.";
-    }
-
-    // CONDITION PRINCIPALE : si maCommade est "hint act2"
-    else if (maCommande == "hint" && textInput == "hint act2") {
-        textAlert = "The upstairs didn't look that useful. I decided I should be going.";
-    }
-
-    // CONDITION PRINCIPALE : si maCommade est "hint act2"
-    else if (maCommande == "hint" && textInput == "hint act3-1") {
-        textAlert = "My birthday. Could it be used as a code of some sort?";
-    }
-
-    // CONDITION PRINCIPALE : si maCommade est "hint act2"
-    else if (maCommande == "hint" && textInput == "hint act3") {
-        textAlert = "The door behind the bookshelf probably would'nt open. I'd rather leave, at this point, I think.";
-    }
-
-    // CONDITION PRINCIPALE : si maCommade est "hint act2"
-    else if (maCommande == "hint" && textInput == "hint act4") {
-        textAlert = "The altar had a receptacle, looked like it could hold liquid... Considering the dark atmosphere... maybe blood? But how?";
-    }
-
-    // CONDITION PRINCIPALE : si maCommade est dif férente de "leave"
+    // CONDITION PRINCIPALE : si maCommade est différente de "leave"
     else {
         // on parcours la liste des items pour trouver le bon. Une fois trouver, on a un set de conditions principales et secondaires
         monItem.forEach((e) => {
             selectedItem.push(e.name);
-            if (e.name == commandItem[1].toLowerCase()) {
+            if (e.name == commandItem[(commandItem.length - 1)].toLowerCase()) {
 
-                // si maCommande est "look"
-                if (maCommande == "look") {
-
-                    // si l'attribut isOpened est false, on affiche le texte standard
-                    if (!e.isOpened) textAlert = e.lookTxt;
-
-                    // si l'attribut isOpened est true, on affiche le texte spécial
-                    else if (e.isOpened) {
-                        textAlert = e.lookTxtOpen;
-
-                        // en plus, ma scène vaut 2 et qu'on "look postcard", on change le paramètre canPressBtn au bon endroit
-                        if (maScene == 2 && e.name == "postcard") monItem[e.useCanPressBtn].canPressBtn = true;
-                    }
-
-                    // si utiliser "look" débloque quelque chose, débloquer l'objet correspondant
-                    if (e.lookOpens >= 0) monItem[e.lookOpens].isOpened = true;
-                    validInput = true;
+                if (!e.isOpened) {
+                    if (maCommande == "voir") textAlert = e.lookTxt;
+                    else if (maCommande == "utiliser") textAlert = e.useTxt;
+                    else if (maCommande == "aller") textAlert = e.goTxt;
+                    else if (maCommande == "frapper" && monCurrentAct >= 1) textAlert = e.hitTxt;
+                    else if (maCommande == "inspecter" && monCurrentAct >= 2) textAlert = e.inspectTxt;
+                    else if (maCommande == "attendre" && monCurrentAct >= 3) textAlert = e.waitTxt;
+                    else if (maCommande == "accepter" && monCurrentAct >= 4) textAlert = e.acceptTxt;
+                    else textAlert = "Je ne comprends pas ce que je dois faire avec " + e.determinant + e.name + ".";
                 }
 
-                // si maCommande est "use"
-                else if (maCommande == "use") {
-
-                    // si l'attribut isOpened est false, on affiche le texte standard
-                    if (!e.isOpened) {
-                        textAlert = e.useTxt;
-                        if (maScene == 4 && e.name == "altar") {
-                            hintFunc5 = setInterval(() => {
-                                displayAlert("hint act4");
-                                clearInterval(hintFunc5);
-                            }, 15000);
-                        }
-                        if (e.useWin) isWin = true;
-                    }
-
-                    // si l'attribut isOpened est true, on affiche le texte spécial
-                    else if (e.isOpened) {
-                        textAlert = e.useTxtOpen;
-
-                        // si useWin est true (si utiliser "use" fait passer à la scène suivante), passer à la scène suivante
-                        if (e.useWin) isWin = true;
-
-                        // set de condition speciales
-                        if (maScene == 2 && e.name == "desk" && e.canPressBtn == true && e.gotKey == true) {
-                            textAlert = e.useTxtBtn;
-                            monItem[e.btnOpens].isOpened = true;
-                        }
-                        if (maScene == 2 && e.name == "desk" && e.gotKey == false) e.gotKey = true;
-                        if (maScene == 3 && e.name == "bedlamp") monItem[4].isOpened = true;
-                        if (maScene == 3 && e.name == "glass") myGameTxt.scenes[e.useGlassOpens[0]].items[e.useGlassOpens[1]].isOpened = true;
-                        if (maScene == 4 && e.name == "altar") e.bledOut = true;
-                        if (maScene == 4 && e.name == "book") e.tookTheBook = true;
-                    }
-
-                    // si utiliser "look" débloque quelque chose, débloquer l'objet correspondant
-                    if (e.useOpens >= 0) monItem[e.useOpens].isOpened = true;
-                    validInput = true;
+                else if (e.isOpened) {
+                    if (maCommande == "voir") textAlert = e.lookTxtOpen;
+                    else if (maCommande == "utiliser") textAlert = e.useTxtOpen;
+                    else if (maCommande == "aller") textAlert = e.goTxtOpen;
+                    else if (maCommande == "frapper" && monCurrentAct >= 1) textAlert = e.hitTxtOpen;
+                    else if (maCommande == "inspecter" && monCurrentAct >= 2) textAlert = e.inspectTxtOpen;
+                    else if (maCommande == "attendre" && monCurrentAct >= 3) textAlert = e.waitTxtOpen;
+                    else if (maCommande == "accepter" && monCurrentAct >= 4) textAlert = e.acceptTxtOpen;
+                    else textAlert = "Je ne comprends pas ce que je dois faire avec " + e.determinant + e.name + ".";
+                    if ((e.useWin == true && maCommande == "utiliser") || (e.goWin == true && maCommande == "aller") || (e.acceptWin == true && maCommande == "accepter")) isWin = true;
                 }
 
-                // si maCommande est "go"
-                else if (maCommande == "go") {
+                if (e.useOpens >= 0 && maCommande == "utiliser") monItem[e.useOpens].isOpened = true;
+                else if (e.useOpensIfOpened >= 0 && maCommande == "utiliser" && e.isOpened == true) monItem[e.useOpensIfOpened].isOpened = true;
+                else if (e.useOpensIfClosed >= 0 && maCommande == "utiliser" && e.isOpened == false) monItem[e.useOpensIfClosed].isOpened = true;
+                else if (e.useClosesifOpened >= 0 && maCommande == "utiliser" && e.isOpened == true) monItem[e.useClosesifOpened].isOpened = false;
+                else if (e.hitOpens >= 0 && maCommande == "frapper") monItem[e.hitOpens].isOpened = true;
+                else if (e.inspectOpens >= 0 && maCommande == "inspecter") monItem[e.inspectOpens].isOpened = true;
+                else if (e.waitOpens >= 0 && maCommande == "attendre") monItem[e.waitOpens].isOpened = true;
+                else if (e.acceptOpens >= 0 && maCommande == "accepter") monItem[e.acceptOpens].isOpened = true;
 
-                    // si l'attribut isOpened est false, on affiche le texte standard
-                    if (!e.isOpened) {
-                        textAlert = e.goTxt;
-                    }
-
-                    // si l'attribut isOpened est true, on affiche le texte spécial
-                    else if (e.isOpened) {
-                        textAlert = e.goTxtOpen;
-
-                        // si goWin est true (si utiliser "go" fait passer à la scène suivante), passer à la scène suivante
-                        if (e.goWin) {
-                            if (e.name == "staircase" && myGameTxt.currentAct == 0) { }
-                            else {
-                                isWin = true;
-                            }
-                        }
-
-                        // set de condition speciales
-                        if (maScene == 1 && myGameTxt.currentAct == 0) {
-                            myGameTxt.scenes[0].items[2].canLeave = true;
-                            hintFunc1 = setInterval(() => {
-                                displayAlert("hint act1");
-                                clearInterval(hintFunc1);
-                            }, 30000);
-                        }
-                        if (maScene == 2 && e.name == "bookshelf" && e.isOpened == true && e.isDoorOpen == true) {
-                            textAlert = e.goTxtDoorOpen
-                            myGameTxt.currentScene = maScene + 2;
-                            actOne(false);
-                        }
-                        if (e.name == "staircase" && myGameTxt.currentAct == 1) {
-                            hintFunc2 = setInterval(() => {
-                                displayAlert("hint act2");
-                                clearInterval(hintFunc2);
-                            }, 30000);
-                        }
-                    }
-                    validInput = true;
+                //CONDITIONS SPECIALES pour passages aux actes suivants
+                if ((monCurrentAct == 0 && maScene == 1) && (e.isOpened == true && maCommande == "aller") && e.name == "porte") {
+                    isWin = false;
+                    nextActPlease(1, textAlert);
+                }
+                if ((monCurrentAct == 1 && maScene == 2) && (e.isOpened == true && maCommande == "aller") && e.name == "escalier") {
+                    isWin = false;
+                    nextActPlease(2, textAlert);
                 }
 
-                // si maCommande est "hit", on affiche son texte
-                else if (maCommande == "hit" && myGameTxt.currentAct >= 1) {
-                    textAlert = e.hitTxt;
-
-                    // si hitWin est true (si utiliser "hit" fait passer à la scène suivante), passer à la scène suivante
-                    if (e.hitWin) isWin = true;
-
-                    // set de condition speciales
-                    if (maScene == 2 && e.name == "desk") e.useOpens = 0;
-                    if (maScene == 3 && e.name == "bedlamp") monItem[4].isOpened = true;
-
-                    // si utiliser "hit" débloque quelque chose, débloquer l'objet correspondant
-                    if (e.hitOpens >= 0) monItem[e.hitOpens].isOpened = true;
-                    validInput = true;
+                //CONDITIONS SPECIALES pour des fonctionnalités ou des textes
+                if (maCommande == "inspecter" && e.name == "portail") {
+                    let twoLetters = myGameTxt.username;
+                    let mesLettres = twoLetters.split("");
+                    if (twoLetters != localStorage.username) console.log("something went wrong");
+                    else {
+                        twoLetters = `"` + mesLettres[0] + mesLettres[1] + `"`;
+                    }
+                    textAlert += twoLetters;
                 }
 
-                // si maCommande est "inspect", on affiche son texte
-                else if (maCommande == "inspect" && myGameTxt.currentAct >= 2) {
-                    textAlert = e.inspectTxt;
+                if (textAlert != "") validInput = true;
 
-                    // si utiliser "inspect" débloque quelque chose, débloquer l'objet correspondant
-                    if (e.inspectOpens >= 0) {
-                        monItem[e.inspectOpens].isOpened = true;
-                    }
-                    if (e.name == "postcard" && myGameTxt.currentAct == 2) {
-                        hintFunc3 = setInterval(() => {
-                            displayAlert("hint act3-1");
-                            clearInterval(hintFunc3)
-                        }, 5000);
-                    }
-                    if (e.name == "bookshelf" && e.isOpened && myGameTxt.currentAct == 2) {
-                        hintFunc4 = setInterval(() => {
-                            displayAlert("hint act3");
-                            clearInterval(hintFunc4)
-                        }, 15000);
-                    }
-                    validInput = true;
-                }
-
-                // si maCommande est "wait", on affiche son texte
-                else if (maCommande == "wait" && myGameTxt.currentAct >= 3) {
-                    textAlert = e.waitTxt;
-
-                    // set de condition speciales
-                    if (maScene == 2 && e.name == "bookshelf") e.isDoorOpen = true;
-                    if (maScene == 4 && e.name == "altar" && e.bledOut == true) {
-                        if (myGameTxt.currentAct == 3) {
-                            clearInterval(hintFunc5);
-                            document.getElementById("scoreZ").style.display = "none";
-                            playMusic("acceptance");
-                            myGameTxt = baseGameTxt;
-
-                            myGameTxt.currentAct = 4;
-                            myGameTxt.currentScene = 6;
-                            myGameTxt.username = localStorage.username;
-                            myGameTxt.mesInputs = countOutcomes();
-                            myGameTxt.nbrInputs = myGameTxt.mesInputs.length;
-
-                            // on désaffiche l'alert et on insère le texte normalement prévu à l'alert dans la div gameDiv, qui est centrée
-                            document.getElementById("boxAlert").style.display = "none";
-                            textAlert = `<br/><div class="textDiv whiteText">` + e.waitTxtBledOut;
-                            textAlert += `</div><br/><br/><input type="button" value="save and continue" class="buttonGoForward" id="buttonNewAct"/>`
-                            gameDiv.innerHTML = textAlert;
-                            gameDiv.style.textAlign = "center";
-
-                            // on paramètre un eventListener pour le bouton, pour passer à l'acte suivant et sauvegarder dans le localStorage
-                            document.getElementById("buttonNewAct").addEventListener("click", function () {
-                                localStorage.act = 4;
-                                actOne(true);
-                                myGameTxt.previousInput = [];
-                                clickButton();
-                            });
-
-                            document.getElementById("buttonNewAct").addEventListener("mouseover", () => {
-                                hoverButton();
-                            });
-                        }
-                        else if (myGameTxt.currentAct == 4) {
-                            textAlert = e.waitTxtBledOut;
-                            myGameTxt.currentScene = myGameTxt.currentScene + 1;
-                            actOne(false);
-                        }
-                    }
-
-                    // si utiliser "wait" débloque quelque chose, débloquer l'objet correspondant
-                    if (e.waitOpens >= 0) {
-                        monItem[e.waitOpens].isOpened = true;
-                    }
-                    validInput = true;
-                }
-
-                // si maCommande est "accept", on affiche son texte
-                else if (maCommande == "accept" && myGameTxt.currentAct >= 4) {
-                    textAlert = e.acceptTxt;
-
-                    // si acceptWin est true (si utiliser "accept" fait passer à la scène suivante), passer à la scène suivante
-                    if (e.acceptWin) isWin = true;
-
-                    // set de condition speciales
-                    if (maScene == 2 && e.name == "bookshelf") e.isDoorOpen = true;
-                    if (maScene == 4 && e.name == "altar") {
-                        myGameTxt.currentScene = myGameTxt.currentScene + 1;
-                        actOne(false);
-                    }
-                    if (maScene == 5 && e.name == "screen" && monItem[0].letterRead == true) {
-                        endScreen(0);
-                        myGameTxt.isFinished = true;
-                    }
-                    validInput = true;
-                }
-
-                // si maCommande n'est pas reconnu
-                else {
-                    textAlert = `What was I supposed to do with the ${commandItem[1].toLowerCase()} again?`;
-                }
             }
         });
 
         // si l'objet entré dans l'input ne correspond à aucun myGamTxt.scenes[myGametxt.currentScene].items
         if (textAlert == "") {
-            textAlert = `What did I mean by "${commandItem[1].toLowerCase()}"?"`;
+            textAlert = `Qu'est-ce que "${commandItem[1].toLowerCase()}" veut dire ?`;
         }
     }
 
     if (validInput) {
-        let doesItOpen = false;
         let isCorrect = false;
         let monObjet = "";
         selectedItem.forEach((e) => {
@@ -531,4 +284,41 @@ function findText(commandItem, textInput) {
 
     // return textAlert pour que cela puisse être utilisé dans la fonction displayAlert()
     return textAlert;
+}
+
+function nextActPlease(newAct, myTextToDisplay) {
+    /*clearInterval(hintFunc1);
+    clearInterval(hintFunc2);
+    clearInterval(hintFunc3);
+    clearInterval(hintFunc4);
+    clearInterval(hintFunc5);*/
+    document.getElementById("scoreZ").style.display = "none";
+    myGameTxt = JSON.parse(JSON.stringify(baseGameTxt));
+    let txtToDispay = "";
+
+    // on incrémente le numéro de l'acte et set la scène à 6
+    myGameTxt.currentAct = newAct;
+    myGameTxt.username = localStorage.username;
+    myGameTxt.currentScene = 6;
+    myGameTxt.mesInputs = countOutcomes();
+    myGameTxt.nbrInputs = myGameTxt.mesInputs.length;
+
+    // on désaffiche l'alert et on insère le texte normalement prévu à l'alert dans la div gameDiv, qui est centrée
+    document.getElementById("boxAlert").style.display = "none";
+    txtToDispay = `<br/><div class="textDiv whiteText">` + myTextToDisplay;
+    txtToDispay += `</div><br/><br/><input type="button" value="Sauvegarder et continuer" class="buttonGoForward" id="buttonNewAct"/>`
+    gameDiv.innerHTML = txtToDispay;
+    gameDiv.style.textAlign = "center";
+
+    // on paramètre un eventListener pour le bouton, pour passer à l'acte suivant et sauvegarder dans le localStorage
+    document.getElementById("buttonNewAct").addEventListener("click", function () {
+        localStorage.act = newAct;
+        myGameTxt.previousInput = [];
+        actOne(true);
+        clickButton();
+    });
+
+    document.getElementById("buttonNewAct").addEventListener("mouseover", () => {
+        hoverButton();
+    });
 }
