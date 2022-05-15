@@ -68,11 +68,6 @@ function displayGameText() {
         txtDisplay(true, nbrChar, charPos, el, text, idx);
     });
 
-    let mesChars = texts.join("").length;
-
-    monInterval;
-    playTheFuckingSounds(mesChars, true);
-
     /*
         CETTE FONCTION EST UNE FONCTION RÉCURSIVE QUI AFFICHE :
         1. CHAQUE STRING L'UN APRÈS L'AUTRE
@@ -150,40 +145,6 @@ function displayGameText() {
                 }
             }, interval2);
         }, interval1);
-    }
-
-    function playTheFuckingSounds(fullTextLength, canPlay) {
-        clearInterval(monInterval);
-        let k = fullTextLength;
-        let mestrucs = Math.round(Math.random() * 5) + 50;
-        monInterval = setInterval(() => {
-            mestrucs = Math.round(Math.random() * 5) + 50;
-            k--;
-            if (canPlay) {
-                // condition pour lancer les bruitages, une lettre sur 2
-                if (k % 2 == 0 && k > 0) {
-                    let canPlaySound = false;
-                    if (!myGameTxt.isMenu) {
-                        if (myGameTxt.currentScene != 5) {
-                            canPlaySound = true;
-                        }
-                        else {
-                            if (!myGameTxt.scenes[myGameTxt.currentScene].items[0].lookingAtLetter && !myGameTxt.isFinished) canPlaySound = true;
-                        }
-                    }
-                    if (canPlaySound) {
-                        playKeyType();
-                    }
-                }
-                else if (k < 1) {
-                    clearInterval(monInterval);
-                }
-            }
-            else {
-                clearInterval(monInterval);
-                return
-            }
-        }, mestrucs);
     }
 }
 

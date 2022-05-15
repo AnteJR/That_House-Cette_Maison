@@ -1,23 +1,9 @@
-/* CE DOCUMENT CONTIENT 4 FONCTIONS, DONT 2 IMBRIQUÉE DANS UNE AUTRE */
-
-/*
-    LA PREMIÈRE FONCTION EST APPELÉE QUAND ON VALIDE UN INPUT
-    AVEC UNE COMMANDE. SON BUT EST DE RÉCUPÉRER LE CONTENU DE
-    L'INPUT, L'INTERPRÉTER ET L'AFFICHER DANS UNE ALERT CUSTOM.
- */
-let hintFunc1;
-let hintFunc2;
-let hintFunc3;
-let hintFunc4;
-let hintFunc5;
 let monInterval2;
 function displayAlert(text) {
     let monAlert = document.getElementById("boxAlert");
     let maDiv = document.getElementById("alertTxt");
     let command = text.split(" ");
     let textToDisplay = "";
-
-    if (text.toLowerCase() != "use letter" && text.toLowerCase() != "accept screen") alertAppear(monAlert);
 
     // on affiche la div qui compose l'alert
     monAlert.style.display = "block";
@@ -38,17 +24,7 @@ function displayAlert(text) {
         hoverButton();
     });
 
-    // CONDITION SPÉCIALE : si on entre la commande "use letter" à la scène 6 de l'acte 5 (en partant de 0)
-    if (myGameTxt.currentAct >= 4 && myGameTxt.currentScene >= 5 && text == "use letter") {
-        // on lance la fonction openLetter(), qui a un affichage spécial
-        myGameTxt.scenes[myGameTxt.currentScene].items[0].lookingAtLetter = true;
-        myGameTxt.scenes[myGameTxt.currentScene].items[0].letterRead = true;
-        openLetter(0);
-    }
-    // CONDITION SPÉCIALE : sinon on définit textToDisplay en appelant la fonction findText() avec comme argument la variable command
-    else {
-        textToDisplay = `<div id = "monTxtAlert">` + findText(command, text) + "</div>";
-    }
+    textToDisplay = `<div id = "monTxtAlert">` + findText(command, text) + "</div>";
 
     maDiv.innerHTML = textToDisplay;
     let maDivTxt = document.getElementById("monTxtAlert");
@@ -60,10 +36,9 @@ function displayAlert(text) {
     let i = txtFrag.length;
     let j = 0;
     let l = i;
-    let interval = Math.round(Math.random() * 25) + 15;
+    let interval = Math.round(Math.random() * 10) + 5;
 
     txtDisplay();
-    playKeySound();
 
     /*
         LA FONCTION TXTTODISPLAY AFFICHE CARACTÈRE PAR CARACTÈRE
@@ -82,29 +57,6 @@ function displayAlert(text) {
             }
         }, interval);
     }
-
-    function playKeySound() {
-        clearInterval(monInterval2);
-        monInterval2 = setInterval(() => {
-            if (l > 0) {
-                if (l % 2 == 0) {
-                    let canPlaySound = false;
-                    if (myGameTxt.currentScene != 5) {
-                        canPlaySound = true;
-                    }
-                    else {
-                        if (!myGameTxt.scenes[myGameTxt.currentScene].items[0].lookingAtLetter && !myGameTxt.isFinished) canPlaySound = true;
-                    }
-
-                    if (canPlaySound) playKeyType();
-                }
-                l--
-            }
-            else {
-                clearInterval(monInterval2);
-            }
-        }, interval)
-    }
 }
 
 /* 
@@ -116,8 +68,6 @@ function displayAlert(text) {
 function findText(commandItem, textInput) {
     let selectedItem = [];
     let isWin = false;
-    let canOpen = false;
-    let itemOpened = false;
     let validInput = false;
     let textAlert = "";
     let maScene = myGameTxt.currentScene;
@@ -127,27 +77,12 @@ function findText(commandItem, textInput) {
 
     // CONDITION PRINCIPALE : si maCommade est "leave"
     if (maCommande == "quitter") {
-        // on récupère le dernier objet de l'array d'objet monItem
         let leaveItem = monItem[(monItem.length - 1)];
 
-        // le texte à afficher dans l'alert est récupéré dans l'objet JSON myGameTxt
         textAlert = leaveItem.leftTxt;
 
-        // CONDITION SECONDAIRE : si la scène vaut 0 et que l'on ne peut pas leave, on indique qu'on ne peut pas
-        if (maScene == 0) textAlert = leaveItem.leftTxt;
-
-        // CONDITION SECONDAIRE : si la scène vaut entre 1 et 3 (entre 2 et 4 en partant de 0)
-        else if (maScene == 1 || maScene == 2 || maScene == 3) {
-            // on indique que la scène actuelle diminue d'1 ; on revient en arrière dans les scènes
+        if (maScene >= 0) {
             myGameTxt.currentScene = maScene - 1;
-            actOne(false);
-            validInput = true;
-        }
-
-        // CONDITION SECONDAIRE : si la scène vaut 0 et que l'on ne peut pas leave
-        else if (maScene == 4) {
-            // on indique que la scène actuelle diminue de 2 ; on revient en arrière dans les scènes
-            myGameTxt.currentScene = maScene - 2;
             actOne(false);
             validInput = true;
         }
@@ -156,7 +91,7 @@ function findText(commandItem, textInput) {
     // CONDITION PRINCIPALE : si maCommade est "false"
     else if (maCommande == "false") textAlert = "Je ne comprends pas ce que je suis censé faire.";
 
-    // CONDITION PRINCIPALE : si maCommade est différente de "leave"
+    // CONDITION PRINCIPALE : si maCommade est différente de "leave" et "false"
     else {
         // on parcours la liste des items pour trouver le bon. Une fois trouver, on a un set de conditions principales et secondaires
         monItem.forEach((e) => {
@@ -183,27 +118,37 @@ function findText(commandItem, textInput) {
                     else if (maCommande == "attendre" && monCurrentAct >= 3) textAlert = e.waitTxtOpen;
                     else if (maCommande == "accepter" && monCurrentAct >= 4) textAlert = e.acceptTxtOpen;
                     else textAlert = "Je ne comprends pas ce que je dois faire avec " + e.determinant + e.name + ".";
-                    if ((e.useWin == true && maCommande == "utiliser") || (e.goWin == true && maCommande == "aller") || (e.acceptWin == true && maCommande == "accepter")) isWin = true;
+                    if ((e.useWin && maCommande == "utiliser") || (e.goWin && maCommande == "aller") || (e.acceptWin && maCommande == "accepter")) isWin = true;
                 }
 
                 if (e.useOpens >= 0 && maCommande == "utiliser") monItem[e.useOpens].isOpened = true;
-                else if (e.useOpensIfOpened >= 0 && maCommande == "utiliser" && e.isOpened == true) monItem[e.useOpensIfOpened].isOpened = true;
-                else if (e.useOpensIfClosed >= 0 && maCommande == "utiliser" && e.isOpened == false) monItem[e.useOpensIfClosed].isOpened = true;
-                else if (e.useClosesifOpened >= 0 && maCommande == "utiliser" && e.isOpened == true) monItem[e.useClosesifOpened].isOpened = false;
+                else if (e.useOpensIfOpened >= 0 && maCommande == "utiliser" && e.isOpened) monItem[e.useOpensIfOpened].isOpened = true;
+                else if (e.useOpensIfClosed >= 0 && maCommande == "utiliser" && !e.isOpened) monItem[e.useOpensIfClosed].isOpened = true;
+                else if (e.useClosesifOpened >= 0 && maCommande == "utiliser" && e.isOpened) monItem[e.useClosesifOpened].isOpened = false;
                 else if (e.hitOpens >= 0 && maCommande == "frapper") monItem[e.hitOpens].isOpened = true;
                 else if (e.inspectOpens >= 0 && maCommande == "inspecter") monItem[e.inspectOpens].isOpened = true;
                 else if (e.waitOpens >= 0 && maCommande == "attendre") monItem[e.waitOpens].isOpened = true;
                 else if (e.acceptOpens >= 0 && maCommande == "accepter") monItem[e.acceptOpens].isOpened = true;
 
                 //CONDITIONS SPECIALES pour passages aux actes suivants
-                if ((monCurrentAct == 0 && maScene == 1) && (e.isOpened == true && maCommande == "aller") && e.name == "porte") {
+                if ((monCurrentAct == 0 && maScene == 1) && (e.isOpened && maCommande == "aller") && e.name == "porte") {
                     isWin = false;
                     nextActPlease(1, textAlert);
                 }
-                if ((monCurrentAct == 1 && maScene == 2) && (e.isOpened == true && maCommande == "aller") && e.name == "escalier") {
+                if ((monCurrentAct == 1 && maScene == 2) && (e.isOpened && maCommande == "aller") && e.name == "escalier") {
                     isWin = false;
                     nextActPlease(2, textAlert);
                 }
+                if ((monCurrentAct == 2 && maScene == 3) && (e.isOpened && e.isPlaced && maCommande == "aller") && e.name == "échelle") {
+                    isWin = false;
+                    nextActPlease(3, textAlert);
+                }
+                if ((monCurrentAct > 2 && maScene == 3) && (e.isOpened && e.isPlaced && maCommande == "aller") && e.name == "échelle") isWin = true;
+                if ((monCurrentAct == 3 && maScene == 4) && maCommande == "attendre" && e.name == "lune" && myGameTxt.player.canWin) {
+                    isWin = false;
+                    nextActPlease(4, textAlert);
+                }
+                if ((monCurrentAct > 3 && maScene == 4) && maCommande == "attendre" && e.name == "lune" && myGameTxt.player.canWin) isWin = true;
 
                 //CONDITIONS SPECIALES pour des fonctionnalités ou des textes
                 if (maCommande == "inspecter" && e.name == "portail") {
@@ -215,9 +160,45 @@ function findText(commandItem, textInput) {
                     }
                     textAlert += twoLetters;
                 }
+                if (maCommande == "utiliser" && e.name == "échelle" && e.isOpened && !e.isPlaced) e.isPlaced = true;
+                if (maCommande == "aller" && e.name == "échelle" && e.isOpened && e.isPlaced) textAlert = e.goTxtOpenPlaced;
+                if (maCommande == "voir" && e.name == "livre" && e.isOpened) {
+                    let rdm = Math.round(Math.random() * 5);
+                    textAlert = e.lookTxtOpen[rdm]
+                }
+                if (maCommande == "attendre" && e.name == "lune" && myGameTxt.player.canWin) textAlert = e.waitTxtOpenWin;
+
+                if ((monCurrentAct == 4 && maScene == 5) && maCommande == "utiliser" && e.name == "lettre") {
+                    myGameTxt.scenes[myGameTxt.currentScene].items[0].lookingAtLetter = true;
+                    myGameTxt.player.readLetter = true;
+                    openLetter(0);
+                }
+
+                if ((monCurrentAct == 4 && maScene == 5) && maCommande == "accepter" && e.name == "écran" && myGameTxt.player.readLetter) {
+                    endScreen(0)
+                }
+
+                //CONDITIONS SPECIALES pour les infos joueur
+                let winCond = myGameTxt.player.winConditions;
+                let book = winCond.hasReadBook;
+                let card = winCond.hasSeenCard;
+                let car = winCond.hasInspectedCar;
+                let candle = winCond.hasLitCandles;
+                if (maCommande == "voir" && e.name == "livre" && e.isOpened) winCond.hasReadBook = true
+                if (maCommande == "voir" && e.name == "carte" && e.isOpened) winCond.hasSeenCard = true;
+                if (maCommande == "inspecter" && e.name == "figurine" && e.isOpened) winCond.hasInspectedCar = true;
+                if (maCommande == "voir" && e.name == "bougie" && e.isOpened) winCond.hasLitCandles = true;
+                if (!myGameTxt.player.canWin &&
+                    (
+                        (book && (card || car || candle)) ||
+                        (card && (book || car || candle)) ||
+                        (car && (book || card || candle)) ||
+                        (candle && (book || card || car))
+                    )
+                ) myGameTxt.player.canWin = true;
+                console.log(myGameTxt.player.canWin)
 
                 if (textAlert != "") validInput = true;
-
             }
         });
 
@@ -228,71 +209,19 @@ function findText(commandItem, textInput) {
     }
 
     if (validInput) {
-        let isCorrect = false;
-        let monObjet = "";
-        selectedItem.forEach((e) => {
-            if (e == commandItem[1].toLowerCase()) {
-                isCorrect = true;
-                monObjet = e;
-            }
-        });
-        monItem.forEach((e) => {
-            if (e.name == monObjet) {
-                if (e.isOpened) itemOpened = true;
-                if (e.canBeOpened) canOpen = true;
-            }
-        });
         textInput = textInput.toLowerCase();
         myGameTxt.previousInput.push(textInput);
-        let array = myGameTxt.mesInputs;
-        if (isCorrect) {
-            if (canOpen) {
-                if (itemOpened) {
-                    let index = array.indexOf(textInput + " " + myGameTxt.currentScene + " opened");
-                    if (index > -1) {
-                        array.splice(index, 1);
-                    }
-                    for (let i = 0; i < 3; i++) {
-                        let mesCommandes = ["look", "use", "go"];
-                        let monElement = array.indexOf(mesCommandes[i] + " " + monObjet + " " + myGameTxt.currentScene);
-                        if (monElement > -1) {
-                            array.splice(index, 1);
-                        }
-                    }
-                }
-                else {
-                    let index = array.indexOf(textInput + " " + myGameTxt.currentScene);
-                    if (index > -1) {
-                        array.splice(index, 1);
-                    }
-                }
-            }
-            else {
-                let index = array.indexOf(textInput + " " + myGameTxt.currentScene);
-                if (index > -1) {
-                    array.splice(index, 1);
-                }
-            }
-        }
         if (isWin) {
             myGameTxt.currentScene = maScene + 1;
             actOne(false);
         }
-        document.getElementById("scoreCurrent").innerHTML = (array.length - myGameTxt.nbrInputs) * (-1);
     }
-
 
     // return textAlert pour que cela puisse être utilisé dans la fonction displayAlert()
     return textAlert;
 }
 
 function nextActPlease(newAct, myTextToDisplay) {
-    /*clearInterval(hintFunc1);
-    clearInterval(hintFunc2);
-    clearInterval(hintFunc3);
-    clearInterval(hintFunc4);
-    clearInterval(hintFunc5);*/
-    document.getElementById("scoreZ").style.display = "none";
     myGameTxt = JSON.parse(JSON.stringify(baseGameTxt));
     let txtToDispay = "";
 
@@ -300,8 +229,6 @@ function nextActPlease(newAct, myTextToDisplay) {
     myGameTxt.currentAct = newAct;
     myGameTxt.username = localStorage.username;
     myGameTxt.currentScene = 6;
-    myGameTxt.mesInputs = countOutcomes();
-    myGameTxt.nbrInputs = myGameTxt.mesInputs.length;
 
     // on désaffiche l'alert et on insère le texte normalement prévu à l'alert dans la div gameDiv, qui est centrée
     document.getElementById("boxAlert").style.display = "none";

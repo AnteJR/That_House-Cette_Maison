@@ -6,7 +6,6 @@
     FAÇON DONT JE GÈRE LA CHOSE
 */
 function actOne(isNewAct) {
-    if (isNewAct) document.getElementById("totalScore").innerHTML = myGameTxt.nbrInputs;
     // on revient en haut de la page
     window.scrollTo(0, 0);
 
@@ -54,8 +53,6 @@ function actOne(isNewAct) {
             myGameTxt.currentScene = 0;
             actOne(true);
             clickButton();
-            document.getElementById("scoreZ").style.display = "block";
-            document.getElementById("scoreCurrent").innerHTML = (myGameTxt.mesInputs.length - myGameTxt.nbrInputs) * (-1);
         });
 
         document.getElementById("buttonGo").addEventListener("mouseover", () => {
@@ -66,7 +63,26 @@ function actOne(isNewAct) {
     // CONDITION PRINCIPALE : si c'est la 8ème scène (en partant de 0)
     else if (myGameTxt.currentScene == 7) {
         gameDiv.style.textAlign = "center";
-        monTxt = `<br/><div class="titleDiv whiteText">${myGameTxt.scenes[7].title}</div><br/><div class = "sadWobble textDiv whiteText">${myGameTxt.scenes[7].text1}</div><br/><div class = "sadWobble textDiv whiteText">${myGameTxt.scenes[7].text2}</div><br/><br/><form id="maForm" autocomplete="off"><input type="text" placeholder="~~enter your name here~~" class="inputCommand" id="monUsername"/><br/><br/><input type="submit" value="Confirmer" class="buttonGo submitName" id="buttonStart"/></form>`;
+        monTxt = `<br/>
+                <div class="titleDiv whiteText">
+                    ${myGameTxt.scenes[7].title}
+                </div>
+            <br/>
+                <div class = "textDiv whiteText">
+                    ${myGameTxt.scenes[7].text1}
+                </div>
+            <br/>
+                <div class = "textDiv whiteText">
+                    ${myGameTxt.scenes[7].text2}
+                </div>
+            <br/>
+            <br/>
+                <form id="maForm" autocomplete="off">
+                    <input type="text" placeholder="~~enter your name here~~" class="inputCommand" id="monUsername"/>
+                    <br/>
+                    <br/>
+                    <input type="submit" value="Confirmer" class="buttonGo submitName" id="buttonStart"/>
+                </form>`;
 
         gameDiv.innerHTML = monTxt;
 

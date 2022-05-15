@@ -1,58 +1,8 @@
-/*
-    CETTE VARIABLE CONTIENT L'ENSEMBLE DES TEXTES ET DES VARIABLES UTILES AU FONCTIONNEMENT DU JEU
-    SA STRUCTURE GÉNÉRALE (SAUF EXCEPTIONS) EST LA SUIVANTE :
-    myGameTxt = {
-        scenes : [
-            {
-                name : string,
-                texts : [
-                    [string, string, boolean]
-                    .
-                    .
-                    .
-                ],
-                items : [
-                    {
-                        name : string,
-                        lookOpens : int,
-                        useOpens : int,
-                        hitOpens : int,
-                        inspectOpens : int,
-                        waitOpens : int,
-                        acceptOpens : int,
-                        isOpened: boolean,
-                        lookTxt : string,
-                        lookTxtOpen : string,
-                        useTxt : string,
-                        useTxtOpen : string,
-                        goTxt : string,
-                        goTxtOpen : string,
-                        hitTxt : string,
-                        inspectTxt : string,
-                        waitTxt : string,
-                        acceptTxt : string,
-                    }
-                    .
-                    .
-                    .
-                    {
-                        name : string,
-                        leftTxt: string,
-                    }
-                ]
-            }
-            .
-            .
-            .
-        ]
-    }
-    
-    LES EXCEPTIONS SONT DES CONDITIONS SPÉCIFIQUES À LA PROGRESSION
-*/
+/* CETTE VARIABLE CONTIENT L'ENSEMBLE DES TEXTES ET DES VARIABLES UTILES AU FONCTIONNEMENT DU JEU */
 var myGameTxt = {
     scenes: [
         {
-            name: "Scene1",
+            name: "Portail",
             sceneNumber: 1,
             texts: [
                 ["Me revoila devant cette maison. ", "angry", false],
@@ -115,7 +65,7 @@ var myGameTxt = {
             ],
         },
         {
-            name: "Scene2",
+            name: "Porche",
             sceneNumber: 2,
             texts: [
                 ["Me voila devant la maison. La ", "regular", false],
@@ -209,7 +159,7 @@ var myGameTxt = {
             ],
         },
         {
-            name: "Scene3",
+            name: "Rez",
             sceneNumber: 3,
             texts: [
                 ["Me voila dans la maison... ", "regular", false],
@@ -223,7 +173,11 @@ var myGameTxt = {
                 ["carte.", "bargain", true],
                 [" Il y a une vieille ", "regular", false],
                 ["bibliothèque", "regular", true],
-                [" au fond de la pièce. Rien d'autre ne sautait aux yeux dans la maison.", "regular", false],
+                [" au fond de la pièce.", "regular", false],
+                [`À l'intérieur, un `, "sad", false],
+                [`livre`, "sad", true],
+                [` appelé "La Brume".`, "sad", false],
+                [" Rien d'autre ne sautait aux yeux dans la maison.", "regular", false]
             ],
             items: [
                 {
@@ -247,7 +201,7 @@ var myGameTxt = {
                     waitTxt: "Après un moment, un bruit sourd, et la porte face à moi s'ouvre lentement...",
                     waitTxtOpen: "La porte est maintenant ouverte... Attendre m'a servi.",
                     acceptTxt: "C'est la même porte que ma chambre d'enfant. La porte s'ouvre soudainement.",
-                    acceptTxt: "C'est la même porte que ma chambre d'enfant. La porte est ouverte."
+                    acceptTxtOpen: "C'est la même porte que ma chambre d'enfant. La porte est ouverte."
                 },
                 {
                     name: "bureau",
@@ -263,14 +217,14 @@ var myGameTxt = {
                     useTxtOpen: "Le tiroir du cabinet peut être tiré. À l'intérieur, une clé rouillée. Je la prends.",
                     goTxt: "Je suis devant le bureau.",
                     goTxtOpen: "Je suis devant le bureau.",
-                    hitTxt: "Je frappe le cabinet, et le tiroir saute sous mon coup de poing.",
+                    hitTxt: "Je frappe le cabinet, et le tiroir fermé à clé saute sous mon coup de poing.",
                     hitTxtOpen: "Le cabinet est déjà ouvert, ça ne sert à rien de frapper encore.",
                     inspectTxt: "Un dossier posé sur le bureau porte un nom qui m'est familier. Ma qui...?",
                     inspectTxtOpen: "La clé est accompagnée d'une petite étiquette avec mon année de naissance.",
                     waitTxt: "Rien de se passe. Pourquoi est-ce que je perds mon temps ?",
                     waitTxtOpen: "Rien ne se passe non plus.",
                     acceptTxt: "Le bureau est à moi. Je l'avais acheté pour mon premier appartement.",
-                    acceptTxtOpen: "Je devais déjà le frapper à l'époque, pour l'ouvrir."
+                    acceptTxtOpen: "Le tiroir est juste coincé. Je devais déjà le frapper à l'époque, pour l'ouvrir."
                 },
                 {
                     name: "carte",
@@ -297,310 +251,341 @@ var myGameTxt = {
                 {
                     name: "bibliothèque",
                     determinant: "la ",
+                    isOpened: true,
+                    canBeOpened: false,
+                    lookTxtOpen: "La bibliothèque est vieille et poussiéreuse. Les livres le sont aussi.",
+                    useTxtOpen: "J'ouvre un livre au hasard. Une encyclopédie. Rien d'intéressant.",
+                    goTxtOpen: "Pour aller où ? La bibliothèque ne va pas bouger.",
+                    hitTxtOpen: "En frappant sur la bibliothèque, un livre tombe sur le côté.",
+                    inspectTxtOpen: `Un livre attire mon attention sans que je sache pourquoi : "La Brume".`,
+                    waitTxtOpen: "C'est une bibliothèque. Il n'y a rien à attendre",
+                    acceptTxtOpen: "C'était la bibliothèque de mes parents, à l'époque. Elle glisse soudain, révélant la porte.",
+
+                },
+                {
+                    name: `livre`,
+                    determinant: "le ",
+                    useOpensIfClosed: 4,
+                    useClosesifOpened: 4,
                     isOpened: false,
-                    isDoorOpen: false,
                     canBeOpened: true,
-                    lookTxt: "The bookshelf was mostly old and dusty. The books did not look interesting.",
-                    lookTxtOpen: "The shelf had moved to its left. Now there was a door behind.",
-                    useTxt: "I opened a book at random. It was some encyclopedia. Nothing of notice.",
-                    useTxtOpen: "Of course the door was locked. There was a ticking sound, though.",
-                    goTxt: "Go where? The bookshelf wouldn't just run away.",
-                    goTxtOpen: "Wow. It actually moved. I was impressed.",
-                    goTxtDoorOpen: "I went through the door.",
-                    hitTxt: "With a swift hit, some of the books fell.",
-                    inspectTxt: `A book caught my eyes. "The Haze". It felt familiar, but I couldn't tell why.`,
-                    waitTxt: "The ticking sounds faded, then a loud crack. Sounded like the door behind opened.",
-                    acceptTxt: "This bookshelf belonged to my parents. Long ago. The shelf sled and the door behind was open."
+                    lookTxt: `"La Brume" est un livre cartonné à la couverture unie ocre.`,
+                    lookTxtOpen: [
+                        `"Comme une rose dans les flammes, laisse la brume consummer ton désir."`,
+                        `"Laissez-moi trouver le soleil, à travers la pluie."`,
+                        `"Est-ce que tu rêves quand je dors ?"`,
+                        `"Tu parles d'un monde que je connaissais, avant que notre souffle soit coupé."`,
+                        `"Le Paradis. Existe-t-il pour toujours ? Comment faire si l'on n'est pas ensemble ?"`,
+                    ],
+                    useTxt: "J'ouvre le livre pour lire un extrait.",
+                    useTxtOpen: "Je ferme le livre.",
+                    goTxt: "Le livre est déjà dans mes mains.",
+                    goTxtOpen: "Le livre est déjà dans mes mains.",
+                    hitTxt: "Pourquoi faire ?",
+                    hitTxtOpen: "Pourquoi faire ?",
+                    inspectTxt: `Le sous-titre du livre, en partie effacé, est "et l'Île aux ronces".`,
+                    inspectTxtOpen: `Un extrait m'interpelle : "J'ai besoin que tu te souviennes".`,
+                    waitTxt: "Des souvenirs me reviennent, de ma mère avec ce livre en main.",
+                    waitTxtOpen: "Je me souviens d'une voix douce qui me conte les mots de ce livre.",
+                    acceptTxt: "Ma mère avait reçu ce livre de sa mère, qui l'avait reçu de sa mère.",
+                    acceptTxtOpen: "Le livre parle de mort. Un sujet assez sombre pour un livre pour enfant."
+
                 },
                 {
                     name: "leave",
-                    leftTxt: "I left the house. The air outside bit me with cold.",
+                    leftTxt: "Je quitte la maison. L'air froid de l'extérieur s'attaque à mon visage.",
                 }
             ],
         },
         {
-            name: "Scene4",
+            name: "Etage",
             sceneNumber: 4,
             texts: [
-                ["The room was largely empty, except for a ", "regular", false],
-                ["bed.", "regular", true],
-                [" Beside it, a ", "regular", false],
-                ["bedlamp", "regular", true],
-                [" which was lit", "regular", false],
-                [", plunging the room in a gloomy atmosphere", "sad", false],
+                ["La pièce est plutôt vide, à l'exception d'un ", "regular", false],
+                ["lit.", "regular", true],
+                [" À côté, une ", "regular", false],
+                ["lampe,", "regular", true],
+                [" qui est allumée", "regular", false],
+                [", plongeant la pièce dans une atmosphère triste", "sad", false],
                 [". ", "regular", false],
-                [" Under the bed was a ", "bargain", false],
-                ["teddybear.", "bargain", true],
-                [" There was a window, which was broken. ", "regular", false],
-                ["On the ground laid some broken ", "angry", false],
-                ["glass.", "angry", true],
-                [" The moon shone through a hole in the roof.", "accept", false],
-                [" There were papers on the ", "regular", false],
-                ["wall", "regular", true],
-                [" behind me.", "regular", false],
+                [" Sous le lit, une ", "bargain", false],
+                ["peluche.", "bargain", true],
+                [" Il y a aussi une fenêtre, qui est cassée. ", "regular", false],
+                ["Au sol, gît des morceaux de ", "angry", false],
+                ["verre", "angry", true],
+                [" brisés.", "angry", false],
+                [" La lune brille à travers un trou dans le plafond.", "accept", false],
+                [" Sur le mur derrière moi est appuyée une ", "regular", false],
+                ["échelle.", "regular", true],
             ],
             items: [
                 {
-                    name: "bed",
+                    name: "lit",
+                    determinant: "le ",
                     inspectOpens: 2,
-                    acceptOpens: 2,
                     isOpened: true,
                     canBeOpened: false,
-                    lookTxtOpen: "It was... moldy. Must've been here for ages. Pretty gross.",
-                    useTxtOpen: "I wouldn't dare touch that. It smelled.",
-                    goTxtOpen: "I was at the bed already, not like there was much to see.",
-                    hitTxt: "Kicking the bed proved useless. Some insects crawled from under. I got goosebumps.",
-                    inspectTxt: "Carved in the bed's framed laid a small copper key. I took it, just in case.",
-                    waitTxt: "The stench made me feel sick. And somewhat nostalgic.",
-                    acceptTxt: "It was my bed as a child. I knew I hid a key in it. It opened a compartment in the teddybear."
+                    lookTxtOpen: "Le matelas est... pourri. Il doit être là depuis des années... dégoûtant.",
+                    useTxtOpen: "Je n'ose pas y toucher, ça me repousse.",
+                    goTxtOpen: "Je me rapproche du lit, et une forte odeur de pourriture infiltre mes narines.",
+                    hitTxtOpen: "Ça ne sert à rien. Donner un coup au lit en a fait sortir un cloporte... j'en ai la chair de poule.",
+                    inspectTxtOpen: "Gravé dans le bois du lit se trouve un compartiement. Il contient une petite clé métallique.",
+                    waitTxtOpen: "L'odeur nauséabonde me rend malade... et d'une certaine façon... nostalgique ?",
+                    acceptTxtOpen: "C'est le lit dans lequel je dormais quand j'étais enfant."
                 },
                 {
-                    name: "bedlamp",
-                    useOpens: 1,
-                    hitOpens: 1,
+                    name: "lampe",
+                    determinant: "la ",
+                    useOpensIfClosed: 1,
+                    useClosesifOpened: 1,
                     isOpened: false,
                     canBeOpened: true,
-                    lookTxt: "The lamp casted a dim yellow-ish light on the bed.",
-                    lookTxtOpen: "Now it was turned off, and the room went dark. The wall, though, was now glowing.",
-                    useTxt: "I pulled on the little chain dangling from the lamp. Now it was off.",
-                    useTxtOpen: "I already turned it off. I could still see my way out of here.",
-                    goTxt: "The lamp was right there.",
-                    goTxtOpen: "The lamp was right there.",
-                    hitTxt: "I smashed the lightbulb. The lamp couldn't shine anymore.",
-                    inspectTxt: "The end of the chain had a little engraving, with my name on it.",
-                    waitTxt: "Nothing happened.",
-                    acceptTxt: "I remembered this lamp. It stood in my parent's room when I was little."
+                    lookTxt: "La faible lumière jaunâtre de la lampe éclaire le lite.",
+                    lookTxtOpen: "La lumière est éteinte. Seule la lune m'éclaire à présent.",
+                    useTxt: "Je tire sur le fil qui pend de la lampe. Elle s'éteint.",
+                    useTxtOpen: "Je tire sur le fil qui pend de la lampe. Elle s'allume.",
+                    goTxt: "Je me rapproche de la lampe.",
+                    goTxtOpen: "Je me rapproche de la lampe.",
+                    hitTxt: "Je n'oserais pas casser la lampe.",
+                    hitTxtOpen: "Je n'oserais pas casser la lampe. J'ai besoin de lumière.",
+                    inspectTxt: "Mon nom est brodé sur le chapeau de la lampe.",
+                    inspectTxtOpen: "Je ne peux rien voir à cause de l'obscurité.",
+                    waitTxt: "Rien ne se passe.",
+                    waitTxtOpen: "L'obscurité me donnerait presque envie de dormir. Rien ne se passe.",
+                    acceptTxt: "Je me souviens de cette lampe. Ma mère me lisait des contines à sa lumière.",
+                    acceptTxtOpen: "Je me souviens de cette lampe. Mon père l'avait fabriquée lui-même."
                 },
                 {
-                    name: "teddybear",
+                    name: "peluche",
+                    determinant: "la ",
+                    useOpensIfOpened: 4,
                     isOpened: false,
                     canBeOpened: true,
-                    lookTxt: `The bear was damp, which made it look gross and malformed.`,
-                    lookTxtOpen: `There was a compartment at the back of its head.`,
-                    useTxt: "It was heavier than expected. Not sure of its use, though.",
-                    useTxtOpen: `Inside there was a note. It said: "Here's to you. Find the final letter".`,
-                    goTxt: "The bear's right there.",
-                    goTxtOpen: "The bear's right there.",
-                    hitTxt: "I kicked the bear. It made squishy sound.",
-                    inspectTxt: "The bear had a tag. On it were my initials.",
-                    waitTxt: "I looked like it would crumble right in front of my eyes, but it didn't.",
-                    acceptTxt: "It was given by my father long ago. Must've been 2 or 3. Loved that bear"
+                    lookTxt: `La peluche est en forme d'ourson. Elle est aussi sale que le lit.`,
+                    lookTxtOpen: `Il y a un compartiment dans son ventre.`,
+                    useTxt: "La peluche est très lourde, plus que ce à quoi je m'attendais.",
+                    useTxtOpen: `À l'intérieur du compartiment, une note : "Rejoins les astres".`,
+                    goTxt: "Je suis devant la peluche.",
+                    goTxtOpen: "Je suis devant la peluche.",
+                    hitTxt: "Je donne un coup de pied dans la peluche. Elle fait un bruit métallique.",
+                    hitTxtOpen: "Est-ce que la frapper m'apporte quelque chose ?",
+                    inspectTxt: "La peluche porte un pull avec mes initiales.",
+                    inspectTxtOpen: "Je reconnais l'écriture de la note, mais ne saurais dire d'où.",
+                    waitTxt: "Il n'y a rien à attendre.",
+                    waitTxtOpen: "Il n'y a rien à attendre.",
+                    acceptTxt: "Mon père m'avait offert cette peluche. J'avais 2 ou 3 ans. Je l'adorais.",
+                    acceptTxtOpen: "Je l'ai perdue lors d'un déménagement. Comment s'est-elle retrouvée ici ?",
                 },
                 {
-                    name: "glass",
-                    useGlassOpens: [4, 1],
+                    name: "verre",
                     isOpened: true,
                     canBeOpened: false,
-                    lookTxtOpen: "The glass was a bit foggy.",
-                    useTxtOpen: "I took a piece of glass and kept it in my coat.",
-                    goTxtOpen: "The glass laid at my feet. How many years had this house been in such a state?",
-                    hitTxt: "Stomping on the shards, I created smaller shards.",
-                    inspectTxt: `Nothing of notice here.`,
-                    waitTxt: "Was the glass supposed to magically fix itself? Surprise, it didn't.",
-                    acceptTxt: "What was the meaning? That everything would be destroyed in time?"
+                    lookTxtOpen: "Le verre est brisé gît à-même le sol.",
+                    useTxtOpen: "Pourquoi risquer de me couper ?",
+                    goTxtOpen: "Je n'ai pas envie de tenter de passer par la fenêtre d'où vient le verre.",
+                    hitTxtOpen: "Je pourrais réduire les morceaux en morceaux encore plus petits. Mais pourquoi ?",
+                    inspectTxtOpen: `Il n'y a rien de notable ici.`,
+                    waitTxtOpen: "La fenêtre ne va pas se réparer toute seule en regardant le verre brisé.",
+                    acceptTxtOpen: "Je ne sais pas quel signification ce verre peu avoir."
                 },
                 {
-                    name: "wall",
-                    lookOpens: -1,
-                    useOpens: -1,
-                    hitOpens: -1,
-                    inspectOpens: -1,
-                    waitOpens: -1,
-                    acceptOpens: -1,
+                    name: "échelle",
+                    isPlaced: false,
                     isOpened: false,
                     canBeOpened: true,
-                    lookTxt: "The walls is littered with newspaper clips from the 1990s.",
-                    lookTxtOpen: `Some words were underlined with glowing ink. "We always loved you".`,
-                    useTxt: "I tore a newspaper clip, to find the exact same one underneath.",
-                    useTxtOpen: "The ink was somehow fresh. Touching it smeared it further.",
-                    goTxt: "I was in front of the wall now.",
-                    goTxtOpen: "I was in front of the wall now.",
-                    hitTxt: "The wall was study. Wouldn't want to break a bone hitting that...",
-                    inspectTxt: `One article stood out. It was from this year, about a car accident.`,
-                    waitTxt: "I read the papers in silence. It was pretty ominous.",
-                    acceptTxt: "The articles were from the time I was born, and grew up. And something about a fatal car accident..."
+                    lookTxt: "C'est une vieille échelle. Le bois a l'air pourri.",
+                    lookTxtOpen: `Elle pourrait me servir pour atteindre les "astres" comme la note que j'ai trouvé.`,
+                    useTxt: "Je la déplace sur le mur d'en face. Elle est assez lourde.",
+                    useTxtOpen: "Je la déplace sous le trou au plafond. Je peux maintenant aller sur le toit.",
+                    goTxt: "L'échelle mène au plafond, je n'ai pas de raison de la prendre.",
+                    goTxtOpen: "L'échelle mène au plafond, je n'ai pas de raison de la prendre.",
+                    goTxtOpenPlaced: "Je monte l'échelle et rejoins le toit. L'air frais de la nuit m'enveloppe.",
+                    hitTxt: "Je ne vais pas frapper une échelle...",
+                    hitTxtOpen: "Si elle peut m'aider à atteindre le toit, je ne vais pas la casser.",
+                    inspectTxt: `La moisissure du bois semble superficielle.`,
+                    inspectTxtOpen: `Il n'y a rien à voir de particulier.`,
+                    waitTxt: "En attendant quelque minutes, j'entends le vent s'engouffrer du trou dans la toiture.",
+                    waitTxtOpen: "Je prends ce temps pour réfléchir. Qu'est-ce qui m'attendra sur le toit ?",
+                    acceptTxt: "Je ne fais que monter depuis que je suis entrer dans la maison.",
+                    acceptTxtOpen: "Je dois me diriger vers le toit. Il m'appelle."
                 },
                 {
                     name: "leave",
-                    leftTxt: "I came down to the room. I still had chills from before.",
+                    leftTxt: "Je redescends au rez-de-chaussé. L'air poussiéreux attaquent mes yeux.",
                 }
             ],
         },
         {
-            name: "Scene5",
+            name: "Toit",
             sceneNumber: 5,
             texts: [
-                ["Behind the bookshelf was a staircase which lead to a tiny square room lit only by a series of five ", "regular", false],
-                ["candles.", "regular", true],
-                [" In the middle stood an ", "regular", false],
-                ["altar", "regular", true],
-                [" with a tiny car ", "regular", false],
-                ["figurine.", "regular", true],
-                [" It was very ominous. ", "sad", false],
-                ["Scary, even. It made my blood crawl. ", "anger", false],
-                ["That car was a replica of mine. ", "accept", false],
-                ["There was a ", "sad", false],
-                ["book", "sad", true],
-                [" next to the figurine.", "sad", false],
+                ["Le toit est délabré mais stable. Les tuiles usées qui le recouvrent sont froides au toucher. Face à moi, une ", "regular", false],
+                ["bougie", "regular", true],
+                [", éteinte. À côté, un ", "regular", false],
+                ["briquet", "regular", true],
+                [" accompagné d'une ", "regular", false],
+                ["figurine", "regular", true],
+                [" de voiture. ", "regular", false],
+                ["C'est une réplique de celle que je possède. ", "accept", false],
+                ["La lumière de la ", "sad", false],
+                ["lune", "sad", true],
+                [" berce l'espace dans sa douce lueur. ", "sad", false]
             ],
             items: [
                 {
-                    name: "candles",
-                    lookOpens: -1,
-                    useOpens: -1,
-                    hitOpens: -1,
-                    inspectOpens: -1,
-                    waitOpens: -1,
-                    acceptOpens: -1,
-                    isOpened: true,
-                    canBeOpened: false,
-                    lookTxtOpen: "The candles were already burning. How is this possible?",
-                    useTxtOpen: "I wouldn't dare touch that. I didn't to burn myself.",
-                    goTxtOpen: "I was already neat the candles. The room was small enough.",
-                    hitTxt: "One of the candles fell after I kicked the stand. Pretty sure it didn't help.",
-                    inspectTxt: "The candles' wax was dripping and forming cascading shapes towards the ground.",
-                    waitTxt: "I waited for about an hour. The candles didn't diminish in size. That was... weird.",
-                    acceptTxt: "These candles were otherworldly. That was the only sound explaination."
-                },
-                {
-                    name: "altar",
-                    lookOpens: -1,
-                    useOpens: -1,
-                    hitOpens: -1,
-                    inspectOpens: -1,
-                    waitOpens: -1,
-                    acceptOpens: -1,
-                    bledOut: false,
+                    name: "bougie",
                     isOpened: false,
                     canBeOpened: true,
-                    lookTxt: "The altar stood proudly in the middle of this tiny chamber. Looked like marble.",
-                    lookTxtOpen: "The altar looked scary in the middle of this tiny chamber.",
-                    useTxt: "There was a receptacle, probably for some fluid. I shivered.",
-                    useTxtOpen: "I wondered... I took the glass shard and made my hand bleed, let it drip on the altar.",
-                    goTxt: "The room was too small for me to move anywhere.",
-                    goTxtOpen: "The room was too small for me to move anywhere.",
-                    hitTxt: "Why would I do that?",
-                    inspectTxt: "It was marble indeed. A black-ish stone with white-grey irregular stripes.",
-                    waitTxt: "Nothing to wait for.",
-                    waitTxtBledOut: "I waited for it to have a result. Suddenly, a light, and I was transported elsewhere.",
-                    acceptTxt: "Where was I? Why were all these items and texts about me? I was again transported elsewhere."
+                    lookTxt: "La bougie est éteinte. Elle est composée de cire blanche.",
+                    lookTxtOpen: "La bougie est maintenant allumée. Sa lueur éclaire à peine les alentours.",
+                    useTxt: "La cire est lisse, et la bougie est douce au toucher.",
+                    useTxtOpen: "Je n'aurais pas envie de me brûler maintenant qu'elle est allumée.",
+                    goTxt: "Je me rapproche de la bougie.",
+                    goTxtOpen: "De près, sa lumière m'éblouit, et je sens sa chaleur.",
+                    hitTxt: "Je n'aurais pas envie de casser la bougie.",
+                    hitTxtOpen: "Je n'aurais pas envie de me brûler maintenant qu'elle est allumée.",
+                    inspectTxt: "Elle ressemble à une cierge qu'on trouverait dans une église.",
+                    inspectTxtOpen: "Sa lumière rend la cire légèrement translucide.",
+                    waitTxt: "La bougie ne va pas s'allumer seule en attendant.",
+                    waitTxtOpen: "La bougie semble ne pas être consummée par la flamme. Elle ne diminue pas de taille.",
+                    acceptTxt: "C'est une cierge d'église, souvent utilisée dans le marches funéraire.",
+                    acceptTxtOpen: `Cette bougie n'est pas "naturelle", tout comme cette maison et... ce monde ?`
+                },
+                {
+                    name: "briquet",
+                    isOpened: false,
+                    canBeOpened: true,
+                    useOpensIfClosed: 1,
+                    useOpens: 0,
+                    lookTxt: "Le briquet, par terre, est unicolor, et son mécanisme est rouillé.",
+                    lookTxtOpen: "Le briquet est assez gros dans ma main.",
+                    useTxt: "Je récupère le briquet et m'en sert pour allumer la bougie.",
+                    useTxtOpen: "Avec un coup sec sur son interrupteur, le briquet s'allume. Il fonctionne!",
+                    goTxt: "Le briquet est à mes pieds.",
+                    goTxtOpen: "Le briquet est dans ma poche.",
+                    hitTxt: "Pourquoi faire ?",
+                    hitTxtOpen: "Un briquet est quelque chose de dangereux, pourquoi prendre des risques ?",
+                    inspectTxt: "Le logo de la marque a été égratigné. Il est illisible.",
+                    inspectTxtOpen: "Il ressemble à mon vieux briquet que j'utilisais pour fumer.",
+                    waitTxt: "Que faut-il attendre ?",
+                    waitTxtOpen: "Il n'y a rien à attendre.",
+                    acceptTxt: "C'est un briquet rechargeable. J'en posséde également un, même si je ne sais plus où il est.",
+                    acceptTxtOpen: "La forme, le poids, la couleur. C'est bel et bien mon briquet... en plus usé."
                 },
                 {
                     name: "figurine",
-                    lookOpens: -1,
-                    useOpens: -1,
-                    hitOpens: -1,
-                    inspectOpens: -1,
-                    waitOpens: -1,
-                    acceptOpens: -1,
-                    isOpened: true,
-                    canBeOpened: false,
-                    lookTxtOpen: `This was a family car, similar to the one I bought years ago, when I got my first job.`,
-                    useTxtOpen: `I took it in my hands, trembling. Why was I trembling? I put it back.`,
-                    goTxtOpen: "The altar was right there. And the car is on it.",
-                    hitTxt: "I threw the car to the ground. Picked it up and placed it back after.",
-                    inspectTxt: "The car looked hand-painted. There were a few imperfections here and there.",
-                    waitTxt: "I waited, but it didn't do much.",
-                    acceptTxt: "I bought that exact same car years ago. Last I knew I was driving it. Why am I here then?"
+                    hitOpens: 2,
+                    isOpened: false,
+                    canBeOpened: true,
+                    lookTxt: `C'est une Toyota Starlett verte, comme ma première voiture.`,
+                    lookTxtOpen: `La voiture est maintenant cassée... on dirait qu'elle a eu un accident`,
+                    useTxt: `Ma main se met à trembler en la prenant. Pourquoi donc ? Je décide de la reposer.`,
+                    useTxtOpen: `Je tremble encore plus qu'avant en essayant de la prendre. Pourquoi ?`,
+                    goTxt: "La figurine de voiture est devant moi.",
+                    goTxtOpen: "La voiture gît tristement au sol.",
+                    hitTxt: "Sans trop savoir pourquoi, je frappe la voiture. Elle est maintenant toute cabossée.",
+                    hitTxtOpen: "Je ne me sens pas de la frapper une deuxième fois.",
+                    inspectTxt: "La voiture semble peinte à la main. Il y a quelques imperfections çà et là.",
+                    inspectTxtOpen: "Les dégâts ressemble à ceux d'une collision... frontale.",
+                    waitTxt: "J'attends quelques minutes. La voiture ne bouge pas.",
+                    waitTxtOpen: "J'attends quelques minutes. La voiture ne se répare pas pour autant.",
+                    acceptTxt: "J'ai acheté cette voiture il y a des années. Je me souviens l'avoir conduite encore récemment.",
+                    acceptTxtOpen: "Un accident de voitre ? Serait-ce possible ? Mais où suis-je, alors ?",
                 },
                 {
-                    name: "book",
-                    lookOpens: -1,
-                    useOpens: -1,
-                    hitOpens: -1,
-                    inspectOpens: -1,
-                    waitOpens: -1,
-                    acceptOpens: -1,
-                    tookTheBook: false,
+                    name: "lune",
                     isOpened: true,
                     canBeOpened: false,
-                    lookTxtOpen: `It was a copy of "The Haze", a poetry book my mom used to read me when I was little.`,
-                    useTxtOpen: "I took the book, maybe to read it later.",
-                    goTxtOpen: "I was already at the altar upon which the book sat.",
-                    hitTxt: "Why would I do such a thing? This had sentimental value.",
-                    inspectTxt: `I read an extract: "Let it flow, like clear water, and be. Be with the ones you love."`,
-                    waitTxt: "Waiting didn't do much. At all.",
-                    acceptTxt: "It was a book about life after death. Weird to have been read that as a kid."
+                    lookTxtOpen: `La lune semble m'attendre et m'observer depuis les cieux.`,
+                    useTxtOpen: "Elle est trop loin pour que je puisse faire quoi que ce soit.",
+                    goTxtOpen: "Comment me rendre sur la lune...?",
+                    hitTxtOpen: "Impossible. C'est la lune...",
+                    inspectTxtOpen: `Ses cratères semblent tellement irréels vus d'ici.`,
+                    waitTxtOpen: "J'attends, mais la lune ne réagit pas. J'ai le sentiment d'avoir manqué quelque chose.",
+                    waitTxtOpenWin: "Plus je regarde la lune, plus je me sens attiré par elle. Sa lumière m'éblouis, et ma vision devient blanche.",
+                    acceptTxtOpen: "J'ai vu mes souvenirs. Je ne suis pas ici par hasard. Un accident ? Suis-je encore vivant ?"
                 },
                 {
                     name: "leave",
-                    leftTxt: "I rush up the stairs, I did not wait to stay down there for too long.",
+                    leftTxt: "Je descends l'échelle. De retour dans la maison. Y a-t-il quelque chose que j'ai manqué ?",
                 }
             ],
         },
         {
-            name: "Final scene",
+            name: "Ether",
             sceneNumber: 6,
             texts: [
-                ["The light was blinding at first. The warmth was unsettling, considering the coldness of the house. Where was I? ", "regular", false],
-                ["Only two things laid before me in the garden. First, there was a ", "accept", false],
-                ["letter,", "accept", true],
-                [" folded in the grass, and a ", "accept", false],
-                ["screen,", "accept", true],
-                [" old-fashioned, but it seemed to be working. For the first time I felt... good. At peace.", "accept", false],
+                ["La lumière m'aveugle avant de s'estomper. Une chaleur m'envahit, ce qui me perturbe, vu le froid de la maison jusqu'à maintenant. Où suis-je ? ", "regular", false],
+                ["On dirait un jardin. Face à moi, deux objets. Le premier est une ", "accept", false],
+                ["lettre,", "accept", true],
+                [" pliée dans l'herbe à mes pieds. Il y a également un ", "accept", false],
+                ["écran", "accept", true],
+                [" de télévision. Très vieillot, mais en état de marche. Je me sens étrangement calme, en paix avec moi-même et le monde qui m'entoure.", "accept", false],
             ],
             items: [
                 {
-                    name: "letter",
+                    name: "lettre",
                     lookingAtLetter: false,
                     letterRead: false,
                     isOpened: true,
                     canBeOpened: false,
-                    lookTxtOpen: "The letter was folded. It was white, neat. It had a pleasant smell to it.",
+                    lookTxtOpen: "Le papier blanc qui compose la lettre est joliment plié. Il a une odeur agréable et fraîche.",
                     useTxtOpen: [
-                        `<div class="textDiv">Dear me,</div>`,
-                        `<div class="textDiv">I've been meaning to tell you so, so much. About how I love you. And how I have been happy being you all this time. You must have many questions. Let me get to some.</div>`,
-                        `<div class="textDiv">First and foremost, that house you've been seeing is indeed yours. Ours. The one we grew up in. It's been decayed this way because of we never thought about it in our adult life. We've been living our life, we didn't have the need to remember, we were busy with work, love, friends... It's unfortunate, but that's behind us now.</div>`,
-                        `<div class="textDiv">Now the important part. Yes. You died. I mean, we died. Together. At the same time. You had a bad car accident. You've been badly injured, and fought for your life, in a coma, for 4 months. You caved in, you had to, but you never stopped fighting.</div>`,
-                        `<div class="textDiv">But you do not have to worry anymore. The electrons of our body mingle and dance with the electrons of the ground below us and the air. We are no longer breathing. And we have to remember that there is no point where any of that ends and we begin. We now are energy. Not memory. Not self. Our choices, name, personality, all came after us. We were before them, and we will be after.</div>`,
-                        `<div class="textDiv">There is no time. There is no death. Life is a dream. It's a wish. Made again, and again, and again, and again, and on into eternity. We are all of it. We are everything. We are all. </div>`,
-                        `<div class="textDiv">So there is nothing to fear. You are loved. We are everywhere. We are dead, yet, in a sense, we are more alive. We joined the stars, and the rest of the universe.</div>`,
-                        `<div class="textDiv">With you always,</div><br/><div class="textDiv">`,
+                        `<div class="textDiv">Cher moi,</div>`,
+                        `<div class="textDiv">J'ai tellement à te dire. À quel point je t'aime. À quel point j'ai pris du plaisir de passer ma vie à tes côtés. Tu dois avoir de nombreuses questions. Laisse-moi y répondre ici.</div>`,
+                        `<div class="textDiv">Tout d'abord, la maison que tu visites depuis tout ce temps est bel et bien la tienne. Enfin, la nôtre. Celle dans laquelle on a grandi. Son état de ruine est dû au fait qu'on ait cessé d'y penser durant notre vie d'adulte. Nous vivions notre vie, nous n'avions pas besoin de nous souvenir. Nous avions plein de préoccupations ; le travail, l'amour, nos amies et amis, notre famille... C'est quelque chose de regrettable, mais tout cela est derrière nous maintenant.</div>`,
+                        `<div class="textDiv">Maintenant pour la nouvelle la plus importante. Oui, tu es entrain de mourir. Enfin, nous le sommes, ensemble, en même temps. Tu as eu un accident de voiture et tes blessures étaient graves. Notre combat pour survivre fut grand, et vigoureux. Nous étions dans un coma pendant 4 mois ! Tu as dû abandonner, tu n'avais pas le choix... C'était trop dur.</div>`,
+                        `<div class="textDiv">Mais la bonne nouvelle, c'est que tu n'as plus à t'inquiéter. Les électrons de notre corps dansent avec ceux du sol sous nos pieds et du ciel au-desuss de nous. Nous ne respirons plus. Mais nous devons nous souvenir qu'il n'y a aucun moment où nous commençons et nous finissons. Nous sommes de l'énergie. Pas juste un souvenir. Nos choix, notre nom, notre personnalité, tout ça est venu après nous. Nous étions là avant tout ça, et nous continuerons d'exister après.</div>`,
+                        `<div class="textDiv">Il n'y a pas de temps. Il n'y a pas de mort non plus, du moins, pas comme on l'entends. La vie est un rêve. C'est un voeu. Réalisé encore et encore, et encore, et encore, et ainsi de suite, pour l'éternité. Nous sommes tous ce souhait. Nous sommes toutes choses. Nous sommes tous les éléments. </div>`,
+                        `<div class="textDiv">Il n'y a donc pas de peur à avoir. Les gens t'ont aimé, t'aiment encore et t'aimeront. Nos atomes sont partout. Malgré notre mort, nous sommes d'une certaine façon encore remplis de vie. Nous avons rejoint les étoiles, et le reste de l'univers.</div>`,
+                        `<div class="textDiv">Je serai toujours à tes côtés,</div><br/><div class="textDiv">`,
                     ],
-                    goTxtOpen: "It was at my feet already.",
-                    hitTxt: "Was I out of your mind? No way would I've done that!",
-                    inspectTxt: "The letter was rather small in my hands. It felt... fragile.",
-                    waitTxt: "I took in the moment. I felt so... so peaceful.",
-                    acceptTxt: "The letter was signed by myself. It was touching. I felt a tear running down my cheek."
+                    goTxtOpen: "La lettre est par terre, à mes pieds.",
+                    hitTxtOpen: "Pourquoi ferais-je une chose pareille ?",
+                    inspectTxtOpen: "La lettre paraît petite dans mes mains et si... fragile.",
+                    waitTxtOpen: "Je prends le temps d'apprécier ce moment... je me sens si tranquille.",
+                    acceptTxtOpen: "La lettre est signé par moi. Cela me touche énormément. Je sens une larme le long de ma joue."
                 },
                 {
-                    name: "screen",
+                    name: "écran",
                     isOpened: true,
                     canBeOpened: false,
-                    lookTxtOpen: "The screen flashed pictures of places. Seemed familiar, somehow.",
-                    useTxtOpen: "There wasn't any buttons to use. It was just a sceen.",
-                    goTxtOpen: "The screen was in front of me.",
-                    hitTxt: "I wasn't going to.",
-                    inspectTxt: "These were scenes from my life. Memories, flashing, incendescent.",
-                    waitTxt: "I watched for a few minutes, no picture was the same as the other.",
-                    acceptTxt: "I felt like there was something missing. What was that letter saying?",
+                    lookTxtOpen: "Des images de lieux apparaissent successivement à l'écran. Elles semblent familières.",
+                    useTxtOpen: "Il n'y a pas d'interrupteur ou de bouton, l'écran qui fonctionne seul.",
+                    goTxtOpen: "L'écran me fait déjà face.",
+                    hitTxtOpen: "Je ne suis plus en colère.",
+                    inspectTxtOpen: "Ce sont des images de ma vie. Des souvenirs, vifs comme l'éclair.",
+                    waitTxtOpen: "Je regarde l'écran quelques minutes. Aucune image ne se répète durant ce laps de temps.",
+                    acceptTxtOpen: "J'ai l'impression que je n'ai pas vu tout ce qu'il y avait à voir.",
                     acceptTxtLetterOpen: [
                         [
-                            "There I stood, at the end of my journey.",
-                            "That house, once alien, now felt familiar.",
-                            "I accepted its warm embrace.",
-                            "Then, everything went black.",
-                            "I was now part of all, whole again.",
-                            "I stopped dreaming."
+                            "Me voila, à la fin de mon voyage.",
+                            "Cette maison, d'abord étrangère, m'est maintenant familière.",
+                            "Je l'accepte à bras ouvert.",
+                            "Soudain, tout devient noir.",
+                            "Je fais maintenant partie du reste de ce qui existe.",
+                            "J'ai arrêté de rêver.",
+                            "Vivant..."
                         ],
                         [
-                            "This is my home",
-                            "I now feel it",
-                            "I am the cosmos",
-                            "I am everything",
-                            "I am alive",
-                            "I plunged into the horizon"
+                            "Je suis à la maison",
+                            "Je suis chez moi",
+                            "Je rejoins l'univers",
+                            "Je ne suis qu'atomes",
+                            "Je suis entier",
+                            "Je suis vivant",
+                            "Je plonge dans l'horizon"
                         ]
                     ]
                 },
                 {
                     name: "leave",
-                    leftTxt: "Why would I leave? I wouldn't even know how to.",
+                    leftTxt: "Pourquoi partir ? Et de toute façon je ne saurais pas comment revenir en arrière.",
                 }
             ],
         },
         {
-            name: "Act Title",
+            name: "Actes",
             sceneNumber: 7,
             texts: [
                 {
@@ -628,13 +613,13 @@ var myGameTxt = {
                     id: 3,
                     text: [
                         ["Acte 4", true],
-                        ["La pièce cachée", false]
+                        ["Au clair de lune", false]
                     ]
                 },
                 {
                     id: 4,
                     text: [
-                        ["Act 5", true],
+                        ["Acte 5", true],
                         ["Révélations", false]
                     ]
                 }
@@ -645,7 +630,7 @@ var myGameTxt = {
             sceneNumber: 8,
             title: "Quel est votre prénom ?",
             text1: "S'il-vous-plaît entrez un prénom.",
-            text2: "Utilisez votre vrai prénom fonctionne mieux pour le jeu."
+            text2: "Utiliser votre vrai prénom fonctionne mieux pour le jeu."
         },
     ],
     currentScene: 6,
@@ -654,96 +639,16 @@ var myGameTxt = {
     isFinished: false,
     isMenu: false,
     previousInput: [],
-    mesInputs: [],
-    nbrInputs: 0
+    player: {
+        winConditions: {
+            hasReadBook: false,
+            hasSeenCard: false,
+            hasInspectedCar: false,
+            hasLitCandles: false,
+        },
+        readLetter: false,
+        canWin: false
+    }
 };
 
 let baseGameTxt = JSON.parse(JSON.stringify(myGameTxt));
-myGameTxt.mesInputs = countOutcomes();
-myGameTxt.nbrInputs = myGameTxt.mesInputs.length;
-
-function countOutcomes() {
-    let mesCommandes = [];
-    let totalCommandsForThisAct = 0;
-    let i = 0;
-    let monAct = myGameTxt.currentAct;
-    if (monAct == 0) i = 2;
-    else if (monAct == 1 || monAct == 2) i = 3;
-    else if (monAct == 3) i = 4;
-    else if (monAct == 4) i = 5;
-    for (let k = i; k >= 0; k--) {
-        let mesItems = myGameTxt.scenes[k].items;
-        let monActe = parseInt(monAct);
-        let nbrCommands = 3 + monActe;
-        if (mesItems) {
-            let lengthItem = parseInt(mesItems.length);
-            let actualItemLength = lengthItem - 1;
-            if (monAct < 2 && k == 2) {
-                actualItemLength--;
-            }
-            if (monAct == 2 && k == 3) {
-                actualItemLength--;
-            }
-            mesItems.forEach((e) => {
-                let canBeAdded = false;
-                let canBeAdded2 = false;
-                if (e.name != "leave") {
-                    if (e.canBeOpened && e.isOpened == false) {
-                        if (monAct == 0) {
-                            if (e.name == "door") {
-                                actualItemLength++;
-                                canBeAdded = true;
-                            }
-                        }
-                        else if (monAct == 1) {
-                            if (e.name == "door" || e.name == "desk" || e.name == "window" || e.name == "bedlamp" || e.name == "staircase") {
-                                actualItemLength++;
-                                canBeAdded = true;
-                            }
-                        }
-                        else if (monAct == 2) {
-                            if (e.name == "door" || e.name == "desk" || e.name == "window" || e.name == "bedlamp" || e.name == "staircase" || e.name == "bed" || e.name == "postcard" || e.name == "bookshelf") {
-                                actualItemLength++;
-                                canBeAdded = true;
-                            }
-                        }
-                        else if (monAct == 3) {
-                            if (e.name == "door" || e.name == "desk" || e.name == "window" || e.name == "bedlamp" || e.name == "staircase" || e.name == "bed" || e.name == "postcard" || e.name == "bookshelf" || e.name == "altar") {
-                                actualItemLength++;
-                                canBeAdded = true;
-                            }
-                        }
-                        else {
-                            actualItemLength++;
-                            canBeAdded = true;
-                        }
-                        if (canBeAdded) {
-                            mesCommandes.push(`look ${e.name} ${k} opened`);
-                            mesCommandes.push(`use ${e.name} ${k} opened`);
-                            mesCommandes.push(`go ${e.name} ${k} opened`);
-                            if (monAct >= 1) mesCommandes.push(`hit ${e.name} ${k} opened`);
-                            if (monAct >= 2) mesCommandes.push(`inspect ${e.name} ${k} opened`);
-                            if (monAct >= 3) mesCommandes.push(`wait ${e.name} ${k} opened`);
-                            if (monAct >= 4) mesCommandes.push(`accept ${e.name} ${k} opened`);
-                        }
-                    }
-                    if (monAct == 0 && e.name != "postcard") canBeAdded2 = true;
-                    if (monAct == 1 && e.name != "postcard" && e.name != "teddybear") canBeAdded2 = true;
-                    if (monAct > 1) canBeAdded2 = true;
-
-                    if (canBeAdded2) {
-                        mesCommandes.push(`look ${e.name} ${k}`);
-                        mesCommandes.push(`use ${e.name} ${k}`);
-                        mesCommandes.push(`go ${e.name} ${k}`);
-                        if (monAct >= 1) mesCommandes.push(`hit ${e.name} ${k}`);
-                        if (monAct >= 2) mesCommandes.push(`inspect ${e.name} ${k}`);
-                        if (monAct >= 3) mesCommandes.push(`wait ${e.name} ${k}`);
-                        if (monAct >= 4) mesCommandes.push(`accept ${e.name} ${k}`);
-                    }
-                }
-            });
-            totalCommandsForThisAct += (actualItemLength * nbrCommands) + 1;
-        }
-    }
-    return mesCommandes;
-}

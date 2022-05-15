@@ -162,6 +162,7 @@ body {
 }
 .textDiv {
     display:inline;
+    font-size: 0.75em;
 }
 .bigTextDiv {
     font-size: 1.25em;

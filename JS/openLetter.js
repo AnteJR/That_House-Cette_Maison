@@ -5,7 +5,6 @@
 */
 let getDefault;
 function openLetter(k) {
-    playMusic("reading");
 
     if (k==0) getDefault = isDefault;
 
@@ -20,7 +19,6 @@ function openLetter(k) {
     document.getElementById("screenBottom").style.display = "none";
     document.getElementById("titleGame").style.display = "none";
     document.getElementById("monStyle").style.display = "none";
-    document.getElementById("scoreZ").style.display = "none";
     document.getElementById("gameScreen").style.marginTop = "10%";
 
     if (k == 0) gsapLetter(document.body);
@@ -53,12 +51,10 @@ function openLetter(k) {
             document.getElementById("titleGame").style.display = "block";
             document.getElementById("gameScreen").style.marginTop = "0%";
             document.getElementById("monStyle").style.display = "block";
-            document.getElementById("scoreZ").style.display = "block";
 
             gsapLetterBack(document.body);
             myGameTxt.scenes[myGameTxt.currentScene].items[0].lookingAtLetter = false;
             actOne(false);
-            playMusic("acceptance");
             isDefault = getDefault;
         }
     });

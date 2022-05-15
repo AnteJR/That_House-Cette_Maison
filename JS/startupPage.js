@@ -38,8 +38,6 @@ function startUpSetUp() {
                         myGameTxt.currentScene = 7;
                         actOne(true);
                         playMusic("denial");
-                        document.getElementById("totalScore").innerHTML = myGameTxt.nbrInputs;
-                        document.getElementById("scoreCurrent").innerHTML = (myGameTxt.mesInputs.length - myGameTxt.nbrInputs) * (-1);
                     });
 
                     document.getElementById("alertButton2").addEventListener("mouseover", () => {
@@ -60,8 +58,6 @@ function startUpSetUp() {
                     myGameTxt.currentScene = 7;
                     actOne(true);
                     playMusic("denial");
-                    document.getElementById("totalScore").innerHTML = myGameTxt.nbrInputs;
-                    document.getElementById("scoreCurrent").innerHTML = (myGameTxt.mesInputs.length - myGameTxt.nbrInputs) * (-1);
                 }
             }
             // pour continuer sa partie
@@ -69,19 +65,14 @@ function startUpSetUp() {
                 if (localStorage.username) {
                     myGameTxt.currentAct = parseInt(localStorage.act);
                     myGameTxt.username = localStorage.username;
+                    myGameTxt.currentScene = 5;
                     // reset le style, notamment en affichant le bas de l'écran, et c'est parti
                     gameDiv.style.textAlign = "left";
                     gameDiv.style.marginTop = "0%";
                     document.getElementsByClassName("bottomScreen")[0].style.display = "block";
                     actOne(true);
-                    if (localStorage.act == 1) playMusic("anger");
-                    if (localStorage.act == 2) playMusic("bargain");
-                    if (localStorage.act == 3) playMusic("depression");
+                    if (localStorage.act >= 1 && localStorage.act <=3) playMusic("denial");
                     if (localStorage.act == 4) playMusic("acceptance");
-                    myGameTxt.mesInputs = countOutcomes();
-                    myGameTxt.nbrInputs = myGameTxt.mesInputs.length;
-                    document.getElementById("totalScore").innerHTML = myGameTxt.nbrInputs;
-                    document.getElementById("scoreCurrent").innerHTML = (myGameTxt.mesInputs.length - myGameTxt.nbrInputs) * (-1);
                 }
             }
             // afficher des infos sur le jeu et son développeur (moi lol)
