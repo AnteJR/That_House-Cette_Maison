@@ -314,7 +314,7 @@ var myGameTxt = {
                 ["Au sol, gît des morceaux de ", "angry", false],
                 ["verre", "angry", true],
                 [" brisés.", "angry", false],
-                [" La lune brille à travers un trou dans le plafond.", "accept", false],
+                [" La lune brille à travers un trou dans le plafond.", "regular", false],
                 [" Sur le mur derrière moi est appuyée une ", "regular", false],
                 ["échelle.", "regular", true],
             ],

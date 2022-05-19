@@ -81,7 +81,7 @@ function findText(commandItem, textInput) {
 
         textAlert = leaveItem.leftTxt;
 
-        if (maScene >= 0) {
+        if (maScene > 0) {
             myGameTxt.currentScene = maScene - 1;
             actOne(false);
             validInput = true;
@@ -141,6 +141,7 @@ function findText(commandItem, textInput) {
                 }
                 if ((monCurrentAct == 2 && maScene == 3) && (e.isOpened && e.isPlaced && maCommande == "aller") && e.name == "échelle") {
                     isWin = false;
+                    e.goTxtOpenPlaced;
                     nextActPlease(3, textAlert);
                 }
                 if ((monCurrentAct > 2 && maScene == 3) && (e.isOpened && e.isPlaced && maCommande == "aller") && e.name == "échelle") isWin = true;
@@ -161,7 +162,7 @@ function findText(commandItem, textInput) {
                     textAlert += twoLetters;
                 }
                 if (maCommande == "utiliser" && e.name == "échelle" && e.isOpened && !e.isPlaced) e.isPlaced = true;
-                if (maCommande == "aller" && e.name == "échelle" && e.isOpened && e.isPlaced) textAlert = e.goTxtOpenPlaced;
+                if (maCommande == "aller" && e.name == "échelle" && e.isPlaced) textAlert = e.goTxtOpenPlaced;
                 if (maCommande == "voir" && e.name == "livre" && e.isOpened) {
                     let rdm = Math.round(Math.random() * 5);
                     textAlert = e.lookTxtOpen[rdm]

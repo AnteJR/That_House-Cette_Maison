@@ -148,7 +148,7 @@ mesCommandes.forEach((element) => {
         if (canBeUsed == true) {
             document.getElementById('commandInput').value = maCommande + " ";
             if (maCommande.toLowerCase() == "quitter") {
-                displayAlert("leave ")
+                displayAlert("quitter ")
                 document.getElementById('commandInput').value = "";
             }
         }

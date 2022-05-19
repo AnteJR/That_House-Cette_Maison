@@ -65,7 +65,6 @@ function startUpSetUp() {
                 if (localStorage.username) {
                     myGameTxt.currentAct = parseInt(localStorage.act);
                     myGameTxt.username = localStorage.username;
-                    myGameTxt.currentScene = 5;
                     // reset le style, notamment en affichant le bas de l'écran, et c'est parti
                     gameDiv.style.textAlign = "left";
                     gameDiv.style.marginTop = "0%";
