@@ -23,12 +23,6 @@ function homePage() {
         document.getElementById("titleGame").style.fontSize = "1.25em";
         myGameTxt.isMenu = false;
         gameLaunch();
-        document.body.requestFullscreen().then(function() {
-            // element has entered fullscreen mode successfully
-        })
-        .catch(function(error) {
-            // element could not enter fullscreen mode
-        });;
     });
 }
 

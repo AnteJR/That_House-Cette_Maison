@@ -68,9 +68,15 @@ window.addEventListener('keydown', (e) => {
         }
 
         // on bloque les caractères spéciaux style shift, caps, ctrl, et on ajoute à l'input le reste
-        if (e.key != "Backspace" && e.key != "Enter" && e.key != "Meta" && e.key != "Shift" && e.key != "CapsLock" && e.key != "Control" && e.key != "Alt" && e.key != "ArrowLeft" && e.key != "ArrowRight" && e.key != "ArrowDown" && e.key != "ArrowUp") {
+        if (e.key != "Backspace" && e.key != "Enter" && e.key != "Meta" && e.key != "Shift" && e.key != "CapsLock" && e.key != "Control" && e.key != "Alt" && e.key != "ArrowLeft" && e.key != "ArrowRight" && e.key != "ArrowDown" && e.key != "ArrowUp" && e.key != "Dead" && e.key != "Escape") {
             if (myGameTxt.currentScene == 7) nameInput.value += e.key;
             else monInput.value += e.key;
+        }
+
+        else if (e.key == "Escape") {
+            e.preventDefault();
+            gameLaunch();
+            document.getElementById("titleGame").style.display = "block";
         }
 
         // si on appuie sur "Backspace", supprimer le dernier caractère de l'input

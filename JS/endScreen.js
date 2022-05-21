@@ -21,8 +21,6 @@ function endScreen(i) {
     document.getElementById("buttonMoveForward").addEventListener("click", function () {
         i++
 
-        backgroundFlash();
-
         // si i est inférieur à 5, on relance la fonction endScreen()
         if (i <= 6) endScreen(i);
 

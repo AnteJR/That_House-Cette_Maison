@@ -139,14 +139,15 @@ function findText(commandItem, textInput) {
                     isWin = false;
                     nextActPlease(2, textAlert);
                 }
-                if ((monCurrentAct == 2 && maScene == 3) && (e.isOpened && e.isPlaced && maCommande == "aller") && e.name == "échelle") {
+                if ((monCurrentAct == 2 && maScene == 3) && (e.isPlaced && maCommande == "aller") && e.name == "échelle") {
                     isWin = false;
-                    e.goTxtOpenPlaced;
+                    textAlert = e.goTxtOpenPlaced;
                     nextActPlease(3, textAlert);
                 }
-                if ((monCurrentAct > 2 && maScene == 3) && (e.isOpened && e.isPlaced && maCommande == "aller") && e.name == "échelle") isWin = true;
+                if ((monCurrentAct > 2 && maScene == 3) && (e.isPlaced && maCommande == "aller") && e.name == "échelle") isWin = true;
                 if ((monCurrentAct == 3 && maScene == 4) && maCommande == "attendre" && e.name == "lune" && myGameTxt.player.canWin) {
                     isWin = false;
+                    textAlert = e.waitTxtOpenWin
                     nextActPlease(4, textAlert);
                 }
                 if ((monCurrentAct > 3 && maScene == 4) && maCommande == "attendre" && e.name == "lune" && myGameTxt.player.canWin) isWin = true;
@@ -164,7 +165,7 @@ function findText(commandItem, textInput) {
                 if (maCommande == "utiliser" && e.name == "échelle" && e.isOpened && !e.isPlaced) e.isPlaced = true;
                 if (maCommande == "aller" && e.name == "échelle" && e.isPlaced) textAlert = e.goTxtOpenPlaced;
                 if (maCommande == "voir" && e.name == "livre" && e.isOpened) {
-                    let rdm = Math.round(Math.random() * 5);
+                    let rdm = Math.round(Math.random() * 4);
                     textAlert = e.lookTxtOpen[rdm]
                 }
                 if (maCommande == "attendre" && e.name == "lune" && myGameTxt.player.canWin) textAlert = e.waitTxtOpenWin;
@@ -185,10 +186,10 @@ function findText(commandItem, textInput) {
                 let card = winCond.hasSeenCard;
                 let car = winCond.hasInspectedCar;
                 let candle = winCond.hasLitCandles;
-                if (maCommande == "voir" && e.name == "livre" && e.isOpened) winCond.hasReadBook = true
-                if (maCommande == "voir" && e.name == "carte" && e.isOpened) winCond.hasSeenCard = true;
-                if (maCommande == "inspecter" && e.name == "figurine" && e.isOpened) winCond.hasInspectedCar = true;
-                if (maCommande == "voir" && e.name == "bougie" && e.isOpened) winCond.hasLitCandles = true;
+                if ((maCommande == "voir" || maCommande == "accepter") && e.name == "livre" && e.isOpened) winCond.hasReadBook = true
+                if ((maCommande == "voir" || maCommande == "accepter")  && e.name == "carte" && e.isOpened) winCond.hasSeenCard = true;
+                if ((maCommande == "inspecter" || maCommande == "accepter")  && e.name == "figurine" && e.isOpened) winCond.hasInspectedCar = true;
+                if ((maCommande == "voir" || maCommande == "accepter")  && e.name == "bougie" && e.isOpened) winCond.hasLitCandles = true;
                 if (!myGameTxt.player.canWin &&
                     (
                         (book && (card || car || candle)) ||

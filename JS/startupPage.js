@@ -59,6 +59,7 @@ function startUpSetUp() {
                     actOne(true);
                     playMusic("denial");
                 }
+                getFS();
             }
             // pour continuer sa partie
             else if (maClass == "continueButton") {
@@ -72,6 +73,7 @@ function startUpSetUp() {
                     actOne(true);
                     if (localStorage.act >= 1 && localStorage.act <=3) playMusic("denial");
                     if (localStorage.act == 4) playMusic("acceptance");
+                    getFS();
                 }
             }
             // afficher des infos sur le jeu et son développeur (moi lol)
@@ -91,4 +93,12 @@ function startUpSetUp() {
             }
         });
     })
+}
+
+function getFS(){
+    document.body.requestFullscreen().then(function() {
+        // element has entered fullscreen mode successfully
+    }).catch(function(error) {
+        // element could not enter fullscreen mode
+    });;
 }

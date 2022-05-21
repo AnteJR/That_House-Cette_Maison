@@ -12,6 +12,7 @@ function openLetter(k) {
     isDefault = false;
     document.body.style.animation = "none"
     document.body.style.color = "rgb(3, 15, 26)";
+    document.getElementsByClassName("gameContainer")[0].style.backgroundColor = "white";
     document.body.style.opacity = 1;
     document.getElementById("commandInput").value = "";
     document.getElementsByClassName("gameContainer")[0].style.borderWidth = "0px";
@@ -20,8 +21,6 @@ function openLetter(k) {
     document.getElementById("titleGame").style.display = "none";
     document.getElementById("monStyle").style.display = "none";
     document.getElementById("gameScreen").style.marginTop = "10%";
-
-    if (k == 0) gsapLetter(document.body);
 
     // sélectionne le texte à insérer dans la div #gameDiv et le fait (+ un bouton)
     let monTxt = myGameTxt.scenes[myGameTxt.currentScene].items[0].useTxtOpen;
@@ -44,15 +43,14 @@ function openLetter(k) {
         if (k < monTxtLength) openLetter(k);
         else {
             document.body.style.color = "white";
-            document.body.style.opacity = 1;
+            document.getElementsByClassName("gameContainer")[0].style.backgroundColor = "rgb(3, 15, 26)";
             document.getElementById("flickerDiv").style.display = "block";
             document.getElementsByClassName("gameContainer")[0].style.borderWidth = "5px";
             document.getElementById("screenBottom").style.display = "block";
             document.getElementById("titleGame").style.display = "block";
             document.getElementById("gameScreen").style.marginTop = "0%";
             document.getElementById("monStyle").style.display = "block";
-
-            gsapLetterBack(document.body);
+            
             myGameTxt.scenes[myGameTxt.currentScene].items[0].lookingAtLetter = false;
             actOne(false);
             isDefault = getDefault;
