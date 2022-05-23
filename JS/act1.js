@@ -115,7 +115,7 @@ function actOne(isNewAct) {
         for (let i = 0; i < mesTxt.length; i++) {
 
             // si le texte est décrit comme regular
-            if (mesTxt[i][1] == "regular") {
+            if (mesTxt[i][1] == "regular" || (mesTxt[i][1] == "angry" && myGameTxt.currentAct > 1) || (mesTxt[i][1] == "bargain" && myGameTxt.currentAct > 2) || (mesTxt[i][1] == "sad" && myGameTxt.currentAct > 3)) {
                 // s'il est true ; c'est-à-dire, s'il est interactif
                 if (mesTxt[i][2] == true) {
                     monTxt += `<div class = "wobblyTxt textDiv interactiveText whiteText">`;
@@ -128,7 +128,7 @@ function actOne(isNewAct) {
             }
 
             // si le texte est décrit comme angry, et si on est à l'acte 2 ou plus (en partant de 0)
-            if (mesTxt[i][1] == "angry" && thisAct >= 1) {
+            if (mesTxt[i][1] == "angry" && thisAct == 1) {
                 // s'il est true ; c'est-à-dire, s'il est interactif
                 if (mesTxt[i][2] == true) {
                     monTxt += `<div class = "angerWobble textDiv iAmAnger interactiveText">`;
@@ -141,7 +141,7 @@ function actOne(isNewAct) {
             }
 
             // si le texte est décrit comme bargain, et si on est à l'acte 3 ou plus (en partant de 0)
-            if (mesTxt[i][1] == "bargain" && thisAct >= 2) {
+            if (mesTxt[i][1] == "bargain" && thisAct == 2) {
                 // s'il est true ; c'est-à-dire, s'il est interactif
                 if (mesTxt[i][2] == true) {
                     monTxt += `<div class = "bargainWobble textDiv iAmBargain interactiveText">`;
@@ -154,7 +154,7 @@ function actOne(isNewAct) {
             }
 
             // si le texte est décrit comme sad, et si on est à l'acte 4 ou plus (en partant de 0)
-            if (mesTxt[i][1] == "sad" && thisAct >= 3) {
+            if (mesTxt[i][1] == "sad" && thisAct == 3) {
                 // s'il est true ; c'est-à-dire, s'il est interactif
                 if (mesTxt[i][2] == true) {
                     monTxt += `<div class = "sadWobble textDiv iAmDepression interactiveText">`;

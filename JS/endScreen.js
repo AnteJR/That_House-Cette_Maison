@@ -55,6 +55,7 @@ function endScreen(i) {
                 gameLaunch();
                 document.getElementById("titleGame").style.display = "block";
                 myGameTxt.isFinished = false;
+                myGameTxt = baseGameTxt;
             });
 
             document.getElementById("buttonBackHome").addEventListener("mouseover", () => {

@@ -232,6 +232,8 @@ function nextActPlease(newAct, myTextToDisplay) {
     myGameTxt.username = localStorage.username;
     myGameTxt.currentScene = 6;
 
+    if(newAct == 4) myGameTxt.player.canWin = true;
+
     // on désaffiche l'alert et on insère le texte normalement prévu à l'alert dans la div gameDiv, qui est centrée
     document.getElementById("boxAlert").style.display = "none";
     txtToDispay = `<br/><div class="textDiv whiteText">` + myTextToDisplay;

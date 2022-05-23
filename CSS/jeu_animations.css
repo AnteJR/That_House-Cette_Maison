@@ -26,8 +26,9 @@
 /*  ANIMATION POUR LES TEXTES "SAD"  */
 @keyframes sWobble { 
     0%      { transform: rotate(0deg) translateY(0px) }
-    25%     { transform: rotate(2deg) translateY(2px) }
-    75%     { transform: rotate(-2deg) translateY(-2px) }
+    25%     { transform: rotate(4deg) translateY(4px) }
+    0%      { transform: rotate(0deg) translateY(0px) }
+    75%     { transform: rotate(-4deg) translateY(-4px) }
     100%    { transform: rotate(0deg) translateY(0px) }
 }
 
