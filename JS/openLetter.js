@@ -23,11 +23,11 @@ function openLetter(k) {
     document.getElementById("gameScreen").style.marginTop = "10%";
 
     // sélectionne le texte à insérer dans la div #gameDiv et le fait (+ un bouton)
-    let monTxt = myGameTxt.scenes[myGameTxt.currentScene].items[0].useTxtOpen;
+    let monTxt = MYGAME.scenes[MYGAME.currentScene].items[0].useTxtOpen;
     let monTxtLength = monTxt.length;
     monTxt = monTxt[k];
     if (k < monTxtLength - 1) monTxt += `<br /><br /><input type="button" value="Continuer" class="buttonGoBack" id="buttonGoBack"/>`
-    else monTxt += `${myGameTxt.username}</div><br /><br /><input type="button" value="Fermer la lettre" class="buttonGoBack" id="buttonGoBack"/>`
+    else monTxt += `${MYGAME.username}</div><br /><br /><input type="button" value="Fermer la lettre" class="buttonGoBack" id="buttonGoBack"/>`
     gameDiv.innerHTML = monTxt;
 
     // réduit la taille des caractères paragraphes pour cette occasion
@@ -51,8 +51,8 @@ function openLetter(k) {
             document.getElementById("gameScreen").style.marginTop = "0%";
             document.getElementById("monStyle").style.display = "block";
             
-            myGameTxt.scenes[myGameTxt.currentScene].items[0].lookingAtLetter = false;
-            actOne(false);
+            MYGAME.scenes[MYGAME.currentScene].items[0].lookingAtLetter = false;
+            displayMainText(false);
             isDefault = getDefault;
         }
     });

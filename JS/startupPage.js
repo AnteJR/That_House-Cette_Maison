@@ -34,14 +34,9 @@ function startUpSetUp() {
                     document.getElementById("alertButton2").addEventListener("click", () => {
                         clickButton();
                         localStorage.clear();
-                        myGameTxt.currentAct = 0;
-                        myGameTxt.currentScene = 7;
-                        actOne(true);
+                        MYGAME.currentScene = 1;
+                        displayMainText();
                         playMusic("denial");
-                    });
-
-                    document.getElementById("alertButton2").addEventListener("mouseover", () => {
-                        hoverButton();
                     });
 
                     document.getElementById("alertButton3").addEventListener("click", () => {
@@ -49,31 +44,35 @@ function startUpSetUp() {
                         gameLaunch();
                     });
 
-                    document.getElementById("alertButton3").addEventListener("mouseover", () => {
-                        hoverButton();
-                    });
+                    document.getElementById("alertButton2").addEventListener("mouseover", () => hoverButton());
+                    document.getElementById("alertButton3").addEventListener("mouseover", () => hoverButton());
                 }
                 else {
-                    myGameTxt.currentAct = 0;
-                    myGameTxt.currentScene = 7;
-                    actOne(true);
+                    MYGAME.currentScene = 1;
+                    displayMainText();
                     playMusic("denial");
                 }
-                getFS();
+                //getFS();
             }
             // pour continuer sa partie
             else if (maClass == "continueButton") {
                 if (localStorage.username) {
-                    myGameTxt.currentAct = parseInt(localStorage.act);
-                    myGameTxt.username = localStorage.username;
+                    let joueur = MYGAME.player;
+                    joueur.currentAct = parseInt(localStorage.act);
+                    joueur.username = localStorage.username;
+                    joueur.shortName = localStorage.shortName;
+                    MYGAME.currentScene = 0;
+                    
                     // reset le style, notamment en affichant le bas de l'écran, et c'est parti
                     gameDiv.style.textAlign = "left";
                     gameDiv.style.marginTop = "0%";
                     document.getElementsByClassName("bottomScreen")[0].style.display = "block";
-                    actOne(true);
+
                     if (localStorage.act >= 1 && localStorage.act <=3) playMusic("denial");
                     if (localStorage.act == 4) playMusic("acceptance");
-                    getFS();
+                    
+                    displayMainText();
+                    //getFS();
                 }
             }
             // afficher des infos sur le jeu et son développeur (moi lol)
@@ -100,5 +99,15 @@ function getFS(){
         // element has entered fullscreen mode successfully
     }).catch(function(error) {
         // element could not enter fullscreen mode
+        console.log(error);
     });;
+}
+
+function displayFade (interv, speed, element) {
+    setTimeout(()=>{
+        if (parseFloat(element.style.opacity) < 1) {
+            element.style.opacity = parseFloat(element.style.opacity) + speed;
+            displayFade(interv, speed, element);
+        }
+    },interv)
 }

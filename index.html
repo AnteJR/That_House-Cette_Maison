@@ -9,7 +9,7 @@
     <!-- FEUILLES DE STYLE -->
     <link rel="stylesheet" href="./CSS/jeu.css">
     <link rel="stylesheet" href="./CSS/jeu_animations.css">
-    <title>Ma Maison</title>
+    <title>Cette Maison</title>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
     <!-- DIV QUI CONTIENT L'ENTIER DE L'INTERFACE DE JEU -->
     <div class="gameContainer">
         <div class="topScreen">
-            <div class="wobblyTitle titleDiv whiteText" id="titleGame">MA MAISON</div>
+            <div class="wobblyTitle titleDiv whiteText" id="titleGame">CETTE MAISON</div>
             <div class="gameScreen" id="gameScreen"></div>
         </div>
         <div class="bottomScreen" id="screenBottom">
@@ -45,7 +45,7 @@
     </div>
 
     <!-- DIV POUR LES GRAPHISMES -->
-    <div class="whiteText mesStyles interactiveText" id="monStyle">Visuels</div>
+    <div class="whiteText mesStyles hoverableText" id="monStyle">Visuels</div>
 
     <!-- DIV POUR LES ALERTS -->
     <div class="alertBox" id="boxAlert" style="display:none">
@@ -72,13 +72,14 @@
 
     <!-- CHARGEMENT DES SCRIPTS ICI POUR LES CHARGER APRÈS LE DOM -->
     <script type="text/javascript" src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
-    <script type="text/javascript" src="JS/localStorageManagement.js"></script>
     <script type="text/javascript" src="JS/gameVar.js"></script>
     <script type="text/javascript" src="JS/musicManagement.js"></script>
+    <script type="text/javascript" src="JS/changeStyle.js"></script>
     <script type="text/javascript" src="JS/textDisplay.js"></script>
     <script type="text/javascript" src="JS/endScreen.js"></script>
-    <script type="text/javascript" src="JS/alertDisplay.js"></script>
-    <script type="text/javascript" src="JS/act1.js"></script>
+    <script type="text/javascript" src="JS/displayAlert.js"></script>
+    <script type="text/javascript" src="JS/nextAct.js"></script>
+    <script type="text/javascript" src="JS/displayMainText.js"></script>
     <script type="text/javascript" src="JS/startupPage.js"></script>
     <script type="text/javascript" src="JS/textInput.js"></script>
     <script type="text/javascript" src="JS/homePage.js"></script>

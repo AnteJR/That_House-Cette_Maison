@@ -12,7 +12,7 @@ function endScreen(i) {
     document.getElementById("gameScreen").style.textAlign = "center";
 
     // on affiche le texte correspondant et un bouton à la value correspondante, qu'on inscrit dans la div #gameDiv
-    let monTxt = myGameTxt.scenes[myGameTxt.currentScene].items[1].acceptTxtLetterOpen;
+    let monTxt = MYGAME.scenes[MYGAME.currentScene].items[1].acceptTxtLetterOpen;
     let txtToDisplay = `<div class="textDiv bigTextDiv">` + monTxt[0][i];
     txtToDisplay += `</div><br/><br/><input type="button" value="${monTxt[1][i]}" class="buttonGoForward" id="buttonMoveForward"/>`
     gameDiv.innerHTML = txtToDisplay;
@@ -54,8 +54,8 @@ function endScreen(i) {
                 localStorage.clear();
                 gameLaunch();
                 document.getElementById("titleGame").style.display = "block";
-                myGameTxt.isFinished = false;
-                myGameTxt = baseGameTxt;
+                MYGAME.isFinished = false;
+                MYGAME = baseGameTxt;
             });
 
             document.getElementById("buttonBackHome").addEventListener("mouseover", () => {

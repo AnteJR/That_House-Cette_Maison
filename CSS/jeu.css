@@ -19,6 +19,7 @@ body {
     padding:0px;
     margin:0px;
     background-color: rgb(3, 15, 26);
+    overflow: hidden;
 }
 
 /*  DIV QUI COMPOSENT LA PAGE  */
@@ -64,7 +65,7 @@ body {
 }
 .enterTxt {
     width: 50%;
-    height: 30%;
+    height: 25%;
     margin-left: 25%;
 }
 .menuDiv {
@@ -74,6 +75,7 @@ body {
     width: 80%;
     height: 70%;
     margin-left: 10%;
+    padding-top: 1%;
     border-width:5px 0px 0px 0px;
     border-style:solid;
     border-image: 
@@ -146,7 +148,7 @@ body {
     color:white;
     font-size:1em;
     width:100%;
-    height:90%;
+    height:100%;
     font-family: "retroGame";
     background-color: rgba(0, 0, 0, 0);
     border:none;
@@ -173,10 +175,15 @@ body {
     cursor: pointer;
     display: inline-block;
 }
+.hoverableText {
+    cursor: pointer;
+    display: inline-block;
+    user-select: none;
+}
 .decorationTxt {
     display:inline-block;
 }
-.interactiveText:hover, .menuTxt:hover {
+.interactiveText:hover, .menuTxt:hover, .hoverableText:hover {
     color: rgba(255, 255, 255, 0.2);
 }
 
@@ -197,6 +204,7 @@ body {
     position: absolute;
     background-color: rgb(3, 15, 26);
     z-index:1;
+    font-size: 0.9em;
 }
 .txtAlert {
     width:80%;
