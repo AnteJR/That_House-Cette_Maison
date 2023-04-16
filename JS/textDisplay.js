@@ -1,18 +1,12 @@
 // OBSERVER SI L'INNERHTML DE LA DIV #GAMESCREEN CHANGE, SI OUI, LANCER DISPLAYGAMETEXT()
 let isDefault = true;
 let gameDiv = document.getElementById("gameScreen");
-const observer = new MutationObserver(function () {
-    // lancer la fonction pour afficher les textes
-    displayGameText();
-    if (isDefault == true) putBackStyles(false);
-    else if (isDefault == false) deleteStyles(false);
-});
-observer.observe(gameDiv, { characterData: false, childList: true, attributes: false });
+//const observer = new MutationObserver(() => displayGameText());
+//observer.observe(gameDiv, { characterData: false, childList: true, attributes: false });
 
 // FONCTION POUR AFFICHER DU TEXTE PHRASE APRÈS PHRASE
-let monInterval;
 function displayGameText() {
-    txtDisplay(false);
+    txtDisplay();
     let textsToAppear = document.querySelectorAll('.textDiv');
     let texts = [];
 
@@ -43,69 +37,55 @@ function displayGameText() {
     // un forEach pour chaque div qui contient du texte
     textsToAppear.forEach((el, idx) => {
         // on récupère le textContent de chaque div et on l'ajoute dans un array, 
-        let textOriginal = el.textContent;
+        let textOriginal = el.textContent,
+            text = textOriginal.split(""),
+            nbrChar = text.length,
+            charPos = 0;
+
         texts.push(textOriginal);
         el.innerHTML = "";
 
-        // on split le texte original de chaque div pour en savoir sa longueur en caractère
-        let text = textOriginal.split("");
-        let nbrChar = text.length;
-        let charPos = 0;
-
         // on appelle la fonction qui affiche caractère par caractère
-        txtDisplay(true, nbrChar, charPos, el, text, idx);
+        txtDisplay(nbrChar, charPos, el, text, idx);
     });
 
     // AFFICHER LES STRINGS LES UN APRES LES AUTRES, PUIS LES CHAR LES UNS APRES LES AUTRES
-    function txtDisplay(canRun, i, j, element, txtFrag, index) {
+    function txtDisplay(i, j, element, txtFrag, index) {
         // gestion des intervals pour les timeout
         let interval1 = 0;
         let interval2 = 30;
         let diviser = 1;
         // dans le cas spécifique de l'affichage de la lettre, on a besoin que ça s'affiche plus rapidement
-        if (MYGAME.player.currentAct >= 4 && MYGAME.currentScene >= 5 && MYGAME.scenes[5].items[0].lookingAtLetter == true) {
-            diviser = 3;
-            interval2 = (interval2 - 13) / diviser;
-        }
+        if (MYGAME.player.currentAct >= 4 && MYGAME.currentScene >= 5 && MYGAME.scenes[5].items[0].lookingAtLetter == true) interval2 = (interval2 - 13) / 3;
         if (index > 0) {
             let previousTexts = 0;
-            for (let k = 0; k < texts.length - 1; k++) {
-                previousTexts += texts[k].length;
-            }
+            for (let k = 0; k < texts.length - 1; k++) previousTexts += texts[k].length;
             interval1 = (35 * previousTexts) / diviser;
         }
 
-        // 2 setimeout imbriqués :
-        // 1. Le premier prend comme intervale la somme des caractères des strings le précédent * 50ms
-        // 2. Le deuxième prend comme intervale "interval2", donc 43ms
-        let monTimeout = setTimeout(() => {
-            let monTimeout2 = setTimeout(() => {
-                if (canRun == true) {
-                    if (i > 0) {
+        // AFFICHAGE LETTRE APRES LETTRE, STRING APRES STRING
+        setTimeout(() => {
+            setTimeout(() => {
+                if (i > 0) {
+                    let maClass = element.getAttribute("class").split(" ")[0];
 
-                        let maClass = element.getAttribute("class").split(" ")[0];
+                    // afficher les espaces comme des espaces inséquables (sans quoi ils ne s'affichent pas en fin de string)
+                    if (txtFrag[j] == " " && (maClass == "wobblyTxt" || maClass == "angerWobble" || maClass == "bargainWobble" || maClass == "sadWobble" || maClass == "acceptanceWobble")) txtFrag[j] = "&nbsp;";
 
-                        // afficher les espaces comme des espaces inséquables (sans quoi ils ne s'affichent pas en fin de string)
-                        if (txtFrag[j] == " " && (maClass == "wobblyTxt" || maClass == "angerWobble" || maClass == "bargainWobble" || maClass == "sadWobble" || maClass == "acceptanceWobble")) {
-                            txtFrag[j] = "&nbsp;"
-                        }
+                    // set de condition pour appliquer des délais aux spans qui contiennent les animations
+                    if (maClass == "wobblyTxt") element.innerHTML += `<span style="animation-delay: ${j * 50}ms">${txtFrag[j]}</span>`;
+                    else if (maClass == "angerWobble") element.innerHTML += `<span style="animation-delay: ${j * 20}ms">${txtFrag[j]}</span>`;
+                    else if (maClass == "bargainWobble") element.innerHTML += `<span style="animation-delay: ${j * 500}ms">${txtFrag[j]}</span>`;
+                    else if (maClass == "sadWobble") element.innerHTML += `<span style="animation-delay: ${j * 500}ms">${txtFrag[j]}</span>`;
+                    else if (maClass == "acceptanceWobble") element.innerHTML += `<span style="animation-delay: ${0}ms">${txtFrag[j]}</span>`;
+                    else element.innerHTML += txtFrag[j];
 
-                        // set de condition pour appliquer des délais aux spans qui contiennent les animations
-                        if (element.getAttribute("class").split(" ")[0] == "wobblyTxt") element.innerHTML += `<span style="animation-delay: ${j * 50}ms">${txtFrag[j]}</span>`;
-                        else if (element.getAttribute("class").split(" ")[0] == "angerWobble") element.innerHTML += `<span style="animation-delay: ${j * 20}ms">${txtFrag[j]}</span>`;
-                        else if (element.getAttribute("class").split(" ")[0] == "bargainWobble") element.innerHTML += `<span style="animation-delay: ${j * 500}ms">${txtFrag[j]}</span>`;
-                        else if (element.getAttribute("class").split(" ")[0] == "sadWobble") element.innerHTML += `<span style="animation-delay: ${j * 500}ms">${txtFrag[j]}</span>`;
-                        else if (element.getAttribute("class").split(" ")[0] == "acceptanceWobble") element.innerHTML += `<span style="animation-delay: ${0}ms">${txtFrag[j]}</span>`;
-                        else element.innerHTML += txtFrag[j];
+                    if (isDefault == true) putBackStyles(false);
+                    else if (isDefault == false) deleteStyles(false);
 
-                        j++;
-                        i--;
-                        txtDisplay(true, i, j, element, txtFrag);
-                    }
-                }
-                else {
-                    clearTimeout(monTimeout);
-                    clearTimeout(monTimeout2);
+                    j++;
+                    i--;
+                    txtDisplay(i, j, element, txtFrag);
                 }
             }, interval2);
         }, interval1);

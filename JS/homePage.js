@@ -25,7 +25,8 @@ function homePage() {
         gameLaunch();
     });
 
-    setTimeout(() => displayFade (75, 0.01, monBtn), 2000)
+    setTimeout(() => displayFade (75, 0.01, monBtn), 2000);
+    displayGameText();
 }
 
 homePage();

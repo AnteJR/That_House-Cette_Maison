@@ -123,6 +123,8 @@ function gameLaunch() {
 
     // insertion du texte contenant les élément du menu
     gameDiv.innerHTML = `<div class="startButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 0s">~~~ Nouvelle partie ~~~</div><br/><br/><div class="continueButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 1s">~~~ Continuer ~~~</div><br/><br/><div class="aboutButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 2s">~~~ Informations ~~~</div>`;
+                    
+    displayGameText();
 
     // lancement de la fonction startUpSetUp(), qui ajoute les eventListener aux textes
     startUpSetUp();

@@ -37,9 +37,7 @@ function displayMainText() {
             clickButton();
         });
 
-        document.getElementById("buttonGo").addEventListener("mouseover", () => {
-            hoverButton();
-        });
+        document.getElementById("buttonGo").addEventListener("mouseover", () => hoverButton());
     }
 
     // CONDITION PRINCIPALE
@@ -111,6 +109,8 @@ function displayMainText() {
 
         checkInteractiveWords();
     }
+                    
+    displayGameText();
 }
 
 // CETTE FONCTION LISTE LES MOTS INTERACTIFS DANS LA SCENE CHARGEE
