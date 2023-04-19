@@ -5,11 +5,11 @@
 function endScreen(i) {
 
     // on set les styles nécessaires, en désaffichang notamment la plupart de l'interface
-    document.getElementById("boxAlert").style.display = "none";
-    document.getElementById("screenBottom").style.display = "none";
-    document.getElementById("titleGame").style.display = "none";
-    document.getElementById("gameScreen").style.marginTop = "10%";
-    document.getElementById("gameScreen").style.textAlign = "center";
+    monAlert.style.display = "none";
+    bottomScreen.style.display = "none";
+    title.style.display = "none";
+    gameDiv.style.marginTop = "10%";
+    gameDiv.style.textAlign = "center";
 
     // on affiche le texte correspondant et un bouton à la value correspondante, qu'on inscrit dans la div #gameDiv
     let monTxt = MYGAME.scenes[MYGAME.currentScene].items[1].acceptTxtLetterOpen;
@@ -26,7 +26,7 @@ function endScreen(i) {
 
         // sinon, on lance le générique de fin
         else {
-            document.getElementById("gameScreen").style.marginTop = "25px";
+            gameDiv.style.marginTop = "25px";
             txtToDisplay = `<div class="textDiv bigTextDiv">`;
 
             // dans tous les cas, on affiche le générique, avec un bouton pour revenir au menu home et vider le localStorage
@@ -53,7 +53,7 @@ function endScreen(i) {
                 clickButton();
                 localStorage.clear();
                 gameLaunch();
-                document.getElementById("titleGame").style.display = "block";
+                title.style.display = "block";
                 MYGAME.isFinished = false;
                 MYGAME = baseGameTxt;
             });

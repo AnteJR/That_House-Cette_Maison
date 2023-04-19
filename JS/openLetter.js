@@ -3,7 +3,6 @@
     SCÈNE DE L'ACTE 5 ET OBLIGATOIRE À LIRE. ELLE MODIFIE LE STYLE ET LE RÉTABLIT
     UNE FOIS LA LETTRE LU.
 */
-let getDefault;
 function openLetter(k) {
 
     if (k==0) getDefault = isDefault;
@@ -14,13 +13,13 @@ function openLetter(k) {
     document.body.style.color = "rgb(3, 15, 26)";
     document.getElementsByClassName("gameContainer")[0].style.backgroundColor = "white";
     document.body.style.opacity = 1;
-    document.getElementById("commandInput").value = "";
+    monInput.value = "";
     document.getElementsByClassName("gameContainer")[0].style.borderWidth = "0px";
-    document.getElementById("boxAlert").style.display = "none";
-    document.getElementById("screenBottom").style.display = "none";
-    document.getElementById("titleGame").style.display = "none";
+    monAlert.style.display = "none";
+    bottomScreen.style.display = "none";
+    title.style.display = "none";
     document.getElementById("monStyle").style.display = "none";
-    document.getElementById("gameScreen").style.marginTop = "10%";
+    gameDiv.style.marginTop = "10%";
 
     // sélectionne le texte à insérer dans la div #gameDiv et le fait (+ un bouton)
     let monTxt = MYGAME.scenes[MYGAME.currentScene].items[0].useTxtOpen;
@@ -46,9 +45,9 @@ function openLetter(k) {
             document.getElementsByClassName("gameContainer")[0].style.backgroundColor = "rgb(3, 15, 26)";
             document.getElementById("flickerDiv").style.display = "block";
             document.getElementsByClassName("gameContainer")[0].style.borderWidth = "5px";
-            document.getElementById("screenBottom").style.display = "block";
-            document.getElementById("titleGame").style.display = "block";
-            document.getElementById("gameScreen").style.marginTop = "0%";
+            bottomScreen.style.display = "block";
+            title.style.display = "block";
+            gameDiv.style.marginTop = "0%";
             document.getElementById("monStyle").style.display = "block";
             
             MYGAME.scenes[MYGAME.currentScene].items[0].lookingAtLetter = false;

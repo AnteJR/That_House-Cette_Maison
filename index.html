@@ -17,7 +17,7 @@
     <div class="flicker" id="flickerDiv"></div>
 
     <!-- DIV QUI CONTIENT L'ENTIER DE L'INTERFACE DE JEU -->
-    <div class="gameContainer">
+    <div class="gameContainer" id="gameContainer">
         <div class="topScreen">
             <div class="wobblyTitle titleDiv whiteText" id="titleGame">CETTE MAISON</div>
             <div class="gameScreen" id="gameScreen"></div>
@@ -29,16 +29,16 @@
             <div class="commandsList">
                 <div class="menuDiv whiteText" align="center">~~~ LISTE DES COMMANDES ~~~</div>
                 <div class="baseCommands">
-                    <div class="command whiteText lookC" id="lookC"><span>VOIR</span></div>
-                    <div class="command whiteText useC" id="useC"><span>UTILISER</span></div>
-                    <div class="command whiteText goC" id="goC"><span>ALLER</span></div>
-                    <div class="command whiteText leaveC" id="leaveC"><span>QUITTER</span></div>
+                    <div class="command whiteText lookC" id="lookC" data-command="voir"><span>VOIR</span></div>
+                    <div class="command whiteText useC" id="useC" data-command="utiliser"><span>UTILISER</span></div>
+                    <div class="command whiteText goC" id="goC" data-command="aller"><span>ALLER</span></div>
+                    <div class="command whiteText leaveC" id="leaveC" data-command="quitter"><span>QUITTER</span></div>
                 </div>
                 <div class="baseCommands bonusCommands" id="bonusCommands">
-                    <div class="command hitC bonusC" id="hitC"><span class="iAmAnger">FRAPPER</span></div>
-                    <div class="command inspectC bonusC" id="inspectC"><span class="iAmBargain">INSPECTER</span></div>
-                    <div class="command waitC bonusC" id="waitC"><span class="iAmDepression">ATTENDRE</span></div>
-                    <div class="command acceptC bonusC" id="acceptC"><span class="iAmAcceptance">ACCEPTER</span></div>
+                    <div class="command hitC bonusC" id="hitC" data-command="frapper"><span class="iAmAnger">FRAPPER</span></div>
+                    <div class="command inspectC bonusC" id="inspectC" data-command="inspecter"><span class="iAmBargain">INSPECTER</span></div>
+                    <div class="command waitC bonusC" id="waitC" data-command="attendre"><span class="iAmDepression">ATTENDRE</span></div>
+                    <div class="command acceptC bonusC" id="acceptC" data-command="accepter"><span class="iAmAcceptance">ACCEPTER</span></div>
                 </div>
             </div>
         </div>

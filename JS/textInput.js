@@ -1,6 +1,3 @@
-let monInput = document.getElementById("commandInput"),
-    counterCommands = 0;
-
 // EVENTLISTENER DE L'INPUT POUR DES EVENTS SPECIFIQUES (ENTER, ARROWUP, ARROWDOWN)
 monInput.addEventListener("keydown", (e) => {
     if (document.getElementById("boxAlert").style.display == "none") {
@@ -15,38 +12,39 @@ monInput.addEventListener("keydown", (e) => {
 
 // EVENTLISTENER SANS FOCUS
 window.addEventListener('keydown', (e) => {
-    let canPlaySound = false;
+    let canPlaySound = false,
+        input = monInput;
 
     if (MYGAME.currentScene > 0) {
 
-        if (MYGAME.currentScene == 1) monInput = document.getElementById("monUsername");
-        else monInput = document.getElementById("commandInput");
+        if (MYGAME.currentScene == 1) input = document.getElementById("monUsername");
+        else input = document.getElementById("commandInput");
 
         // mettre le son ici permet de le jouer chaque fois que le user presse une touche, peu importe ce qui est focus
         if (!MYGAME.isFinished) canPlaySound = true;
         if (canPlaySound) playKeyType();
 
         // ne fonctionne que si l'input n'est pas focused, ce afin d'éviter les doubles inputs
-        if (monInput != document.activeElement) {
+        if (input != document.activeElement) {
             if (document.getElementById("boxAlert").style.display == "none") {
 
                 // s'il s'agit de touches qui peuvent faire bouger la position de la fenêtre, on désactive leur effet par défaut
-                if (e.key === "Spacebar" || e.key === " " || e.key != "ArrowLeft" || e.key != "ArrowRight" || e.key != "ArrowDown" || e.key != "ArrowUp" || e.key === "Escape") {
+                if (e.key === "Spacebar" || e.key === " " || e.key === "Escape") {
                     e.preventDefault();
                 }
 
                 // on bloque les caractères spéciaux style shift, caps, ctrl, et on ajoute à l'input le reste
                 if (e.key != "Backspace" && e.key != "Enter" && e.key != "Meta" && e.key != "Shift" && e.key != "CapsLock" && e.key != "Control" && e.key != "Alt" && e.key != "ArrowLeft" && e.key != "ArrowRight" && e.key != "ArrowDown" && e.key != "ArrowUp" && e.key != "Dead" && e.key != "Escape") {
-                    monInput.value += e.key;
+                    input.value += e.key;
                 }
                 else if (e.key == "Backspace") {
-                    let valueInput = monInput.value.split("");
+                    let valueInput = input.value.split("");
                     valueInput.pop();
-                    monInput.value = valueInput.join("");
+                    input.value = valueInput.join("");
                 }
                 else if (e.key == "Enter") {
                     counterCommands = 0;
-                    if (monInput.value != "") validateInput();
+                    if (input.value != "") validateInput();
                 }
                 else if (e.key == "ArrowUp") browseArrowUp();
                 else if (e.key == "ArrowDown") browseArrowDown();
@@ -64,8 +62,8 @@ window.addEventListener('keydown', (e) => {
 });
 
 function validateInput() {
-    if (monInput.value.split(" ").length == 1 && monInput.value == "quitter") monInput.value = "quitter ";
-    else if (monInput.value.split(" ").length < 2 && monInput.value != "quitter") monInput.value = "false statement";
+    if (monInput.value == "quitter") monInput.value = "quitter ";
+    if (monInput.value.split(" ").length < 2 && monInput.value != "quitter") monInput.value = "false statement";
     displayAlert(monInput.value);
     monInput.value = "";
     setTimeout(() => document.activeElement.blur(), 50);
@@ -74,22 +72,23 @@ function validateInput() {
 function browseArrowUp() {
     if (MYGAME.previousInput.length > 0 && counterCommands <= MYGAME.previousInput.length) {
         if (counterCommands + 1 <= MYGAME.previousInput.length) counterCommands++;
-        monInput.value = MYGAME.previousInput[(MYGAME.previousInput.length) - counterCommands];
+        if (MYGAME.previousInput[MYGAME.previousInput.length - counterCommands] != undefined) monInput.value = MYGAME.previousInput[MYGAME.previousInput.length - counterCommands];
+        else monInput.value = "";
     }
 }
 
 function browseArrowDown() {
     if (MYGAME.previousInput.length > 0 && counterCommands <= MYGAME.previousInput.length) {
-        if (counterCommands - 1 > 0) counterCommands--;
-        monInput.value = MYGAME.previousInput[(MYGAME.previousInput.length) - counterCommands];
+        if (counterCommands - 1 >= 0) counterCommands--;
+        if (MYGAME.previousInput[MYGAME.previousInput.length - counterCommands] != undefined) monInput.value = MYGAME.previousInput[MYGAME.previousInput.length - counterCommands];
+        else monInput.value = "";
     }
 }
 
 // EVENTLISTENER POUR LES COMMANDES EN BAS DE L'ECRAN
-const mesCommandes = document.querySelectorAll(".command");
 mesCommandes.forEach((element) => {
     element.addEventListener("click", function () {
-        let maCommande = this.textContent,
+        let maCommande = this.dataset.command,
             canBeUsed = false,
             monAct = MYGAME.player.currentAct;
 
@@ -112,21 +111,3 @@ mesCommandes.forEach((element) => {
         }
     });
 });
-
-// CETTE FONCTION LANCE LE MENU
-function gameLaunch() {
-    // changement léger du style de la page
-    gameDiv.style.textAlign = "center";
-    gameDiv.style.marginTop = "10%";
-    document.getElementsByClassName("bottomScreen")[0].style.display = "none";
-    document.getElementById("titleGame").style.fontSize = "1.50em";
-
-    // insertion du texte contenant les élément du menu
-    gameDiv.innerHTML = `<div class="startButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 0s">~~~ Nouvelle partie ~~~</div><br/><br/><div class="continueButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 1s">~~~ Continuer ~~~</div><br/><br/><div class="aboutButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 2s">~~~ Informations ~~~</div>`;
-                    
-    displayGameText();
-
-    // lancement de la fonction startUpSetUp(), qui ajoute les eventListener aux textes
-    startUpSetUp();
-    playMusic("menu");
-}

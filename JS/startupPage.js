@@ -1,7 +1,4 @@
-/*
-    CETTE FONCTION SERT À AFFICHER LA PAGE D'ACCUEIL
-    ET SES TROIS OPTIONS : "NEW GAME", "CONTINUE" ET "ABOUT"
-*/
+// AFFICHER LA PAGE D'ACCUEIL ET GERER SES 3 OPTIONS (NOUVELLE PARTIE, CONTINUER, CREDITS)
 function startUpSetUp() {
     // on revient en haut de la page
     window.scrollTo(0, 0);
@@ -109,6 +106,7 @@ function getFS() {
 
 function displayFade(interv, speed, element) {
     setTimeout(() => {
+        if (element == undefined) return;
         if (parseFloat(element.style.opacity) < 1) {
             element.style.opacity = parseFloat(element.style.opacity) + speed;
             displayFade(interv, speed, element);

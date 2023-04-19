@@ -1,22 +1,26 @@
 //CETTE FONCTION SERT À AFFICHER UNE NOUVELLE SCÈNE
-function displayMainText() {
+function displayMainText(scene) {
     // on revient en haut de la page
     window.scrollTo(0, 0);
     document.getElementById("titleGame").style.fontSize = "1.25em";
 
+    if (scene != undefined) MYGAME.currentScene = parseInt(scene);
+
     let thisAct = MYGAME.player.currentAct,
-        maScene = MYGAME.scenes[MYGAME.currentScene],
+        sceneCourante = MYGAME.currentScene,
+        maScene = MYGAME.scenes[sceneCourante],
+        txtToAdd = "",
         monTxt = "",
         mesTxt = maScene.texts;
 
     // on vérifie les couleurs et l'accès aux fonctionnalités bonus, qui se débloquent à un nouvel acte
-    inspectColor(parseInt(MYGAME.player.currentAct));
+    inspectColor(parseInt(thisAct));
 
     // CONDITION PRINCIPALE
-    if (MYGAME.currentScene == 0) {
+    if (sceneCourante == 0) {
         gameDiv.style.textAlign = "center";
 
-        document.getElementById("screenBottom").style.display = "none";
+        bottomScreen.style.display = "none";
 
         mesTxt[thisAct].text.forEach((e) => {
             if (e[1] == true) monTxt += `<br/><div class = "titleDiv whiteText">`;
@@ -31,9 +35,8 @@ function displayMainText() {
 
         // on attribue un eventListener au bouton #buttonGo pour accéder à la scène 0 de l'acte actuel
         document.getElementById("buttonGo").addEventListener("click", function () {
-            document.getElementById("screenBottom").style.display = "block";
-            MYGAME.currentScene = 2;
-            displayMainText();
+            bottomScreen.style.display = "block";
+            displayMainText(2);
             clickButton();
         });
 
@@ -41,7 +44,7 @@ function displayMainText() {
     }
 
     // CONDITION PRINCIPALE
-    else if (MYGAME.currentScene == 1) {
+    else if (sceneCourante == 1) {
         gameDiv.style.textAlign = "center";
         monTxt = `<br/>
                 <div class="titleDiv whiteText">
@@ -93,43 +96,32 @@ function displayMainText() {
     else {
         gameDiv.style.textAlign = "left";
 
-        mesTxt.forEach((e, i) => {
-            let isToBeDisplayed = false;
+        mesTxt.forEach((e) => {
+            let isToBeDisplayed = false,
+                activeWord = "";
+
+            if (e.active) {
+                let txtSplit = e.text.split("");
+                txtSplit.forEach((el) => {
+                    if (el == "." || el == ",") txtSplit.pop();
+                });
+                activeWord = txtSplit.join("");
+            }
             if (e.act == "regular" || (e.act == "angry" && thisAct >= 1) || (e.act == "bargain" && thisAct >= 2) || (e.act == "sad" && thisAct >= 3) || (e.act == "accept" && thisAct >= 4)) isToBeDisplayed = true;
-            if (e.act == "regular" || (e.act == "angry" && thisAct > 1) || (e.act == "bargain" && thisAct > 2) || (e.act == "sad" && thisAct > 3)) e.active ? monTxt += `<div class = "wobblyTxt textDiv interactiveText whiteText">` : monTxt += `<div class = "textDiv whiteText">`;
-            if (e.act == "angry" && thisAct == 1) e.active ? monTxt += `<div class = "angerWobble textDiv iAmAnger interactiveText">` : monTxt += `<div class = "textDiv iAmAnger">`;
-            if (e.act == "bargain" && thisAct == 2) e.active ? monTxt += `<div class = "bargainWobble textDiv iAmBargain interactiveText">` : monTxt += `<div class = "textDiv iAmBargain">`;
-            if (e.act == "sad" && thisAct == 3) e.active ? monTxt += `<div class = "sadWobble textDiv iAmDepression interactiveText">` : monTxt += `<div class = "textDiv iAmDepression">`;
-            if (e.act == "accept" && thisAct >= 4) e.active ? monTxt += `<div class = "acceptanceWobble textDiv iAmAcceptance interactiveText">` : monTxt += `<div class = "textDiv iAmAcceptance">`;
-            if (isToBeDisplayed) monTxt += e.text + `</div> `
+            if (e.act == "regular" || (e.act == "angry" && thisAct > 1) || (e.act == "bargain" && thisAct > 2) || (e.act == "sad" && thisAct > 3)) e.active ? txtToAdd = `<div class = "wobblyTxt textDiv interactiveText whiteText" data-word="${activeWord}">` : txtToAdd = `<div class = "textDiv whiteText">`;
+            if (e.act == "angry" && thisAct == 1) e.active ? txtToAdd = `<div class = "angerWobble textDiv iAmAnger interactiveText" data-word="${activeWord}">` : txtToAdd = `<div class = "textDiv iAmAnger">`;
+            if (e.act == "bargain" && thisAct == 2) e.active ? txtToAdd = `<div class = "bargainWobble textDiv iAmBargain interactiveText" data-word="${activeWord}">` : txtToAdd = `<div class = "textDiv iAmBargain">`;
+            if (e.act == "sad" && thisAct == 3) e.active ? txtToAdd = `<div class = "sadWobble textDiv iAmDepression interactiveText" data-word="${activeWord}">` : txtToAdd = `<div class = "textDiv iAmDepression">`;
+            if (e.act == "accept" && thisAct >= 4) e.active ? txtToAdd = `<div class = "acceptanceWobble textDiv iAmAcceptance interactiveText" data-word="${activeWord}">` : txtToAdd = `<div class = "textDiv iAmAcceptance">`;
+            if (isToBeDisplayed) monTxt += txtToAdd + e.text + `</div> `
         });
 
         // on insère le texte généré dans la div prévue pour les textes du jeu
         gameDiv.innerHTML = monTxt;
 
-        checkInteractiveWords();
+        mesMots = [];
+        document.querySelectorAll(".interactiveText").forEach((elems) => mesMots.push(elems.dataset.word));
     }
-                    
+
     displayGameText();
-}
-
-// CETTE FONCTION LISTE LES MOTS INTERACTIFS DANS LA SCENE CHARGEE
-let mesMots = [];
-
-function checkInteractiveWords() {
-    mesMots = [];
-
-    let interactiveElements = mesobjects = document.querySelectorAll(".interactiveText"),
-        interactiveObjects = [];
-
-    interactiveElements.forEach((elems) => interactiveObjects.push(elems.textContent));
-
-    interactiveObjects.forEach((objs) => {
-        let obj = objs.split("");
-        obj.forEach((letter, i) => {
-            if (letter == "." || letter == ",") obj[i] = ""
-            else obj[i] = letter;
-        });
-        mesMots.push(obj.join(""));
-    });
 }

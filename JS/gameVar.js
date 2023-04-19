@@ -52,7 +52,7 @@ const MYGAME = {
                     act: "angry",
                     active: false
                 }, {
-                    text: "Je me suis perdu dans les rues depuis un moment. Cette maison m'intrigue. Je me tiens devant son jardin. Je suis face à un",
+                    text: "Je me suis perdu dans les rues depuis un moment. Une maison m'intringue, et je m'y arrête. Je me tiens devant son jardin. Je suis face à un",
                     act: "regular",
                     active: false
                 }, {
@@ -529,7 +529,11 @@ const MYGAME = {
                     }
                 }, {    // leave
                     name: "leave",
-                    leftTxt: "Cette maison m'attire. En plus, j'ai marché trop longtemps, je ne vais pas partir maintenant."
+                    one: { text: "Cette maison m'attire. En plus, j'ai marché trop longtemps, je ne vais pas partir maintenant." },
+                    two: { text: "Je suis à nouveau devant cette maison. Pourquoi ? Je ne peux pas partir maintenant." },
+                    three: { text: "Je ne comprends pas pourquoi je suis à nouveau devant cette maison, mais je compte le découvrir. Je reste." },
+                    four: { text: "Je veux savoir ce qui se cache derrière cette maison. Je ne vais pas partir." },
+                    five: { text: "Cette maison est mienne. Je ne vais pas partir. Je dois y entrer une dernière fois..." }
                 }
             ]
         }, {    // PORCHE
@@ -664,7 +668,7 @@ const MYGAME = {
                             look: "La clef que j'ai en main semble correspondre à la serrure.",
                             use: "En un mouvement sec de la clef dans la serrure, la porte se déverouille.",
                             go: "Je suis déjà devant la porte.",
-                            hit: "Je me suis déjà fait mal à l'épaule. De plus, j'ai la clef en main.",
+                            hit: "Je me suis déjà fait mal à l'épaule en fonçant contre la porte la dernière fois. De plus, j'ai la clef en main.",
                             inspect: "La clef est lourde dans ma main. Elle est un peu rouillée."
                         },
                         open: {
@@ -1101,6 +1105,13 @@ const MYGAME = {
                             accept: "Soudain, je sens quelque chose de dur dans ma poche. En y passant ma main, je sens... une clef ? Je la prends en main."
                         }
                     }
+                }, {    // leave
+                    name: "leave",
+                    one: { text: "Je traverse le jardin triste pour revenir vers le portail. Cette maison me fait froid dans le dos." },
+                    two: { text: "Je reviens au portail, toujours en colère de me retrouver devant cette maison. Pourquoi elle ? Pourquoi moi ?" },
+                    three: { text: "Je marche le long du chemin traversant le jardin, la nature semble figée autour de moi. Je suis devant le portail." },
+                    four: { text: "J'ai besoin de prendre du temps. Je reviens sur mes pas, et attends devant le portail, ouvert." },
+                    five: { text: "Je suis de retour chez moi, mais un sentiment étouffant se saisit de moi. Je recule vers le portail." }
                 }
             ]
         }, {    // BUREAU
@@ -1202,7 +1213,7 @@ const MYGAME = {
                             go: "Je suis devant la porte, en haut de l'escalier.",
                             hit: "Je donne un coup d'épaule à la porte, comme je l'ai fait à l'entrée. Rien ne se passe."
                         },
-                        opening:{
+                        opening: {
                             interaction: [{ command: "utiliser", etat: "open", cible: [0] }],
                             look: "La clef que j'ai en main semble correspondre à la porte en haut des escaliers.",
                             use: "J'insère la clef dans la serrure. Après un tour, la porte est ouverte.",
@@ -1221,13 +1232,13 @@ const MYGAME = {
                         isOpened: false,
                         isOpening: false,
                         closed: {
-                            look: "L'escalier est cette fois-ci en bois plus solide et foncé. Il a meilleure mine",
+                            look: "L'escalier est cette fois-ci en bois plus solide et foncé. Il a meilleure mine.",
                             use: "La porte en haut des escaliers est à nouveau fermée à clef, impossible de l'ouvrir.",
                             go: "Je suis en haut des escaliers.",
                             hit: "Je donne un coup de talon dans la porte. Elle ne bouge pas d'une pouce.",
                             inspect: "Je remarque quelques gravures aux motifs animaliers dans la rampe de l'escalier."
                         },
-                        opening:{
+                        opening: {
                             interaction: [{ command: "utiliser", etat: "open", cible: [0] }],
                             look: "J'ai enfin récupéré une clef. Elle semble correspondre à la porte, heureusement.",
                             use: "J'insère la clef dans la serrure. Après deux tours cette fois, la porte s'ouvre.",
@@ -1248,45 +1259,257 @@ const MYGAME = {
                         isOpened: false,
                         isOpening: false,
                         closed: {
-                            look: "L'escalier est cette fois-ci en bois plus solide et foncé. Il a meilleure mine",
-                            use: "La porte en haut des escaliers est à nouveau fermée à clef, impossible de l'ouvrir.",
-                            go: "Je suis en haut des escaliers.",
-                            hit: "Je donne un coup de talon dans la porte. Elle ne bouge pas d'une pouce.",
-                            inspect: "Je remarque quelques gravures aux motifs animaliers dans la rampe de l'escalier."
+                            look: "L'escalier est nettement mieux défini, en un bois sombre et massif. Il a l'air solide. La porte en haut également.",
+                            use: "J'appuie sur la poignée. Rien. La porte est fermée à clef encore une fois...",
+                            go: "Je suis en haut des escaliers, devant la porte.",
+                            hit: "Je prends mon élan depuis les marches et je fonce contre la porte. Elle ne bouge pas.",
+                            inspect: "Sur la porte, un dessin à la peinture colorée, fait avec les doigts. Il représente un enfant qui joue dans l'herbe.",
+                            wait: "J'attends devant la porte, au sommet de l'escalier. Je ne sais pas si ça me sert à quoi que ce soit."
                         },
-                        opening:{
+                        opening: {
                             interaction: [{ command: "utiliser", etat: "open", cible: [0] }],
-                            look: "J'ai enfin récupéré une clef. Elle semble correspondre à la porte, heureusement.",
-                            use: "J'insère la clef dans la serrure. Après deux tours cette fois, la porte s'ouvre.",
-                            go: "Je suis en haut des escaliers.",
-                            hit: "J'ai déjà la clef, je ne vais pas m'acharner sur la porte en haut des escaliers.",
-                            inspect: "La clef est similaire à celle de l'entrée. Elle est lourde et légèrement rouillée."
+                            look: "La clef que j'ai en main semble correspondre à la porte.",
+                            use: "Je mets la clef dans la serrure et la tourne. La porte s'ouvre face à moi.",
+                            go: "Je suis en haut des escaliers, devant la porte.",
+                            hit: "Je ne pense pas que ça me soit utile. J'ai déjà la clef pour l'ouvrir.",
+                            inspect: "La clef est encore une fois différente. Cette fois plus petite et moderne. La marque est KABA.",
+                            wait: "La clef ne va pas se mettre dans la serrure toute seule en attendant..."
                         },
                         open: {
                             goWin: true,
-                            look: "La porte donne sur une chambre à coucher éclairée par la lune.",
-                            use: "J'ai déjà ouvert la porte.",
-                            go: "J'entre dans la pièce à l'étage, baignée dans la lueur lunaire...",
-                            hit: "J'ai déjà ouvert la porte, je n'ai pas de raison de la casser.",
-                            inspect: "La porte est en bois massif, et se pare d'une affiche pour un film, ou une exposition, je ne suis pas sûr."
+                            look: "La porte est ouverte et donne sur une chambre à coucher à l'étage.",
+                            use: "J'ai déjà ouvert la porte...",
+                            go: "J'entre sous la lumière de la lune à l'étage, une fois encore...",
+                            hit: "La porte est déjà ouverte, pas de raison de la frapper.",
+                            inspect: `La porte a une affiche pour la série "Midnight Mass" collée de l'autre côté.`,
+                            wait: "En attendant, la porte ouverte, l'air frais de l'extérieur carresse mes joues."
                         }
                     },
+                    five: {
+                        isFinal: false,
+                        isOpened: false,
+                        isOpening: false,
+                        closed: {
+                            look: "L'escalier est en bois sombre et massif. Il a l'air vieux, mais bien entretenu. D'époque, avec du cachet.",
+                            use: "La porte est à nouveau fermée à clef. Je vais devoir trouver un moyen de l'ouvrir.",
+                            go: "Je suis devant la porte, en haut des escaliers.",
+                            hit: "Je n'ai pas envie de frapper la porte, ni l'escalier.",
+                            inspect: "La porte est décorée d'un dessin enfantin, fait à la peinture. La chambre derrière est celle d'un enfant.",
+                            wait: "Je réfélchis à comment ouvrir la porte. Pour le moment, rien ne me vient.",
+                            accept: "Cette porte m'est familière, mais je ne saurais dire comment. Il y a peut-être des choses qui me rafraîront la mémoire dans le bureau."
+                        },
+                        opening: {
+                            interaction: [{ command: "accepter", etat: "open", cible: [0] }],
+                            look: "La porte est toujours fermée, mais je n'ai toujours pas de clef pour l'ouvrir.",
+                            use: "La porte est toujours impossible à ouvrir...",
+                            go: "Je suis devant la porte, en haut des escaliers.",
+                            hit: "Je ne veux pas frapper la porte ou l'escalier.",
+                            inspect: "Le dessin qui décore la porte représente un enfant qui joue sur une balançoire accrochée à un arbre.",
+                            wait: "Je pense qu'il faut que j'accepte la situtation. Je connais cette porte, j'en suis sûr...!",
+                            accept: "C'est la porte d'entrée de ma chambre quand j'étais enfant ! Elle n'avait pas à clef, elle devrait s'ouvrir sans ça."
+                        },
+                        open: {
+                            interaction: [{ command: "utiliser", etat: "final", cible: [0] }],
+                            look: "Je me revois enfant, montant les escaliers pour aller dans ma chambre. Celle-ci en est une exacte réplique.",
+                            use: "Mes doigts se posent sur la poignée, et la porte s'ouvre. Était-elle ouverte tout ce temps ?",
+                            go: "Je suis devant la porte, en haut des escaliers.",
+                            hit: "Je ne veux pas frapper la porte ou l'escalier.",
+                            inspect: "J'avais fait le dessin sur la porte avec de la peinture à doigts... Je devais avoir 4 ou 5 ans.",
+                            wait: "Des souvenirs passent derrière mes paupières alors que je ferme les yeux quelques minutes. Je me sens reposé.",
+                            accept: "C'est la porte d'entrée de ma chambre quand j'étais enfant."
+                        },
+                        final: {
+                            goWin: true,
+                            look: "La porte est ouverte. Derrière, la chambre à coucher. Est-ce que c'est la mienne ?",
+                            use: "La porte est desormais ouverte.",
+                            go: "J'entre une dernière fois dans la chambre à l'étage...",
+                            hit: "Je ne veux pas frapper la porte ou l'escalier.",
+                            inspect: `Le poster pour la série "Midnight Mass" n'est plus affiché au dos de la porte. Cette série n'existait pas quand j'étais enfant.`,
+                            wait: "Des souvenirs passent derrière mes paupières alors que je ferme les yeux quelques minutes. Je me sens reposé.",
+                            accept: "C'est la porte d'entrée de ma chambre quand j'étais enfant. Je ne crois pas que la chambre derrière soit la mienne cependant."
+                        }
+                    }
                 }, {    // bureau
-                    name : "bureau",
+                    name: "bureau",
                     determinant: "le ",
                     isLocated: false,
+                    two: {
+                        isOpened: false,
+                        closed: {
+                            interaction: [{ command: "frapper", etat: "opening", cible: [1] }],
+                            look: "C'est un bureau en métal gris-vert aux coins et bords rouillés. Il y a un cabinet à sa droite.",
+                            use: "Le bureau est froid et fragile sous mes mains. Le cabinet ne s'ouvre pas quand je tire dessus.",
+                            go: "Je suis devant le bureau.",
+                            hit: "Je frappe le cabinet d'un coup de pied sec. Un éclat métallique sourd m'indique que le tiroir devrait être débloqué."
+                        },
+                        opening: {
+                            interaction: [{ command: "utiliser", etat: "opening", cible: [0] }, { command: "utiliser", etat: "open", cible: [1] }],
+                            look: "Le bureau a l'air en piteux état. Le tiroir du cabinet est cassé et entrouvert.",
+                            use: "Je tire sur le tiroir déboîté. À l'intérieur, une clef rouillée. Je la prends avec moi.",
+                            go: "Je suis devant le bureau.",
+                            hit: "Je donne un nouveau coup de pied au cabinet, sans effet."
+                        },
+                        open: {
+                            look: "C'est un bureau en métal gris-vert aux coins et bords rouillés. Le cabinet à sa droite est cassé.",
+                            use: "J'ai déjà récupéré la clef. Il n'y a plus rien à voir sur ce bureau.",
+                            go: "Je suis devant le bureau.",
+                            hit: "Je donne un nouveau coup de pied au cabinet, sans effet."
+                        }
+                    },
+                    three: {
+                        isFinal: false,
+                        isOpened: false,
+                        isOpening: false,
+                        closed: {
+                            look: "Le bureau est en métal vert-gris, et a des airs de cabinet militaire. Il a toujours un cabinet à droite, fermé.",
+                            use: "Le cabinet est fermé à clef. Cette fois, il a l'air plus solide qu'avant.",
+                            go: "Je suis devant le bureau.",
+                            hit: "Je frappe le cabinet comme je l'ai fait la dernière fois. Rien ne se passe.",
+                            inspect: "Il y a un cadenas couvert de rouille sur le côté du cabinet. Je me demande comment l'ouvrir."
+                        },
+                        opening: {
+                            interaction: [{ command: "inspecter", etat: "open", cible: [1] }],
+                            look: "Le bureau est en métal vert-gris, et a des airs de cabinet militaire. Il a toujours un cabinet à droite, fermé.",
+                            use: "Le cabinet est fermé à clef. Cette fois, il a l'air plus solide qu'avant. Il n'y a pas de serrure en revanche.",
+                            go: "Je suis devant le bureau.",
+                            hit: "Je frappe le cabinet de toutes mes forces, mais il ne bouge pas. Ce bureau est solide.",
+                            inspect: "Est-ce que je pourrais utiliser la date de la carte postale comme code pour le cadenas ?"
+                        },
+                        open: {
+                            interaction: [{ command: "utiliser", etat: "final", cible: [1] }, { command: "utiliser", etat: "opening", cible: [0] }],
+                            look: "Le cadenas demande un nombre à 6 chiffres. Une date pourrait y être entré.",
+                            use: "J'entre la date 21-06-14 comme code. Le cabinet s'ouvre, et je récupère la clef qu'il contient.", // année de ses 18 ans
+                            go: "Je suis devant le bureau.",
+                            hit: "Je n'ai pas de raison de le frapper, rien n'y fait cette fois-ci.",
+                            inspect: "Le cadenas a déjà le nombre 14 entré à la fin, ce qui correspondrait à l'année dans la date que j'ai trouvée."
+                        },
+                        final: {
+                            look: "Le bureau est en métal vert-gris, et a des airs de cabinet militaire. Il est vieux et de mauvais goût.",
+                            use: "J'ai déjà ouvert le cabinet et récupéré la clef.",
+                            go: "Je suis devant le bureau.",
+                            hit: "Je n'ai pas de raison de le frapper.",
+                            inspect: "Il y a moins de rouille qu'avant, mais j'en observe tout de même dans les coins du bureau."
+                        }
+                    },
+                    four: {
+                        isOpened: false,
+                        isOpening: false,
+                        closed: {
+                            look: "Le bureau est maintenant en bois. Au premier coup d'oeil, on dirait du chêne, ou du pin.",
+                            use: "Je passe mon doigt sur le bureau. Il est lisse. Je tente d'ouvrir son cabinet, mais il est fermé.",
+                            go: "Je suis devant le bureau.",
+                            hit: "Je ne pense pas que ce soit la solution à tous mes problèmes.",
+                            inspect: "Le bureau est en bois de chêne laqué, nettement plus beau et raffiné qu'avant.",
+                            wait: "J'attends devant le bureau. Comment ouvrir le cabinet cette fois-ci ? Je remarque qu'il faut un code."
+                        },
+                        opening: {
+                            interaction: [{ command: "utiliser", etat: "opening", cible: [0] }, { command: "utiliser", etat: "open", cible: [1] }],
+                            look: "Le cabinet est accompagné d'un système de blocage par un code, situé au-dessus de sa poignée.",
+                            use: "J'entre le code 21-06-21, le jour de mes 25 ans. Le tiroir s'ouvre et je récupère la clef qu'il contient.",
+                            go: "Je suis devant le bureau.",
+                            hit: "J'ai le code à entrer, pas de raison de le frapper.",
+                            inspect: "C'est un bureau sophistiqué. Ses mécanismes sont certes âgés, mais la façon dont son verrouillage est pensé est fascinante.",
+                            wait: "J'ai réussi à me souvenir du code. Je n'ai pas besoin d'attendre plus longtemps."
+                        },
+                        open: {
+                            look: "Le bureau est en bois de chêne poli et laqué. Une pièce qui a probablement dû coûter une fortune.",
+                            use: "Je passe mon doigt sur le bureau. Il est lisse. C'est du bel ouvrage.",
+                            go: "Je suis devant le bureau.",
+                            hit: "Je n'ai pas envie de le frapper maintenant que j'ai ouvert le cabinet.",
+                            inspect: "Ce bureau est magnigique, et très sophistiqué. Avec son bois, il a l'air ancien, mais de bon goût.",
+                            wait: "J'ai pu ouvrir son cabinet. Je n'ai pas besoin d'attendre plus longtemps."
+                        }
+                    },
+                    five: {
+                        ifFinal: false,
+                        isOpened: false,
+                        closed: {
+                            interaction: [{ command: "accepter", etat: "opening", cible: [4] }, { command: "accepter", etat: "open", cible: [1] }],
+                            look: "Le bureau est un peu vieillot, mais magnifique et imposant au milieu de la pièce.",
+                            use: "Le cabinet du bureau est à nouveau fermé, mais j'ai le code sur le bout des lèvres.",
+                            go: "Je suis devant le bureau.",
+                            hit: "Je ne suis plus en colère.",
+                            inspect: "Le cabinet est encore fermé au profit d'une ouverture utilisant un code, mais je ne sais pas lequel.",
+                            wait: "J'attends devant le bureau. Des souvenirs me reviennent. Mon père entrain de travailler ?",
+                            accept: "C'était le bureau de mon père. Le code pour son cabinet était ma date de naissance, le 21 juin 1996."
+                        },
+                        open: {
+                            interaction: [{ command: "utiliser", etat: "final", cible: [1] }],
+                            look: "Le bureau est vieux, mais très bien entretenu. Il magnifique et imposant au milieu de la pièce.",
+                            use: "J'entre ma date de naissance comme code ; le cabinet est ouvert, mais il ne contient pas de clef cette fois.",
+                            go: "Je suis devant le bureau.",
+                            hit: "Je ne suis plus en colère.",
+                            inspect: "Je revois mon père, installé dans sa chaise de bureau, travailler minutieusement. Que faisait-il comme métier ?",
+                            wait: "J'essaie de me souvenir de mon père, installé à ce bureau. Les images me sont floues.",
+                            accept: "Mon père faisait un travail dans la fine mécanique. Est-ce que c'était de l'électronique, de l'horlogerie...?"
+                        },
+                        final: {
+                            look: "Le bureau est une belle antiquité. Il magnifique et imposant au milieu de la pièce.",
+                            use: "Je passe mes doigts sur le bureau pour m'imprégner de son histoire. Je revois mon père, penché dessus, un fer à soudure en main.",
+                            go: "Je suis devant le bureau.",
+                            hit: "Je ne suis plus en colère.",
+                            inspect: "Je revois mon père, installé dans sa chaise de bureau, travailler minutieusement. Il travaillait sur des horloges je crois.",
+                            wait: "J'essaie de me souvenir de mon père, installé à ce bureau. Je n'arrive pas à me rappeler son visage.",
+                            accept: "Mon père était horloger. Il n'a pas arrêté de travailler même après sa retraite."
+                        }
+                    }
                 }, {    // carte
-                    name : "carte",
+                    name: "carte",
                     determinant: "la ",
                     isLocated: true,
+                    three: {
+                        isOpened: false,
+                        closed: {
+                            interaction: [{ command: "utiliser", etat: "open", cible: [2] }],
+                            look: "C'est une carte postale qui montre des montagnes eneigées avec un photo-montage de ski.",
+                            use: "Je retourne la carte pour voir le dos.",
+                            go: "La carte est déjà à ma portée.",
+                            hit: "Je plie un coin de la carte. Pas sûr que ça me serve.",
+                            inspect: "Il y a le lieu marqué en transparence en bas de la carte : Zermatt, CH."
+                        },
+                        open: {
+                            interaction: [{ command: "utiliser", etat: "closed", cible: [2] }, { command: "inspecter", etat: "opening", cible: [1], condition: "closed" }],
+                            look: `Il y est écrit "Souvenirs de vacances en Suisse ! Un petit voyage avant de ne plus pouvoir en faire !". La signature n'est pas lisible.`,
+                            use: "Je retourne la carte pour voir l'image de l'autre côté.",
+                            go: "La carte est déjà à ma portée.",
+                            hit: "Je plie un coin de la carte. Pas sûr que ça me serve.",
+                            inspect: "La carte est datée de l'année 1996. Mon année de naissance."
+                        }
+                    },
+                    four: {
+                        isOpened: false,
+                        closed: {
+                            interaction: [{ command: "utiliser", etat: "open", cible: [2] }],
+                            look: "C'est une carte postale qui montre une silhouette de ville avec en .",
+                            use: "Je retourne la carte pour voir le dos.",
+                            go: "La carte est déjà à ma portée.",
+                            hit: "Je plie un coin de la carte. Pas sûr que ça me serve.",
+                            inspect: "."
+                        },
+                        open: {
+                            interaction: [{ command: "utiliser", etat: "closed", cible: [2] }],
+                            look: `Il y est écrit "Souvenirs de vacances en Suisse ! Un petit voyage avant de ne plus pouvoir en faire !". La signature n'est pas lisible.`,
+                            use: "Je retourne la carte pour voir l'image de l'autre côté.",
+                            go: "La carte est déjà à ma portée.",
+                            hit: "Je plie un coin de la carte. Pas sûr que ça me serve.",
+                            inspect: "La carte est datée de l'année 1996. Mon année de naissance."
+                        }
+                    }
                 }, {    // bibliothèque
-                    name : "bibliothèque",
+                    name: "bibliothèque",
                     determinant: "la ",
                     isLocated: false,
                 }, {    // livre
-                    name : "livre",
+                    name: "livre",
                     determinant: "le ",
                     isLocated: false,
+                }, {    // leave
+                    name: "leave",
+                    one: { text: "Je traverse le jardin triste pour revenir vers le portail. Cette maison me fait froid dans le dos." },
+                    two: { text: "Je reviens au portail, toujours en colère de me retrouver devant cette maison. Pourquoi elle ? Pourquoi moi ?" },
+                    three: { text: "Je marche le long du chemin traversant le jardin, la nature semble figée autour de moi. Je suis devant le portail." },
+                    four: { text: "J'ai besoin de prendre du temps. Je reviens sur mes pas, et attends devant le portail, ouvert." },
+                    five: { text: "Je suis de retour chez moi, mais un sentiment étouffant se saisit de moi. Je recule vers le portail." }
                 }
             ]
         }
@@ -1309,4 +1532,16 @@ const MYGAME = {
     }
 }
 
-let baseGameTxt = JSON.parse(JSON.stringify(MYGAME));
+const title = document.getElementById('titleGame'),
+    gameDiv = document.getElementById("gameScreen"),
+    bottomScreen = document.getElementById("screenBottom"),
+    monInput = document.getElementById("commandInput"),
+    mesCommandes = document.querySelectorAll(".command"),
+    monAlert = document.getElementById("boxAlert");
+
+let mesMots = [],
+    titleText = title.textContent,
+    counterCommands = 0,
+    clearInt = false,
+    isDefault = true,
+    getDefault = isDefault;
