@@ -6,6 +6,8 @@ function displayMainText(scene) {
 
     if (scene != undefined) MYGAME.currentScene = parseInt(scene);
 
+    console.log(MYGAME.currentScene);
+
     let thisAct = MYGAME.player.currentAct,
         sceneCourante = MYGAME.currentScene,
         maScene = MYGAME.scenes[sceneCourante],
@@ -102,10 +104,12 @@ function displayMainText(scene) {
 
             if (e.active) {
                 let txtSplit = e.text.split("");
-                txtSplit.forEach((el) => {
-                    if (el == "." || el == ",") txtSplit.pop();
+                txtSplit.forEach((el, idx) => {
+                    if (el == "." || el == ",") activeWord += "";
+                    else if (el == "î") activeWord += "i";
+                    else if (el == "ê" || el == "é" || el == "è") activeWord += "e";
+                    else activeWord += el;
                 });
-                activeWord = txtSplit.join("");
             }
             if (e.act == "regular" || (e.act == "angry" && thisAct >= 1) || (e.act == "bargain" && thisAct >= 2) || (e.act == "sad" && thisAct >= 3) || (e.act == "accept" && thisAct >= 4)) isToBeDisplayed = true;
             if (e.act == "regular" || (e.act == "angry" && thisAct > 1) || (e.act == "bargain" && thisAct > 2) || (e.act == "sad" && thisAct > 3)) e.active ? txtToAdd = `<div class = "wobblyTxt textDiv interactiveText whiteText" data-word="${activeWord}">` : txtToAdd = `<div class = "textDiv whiteText">`;

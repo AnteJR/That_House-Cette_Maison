@@ -43,13 +43,18 @@ function findText(commandItem) {
         command = commandItem[0].toLowerCase(),
         object = commandItem[(commandItem.length - 1)].toLowerCase(),
         acts = ["one", "two", "three", "four", "five"],
-        authorizedCommands = ["voir", "utiliser", "aller", "frapper", "inspecter", "attendre", "accepter", "quitter"];
+        authorizedCommands = [
+            ["voir", "utiliser", "aller", "quitter"],
+            ["voir", "utiliser", "aller", "quitter", "frapper"],
+            ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter"],
+            ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter", "attendre"],
+            ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter", "attendre", "accepter"]
+        ];
 
-    if (!authorizedCommands.includes(command)) return "Je ne comprends pas ce que je suis censé faire.";
+    if (!authorizedCommands[act].includes(command)) return "Je ne comprends pas ce que je suis censé faire.";
 
-
-    if (command == "quitter") {
-        if (scene > 2) displayMainText(parseInt(scene - 1));
+    if (command === "quitter") {
+        if ((scene > 2 && act < 4) || (scene == 3 && act == 4)) displayMainText(parseInt(scene - 1));
         return item[item.length - 1][acts[act]].text;
     }
 
@@ -79,49 +84,71 @@ function findText(commandItem) {
 
             // SI L'OBJET EST DIRECTEMENT ACCESSIBLE :
             let el = e[acts[act]],
-                t = el.isFinal ? el.final : (el.isOpened ? el.open : (el.isOpening ? el.opening : el.closed));
+                t = el.isFinal ? el.final : (el.isOpened ? el.open : (el.isOpening ? el.opening : el.closed)),
+                compteur = MYGAME.player.count;
 
-            if (command == "voir") txt = t.look;
-            else if (command == "utiliser") txt = t.use;
-            else if (command == "aller") txt = t.go;
-            else if (command == "frapper" && act >= 1) txt = t.hit;
-            else if (command == "inspecter" && act >= 2) txt = t.inspect;
-            else if (command == "attendre" && act >= 3) txt = t.wait;
-            else if (command == "accepter" && act >= 4) txt = t.accept;
+            txt = getCommand(command);
 
-            if (t.interaction != undefined) {
-                for (const inter of t.interaction) {
-                    if (command != inter.command) continue;
+            if (t.goWin && command === "aller") displayMainText(parseInt(scene + 1));
 
-                    for (const target of inter.cible) {
-                        let tar = item[target][acts[act]];
+            if (t.newAct != undefined && command == t.newAct.command) return nextActPlease(act + 1, txt);
 
-                        if (inter.condition != undefined) {
+            // CONDITIONS POUR MOMENTS SPECIFIQUES :
+            if (command === "inspecter" && object === "portail" && !el.isOpened && !el.isOpening && (act == 2 || act == 3)) txt += `"` + MYGAME.player.shortName + `"`;
+
+            // CONDITIONS POUR PUSH LE BON TEXTE DANS LES INPUTS PRECEDENTS
+            if (command === "aller") MYGAME.previousInput.push(command + " vers " + e.determinant + e.name);
+            else MYGAME.previousInput.push(command + " " + e.determinant + e.name);
+
+            // CONDITIONS ET BOUCLES POUR LES INTERACTIONS
+            if (!t.interaction?.length) return txt;
+
+            for (const inter of t.interaction) {
+                if (command != inter.command) continue;
+
+                for (const target of inter.cible) {
+                    const tar = item[target][acts[act]];
+
+                    if (inter.condition) {
+                        if (typeof inter.condition != "string") {
+                            if (compteur >= inter.condition) continue;
+
+                            const whatCommand = getCommand(command);
+                            if (compteur < (inter.condition - 1)) {
+                                MYGAME.player.count++;
+                                return whatCommand[MYGAME.player.count - 1];
+                            }
+
+                            MYGAME.player.count = 0;
+                            txt = whatCommand[whatCommand.length - 1];
+                        }
+                        else {
                             if (inter.condition == "closed" && (tar.isOpening || tar.isOpened || tar.isFinal)) continue;
                             if (inter.condition == "opening" && (!tar.isOpening || tar.isOpened || tar.isFinal)) continue;
                             if (inter.condition == "open" && (!tar.isOpened || tar.isFinal)) continue;
                             if (inter.condition == "final" && !tar.isFinal) continue;
                         }
-
-                        if (inter.etat == "final") tar.isFinal = true;
-                        else if (inter.etat == "open") tar.isOpened = true;
-                        else if (inter.etat == "opening") tar.isOpening = true;
-                        else if (inter.etat == "closed") tar.isOpened = false;
-
-                    };
-                };
+                    }
+                    if (inter.etat == "final") tar.isFinal = true;
+                    else if (inter.etat == "open") tar.isOpened = true;
+                    else if (inter.etat == "opening") tar.isOpening = true;
+                    else if (inter.etat == "closed") tar.isOpened = false;
+                }
             }
-
-            if (t.goWin == true && command == "aller") displayMainText(parseInt(scene + 1));
-
-            if (t.newAct != undefined && command == t.newAct.command) return nextActPlease(act + 1, txt);
-
-            // CONDITIONS POUR MOMENTS SPECIFIQUES :
-            if (command == "inspecter" && object == "portail" && !el.isOpened && !el.isOpening && (act == 2 || act == 3)) txt += `"` + MYGAME.player.shortName + `"`;
-
-            MYGAME.previousInput.push(command + " " + e.determinant + e.name);
             return txt;
+
+            function getCommand(name) {
+                return {
+                    voir: t.look,
+                    utiliser: t.use,
+                    aller: t.go,
+                    frapper: t.hit,
+                    inspecter: t.inspect,
+                    attendre: t.wait,
+                    accepter: t.accept,
+                }[name];
+            }
         }
     }
-    if (txt == "") return `Qu'est-ce que "${commandItem[(commandItem.length - 1)].toLowerCase()}" veut dire ?`;
+    if (txt === "") return `Qu'est-ce que "${object}" veut dire ?`;
 }

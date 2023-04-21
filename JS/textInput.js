@@ -27,28 +27,30 @@ window.addEventListener('keydown', (e) => {
         // ne fonctionne que si l'input n'est pas focused, ce afin d'éviter les doubles inputs
         if (input != document.activeElement) {
             if (document.getElementById("boxAlert").style.display == "none") {
-
-                // s'il s'agit de touches qui peuvent faire bouger la position de la fenêtre, on désactive leur effet par défaut
-                if (e.key === "Spacebar" || e.key === " " || e.key === "Escape") {
-                    e.preventDefault();
+                switch (e.key) {
+                    case "Backspace":
+                        let valueInput = input.value.split("");
+                        valueInput.pop();
+                        input.value = valueInput.join("");
+                        break;
+                    case "Enter":
+                        counterCommands = 0;
+                        if (input.value != "") validateInput();
+                        break;
+                    case "ArrowUp":
+                        browseArrowUp();
+                        break;
+                    case "ArrowDown":
+                        browseArrowDown();
+                        break;
+                    case "Escape":
+                        gameLaunch();
+                        break;
+                    default:
+                        if (!["Meta", "Tab", "Shift", "CapsLock", "Control", "Alt", "ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp", "Dead", "Escape"].includes(e.key)) {
+                            input.value += e.key;
+                        }
                 }
-
-                // on bloque les caractères spéciaux style shift, caps, ctrl, et on ajoute à l'input le reste
-                if (e.key != "Backspace" && e.key != "Enter" && e.key != "Meta" && e.key != "Shift" && e.key != "CapsLock" && e.key != "Control" && e.key != "Alt" && e.key != "ArrowLeft" && e.key != "ArrowRight" && e.key != "ArrowDown" && e.key != "ArrowUp" && e.key != "Dead" && e.key != "Escape") {
-                    input.value += e.key;
-                }
-                else if (e.key == "Backspace") {
-                    let valueInput = input.value.split("");
-                    valueInput.pop();
-                    input.value = valueInput.join("");
-                }
-                else if (e.key == "Enter") {
-                    counterCommands = 0;
-                    if (input.value != "") validateInput();
-                }
-                else if (e.key == "ArrowUp") browseArrowUp();
-                else if (e.key == "ArrowDown") browseArrowDown();
-                else if (e.key == "Escape") gameLaunch();
             }
             else {
                 if (e.key == "Enter") {
@@ -91,15 +93,27 @@ mesCommandes.forEach((element) => {
         let maCommande = this.dataset.command,
             canBeUsed = false,
             monAct = MYGAME.player.currentAct;
-
+        
         // conditions pour rendre disponible les commandes aux bons actes
         if (this.className.split(" ")[2] == "bonusC") {
-            if (monAct >= 1 && this.className.split(" ")[1] == "hitC") canBeUsed = true;
-            if (monAct >= 2 && this.className.split(" ")[1] == "inspectC") canBeUsed = true;
-            if (monAct >= 3 && this.className.split(" ")[1] == "waitC") canBeUsed = true;
-            if (monAct >= 4 && this.className.split(" ")[1] == "acceptC") canBeUsed = true;
-        }
-        else canBeUsed = true;
+            switch (this.className.split(" ")[1]) {
+                case "hitC":
+                    canBeUsed = (monAct >= 1);
+                    break;
+                case "inspectC":
+                    canBeUsed = (monAct >= 2);
+                    break;
+                case "waitC":
+                    canBeUsed = (monAct >= 3);
+                    break;
+                case "acceptC":
+                    canBeUsed = (monAct >= 4);
+                    break;
+                default:
+                    canBeUsed = false;
+                    break;
+            }
+        } else canBeUsed = true;
 
         // insérer le mot lié à la commande dans l'input
         if (canBeUsed == true) {

@@ -15,9 +15,8 @@ function displayGameText() {
         });
     };
 
-    // un forEach pour chaque div qui contient du texte
+    // POUR CHAQUE TEXTE QUI DOIT APPARAÎTRE
     textsToAppear.forEach((el, idx) => {
-        // on récupère le textContent de chaque div et on l'ajoute dans un array, 
         let textOriginal = el.textContent,
             text = textOriginal.split(""),
             nbrChar = text.length,
@@ -26,7 +25,6 @@ function displayGameText() {
         texts.push(textOriginal);
         el.innerHTML = "";
 
-        // on appelle la fonction qui affiche caractère par caractère
         txtDisplay(nbrChar, charPos, el, text, idx);
     });
 
@@ -44,13 +42,13 @@ function displayGameText() {
             interval1 = (35 * previousTexts) / diviser;
         }
 
-        // AFFICHAGE LETTRE APRES LETTRE, STRING APRES STRING
+        // AFFICHAGE STRING APRES STRING, LETTRE APRES LETTRE
         setTimeout(() => {
             setTimeout(() => {
                 if (i > 0) {
                     let maClass = element.getAttribute("class").split(" ")[0];
 
-                    // afficher les espaces comme des espaces inséquables (sans quoi ils ne s'affichent pas en fin de string)
+                    // afficher les espaces comme des espaces inséquables
                     if (txtFrag[j] == " " && (maClass == "wobblyTxt" || maClass == "angerWobble" || maClass == "bargainWobble" || maClass == "sadWobble" || maClass == "acceptanceWobble")) txtFrag[j] = "&nbsp;";
 
                     // set de condition pour appliquer des délais aux spans qui contiennent les animations
