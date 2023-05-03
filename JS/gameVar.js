@@ -3,53 +3,87 @@ let today = getToday();
 const MYGAME = {
     scenes: [
         {       // ACTES
-            name: "Actes",
+            name: "actes",
             texts: [
                 {
                     id: 0,
                     text: [
-                        ["Acte 1", true],
-                        ["La maison dans la rue", false]
+                        ["Prologue", true],
+                        ["Dans les rues sinueuses.", false]
                     ]
-                },
-                {
+                }, {
                     id: 1,
                     text: [
-                        ["Acte 2", true],
-                        ["L'ascension", false]
+                        ["Acte 1", true],
+                        ["La maison dans la rue.", false]
                     ]
-                },
-                {
+                }, {
                     id: 2,
                     text: [
-                        ["Acte 3", true],
-                        ["Mystères et découvertes", false]
+                        ["Acte 2", true],
+                        ["Entrée fracassante.", false]
                     ]
-                },
-                {
+                }, {
                     id: 3,
                     text: [
-                        ["Acte 4", true],
-                        ["Au clair de lune", false]
+                        ["Acte 3", true],
+                        ["L'ascension.", false]
                     ]
-                },
-                {
+                }, {
                     id: 4,
                     text: [
+                        ["Acte 4", true],
+                        ["Au clair de lune.", false]
+                    ]
+                }, {
+                    id: 5,
+                    text: [
                         ["Acte 5", true],
-                        ["Révélations", false]
+                        ["Par-delà cette maison.", false]
                     ]
                 }
             ],
         }, {    // PRENOM
-            name: "Nommez-vous.",
+            name: "nommez-vous",
             title: "Quel est votre prénom ?",
             text1: "S'il-vous-plaît entrez un prénom.",
             text2: "Utiliser votre vrai prénom fonctionne mieux pour le jeu."
         }, {    // PORTAIL
-            name: "Portail",
+            name: "portail",
             texts: [
                 {
+                    text: "Mes yeux s'ouvrent face à une rue. Je ne sais pas où je suis. Je ne reconnaît pas ces maisons.",
+                    act: "shock",
+                    active: false
+                }, {
+                    text: "Je n'étais pas là il y a une seconde. J'étais ailleurs. Mais où ? Où donc...?",
+                    act: "shock",
+                    active: false
+                }, {
+                    text: "Je ne sais plus. Même en m'efforçant, impossible de m'en souvenir.",
+                    act: "shock",
+                    active: false
+                }, {
+                    text: "Mes pas s'accélèrent, je passe devant des bâtisses, toutes uniformes. Les mêmes, encore et encore. Et encore.",
+                    act: "shock",
+                    active: false
+                }, {
+                    text: "Ma respiration est halletante. Est-ce que je deviens fou ? Ce n'est pas possible, je dois revenir en arrière.",
+                    act: "shock",
+                    active: false
+                }, {
+                    text: "Mais la",
+                    act: "shock",
+                    active: false
+                }, {
+                    text: "route",
+                    act: "shock",
+                    active: true
+                }, {
+                    text: "ne me permet que d'avancer. Derrière moi, une brume. L'obscurité. Le néant. Les paysages, disparus, comme mes souvenirs...",
+                    act: "shock",
+                    active: false
+                }, {
                     text: "Me revoila devant cette maison...",
                     act: "angry",
                     active: false
@@ -232,7 +266,7 @@ const MYGAME = {
                     one: {
                         isOpened: true,
                         open: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "C'est un court chemin de terre mal entretenu à travers un jardin qui mène à un porche.",
                             use: "Je me baisse et touche le sol. La terre est humide et froide.",
                             go: "Je prends le chemin en direction du porche.",
@@ -247,7 +281,7 @@ const MYGAME = {
                             hit: "Il me faut d'abord ouvrir le portail pour atteindre le chemin.",
                         },
                         open: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "Le chemin me paraît plus long cette fois. Il zig-zag un peu.",
                             use: "Le sol est moins en terre qu'en gravier. Il est plus dur et rugueux sous ma paume.",
                             go: "Je prends le chemin en direction du porche.",
@@ -264,7 +298,7 @@ const MYGAME = {
                             inspect: "Je ne peux pas me rapprocher du chemin pour le moment. Le portail est fermé.",
                         },
                         open: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "Le chemin s'étend dans un vaste jardin à la nature dormante.",
                             use: "Le sol de gravier est rassurant sous mes pieds. Il est ferme et solide.",
                             go: "Je prends le chemin en direction du porche.",
@@ -283,7 +317,7 @@ const MYGAME = {
                             wait: "Attendre ne va pas me permettre d'atteindre le chemin. L'air est frais, j'aimerais rentrer chez moi.",
                         },
                         open: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "Le chemin est plus terne, cette fois. Il semble plus... propre, plus travaillé.",
                             use: "Le gravier est coulé avec du ciment, je ne peux plus le prendre dans ma main.",
                             go: "Je prends le chemin en direction du porche.",
@@ -311,7 +345,7 @@ const MYGAME = {
                     one: {
                         isOpened: true,
                         open: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "C'est une porte de bois. Je suis trop loin pour la voir précisément.",
                             use: "Il me faut me rapprocher pour pouvoir faire ça.",
                             go: "Je me rends vers la porte, vers cette maison..."
@@ -326,7 +360,7 @@ const MYGAME = {
                             hit: "J'aimerais bien, mais je suis trop loin, et le portail m'empêche d'avancer.",
                         },
                         open: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "La porte a maintenant une petite vitre en son centre, sur sa moitié supérieure.",
                             use: "Je ne peux pas tenter de l'ouvrir sans m'en rapprocher.",
                             go: "Je me rends vers la porte, sous le porche.",
@@ -343,7 +377,7 @@ const MYGAME = {
                             inspect: "Il vaudrait mieux m'en rapprocher pour inspecter quoi que ce soit.",
                         },
                         open: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "La porte semble avoir une fine couche de peinture.",
                             use: "Je ne peux rien faire sans m'en rapprocher.",
                             go: "Je me dirige vers le porche pour atteindre la porte.",
@@ -362,7 +396,7 @@ const MYGAME = {
                             wait: "Attendre ne va pas la faire s'ouvrir, ni ouvrir le portail.",
                         },
                         open: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "La porte m'a l'air plus précise, mais elle est trop loin pour voir les détails.",
                             use: "Il faut s'en rapprocher, je le sais...",
                             go: "Je me dirige vers la porte, à-travers le chemin.",
@@ -383,7 +417,7 @@ const MYGAME = {
                             accept: "C'est la porte de la maison de mes parents. Une nostalgie m'envahit.",
                         },
                         open: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "La porte m'accueillit.",
                             use: "Je devrais m'en rapprocher pour l'ouvrir.",
                             go: "Je me dirige une dernière fois vers la porte de ma maison.",
@@ -529,6 +563,29 @@ const MYGAME = {
                             accept: "C'est donc ma maison. Je suis prêt à y entrer une dernière fois.",
                         }
                     }
+                }, {    // route
+                    name: "route",
+                    isLocated: true,
+                    determinant: "la ",
+                    zero: {
+                        isOpened: false,
+                        closed: {
+                            interaction: [{ command: "voir", etat: "open", cible: [7], condition: 4 }],
+                            look: ["Pourquoi cette route ? Qu'est-ce que je fais là ? Elle ne m'a pas l'air familière. Je n'ai pas envie de la prendre.",
+                                "La route est comme un gouffre qui s'enfonce dans un quartier que je ne connais pas. Est-ce que je me suis perdu ?",
+                                "Je ne sais pas si je veux continuer. Mon estomac se tord. Mes tempes transpirent. Mes joues se crispent.",
+                                "La brume derrière moi m'empêche de revenir en arrière. Est-ce que je devrais juste prendre la route ? Continuer d'avancer ?"
+                            ],
+                            use: "Mon corps est paralysé pour le moment. J'ai de la peine à respirer. Oh mon Dieu, qu'est-ce qui se passe ?",
+                            go: "Mes jambes ne me répondent pas. Pourquoi cette route ? Pourquoi ce quartier ? Je ne comprends pas.",
+                        },
+                        open: {
+                            newAct: { command: "aller" },
+                            look: "Je ne vois qu'une façon de sortir d'ici : voir où cette route me mène.",
+                            use: "Je sens peu à peu mes jambes à nouveau. Je devrais pouvoir marcher un moment.",
+                            go: "Hésitants, mes pas se font l'un après l'autre, lentement... J'avance dans la rue, la nuit m'enlace. Le silence m'entoure, alors que je m'enfonce sur le route goudronnée.",
+                        }
+                    }
                 }, {    // leave
                     name: "leave",
                     one: { text: "Cette maison m'attire. En plus, j'ai marché trop longtemps, je ne vais pas partir maintenant." },
@@ -539,7 +596,7 @@ const MYGAME = {
                 }
             ]
         }, {    // PORCHE
-            name: "Porche",
+            name: "porche",
             texts: [
                 {
                     text: "Me voilà devant la maison. La",
@@ -650,7 +707,7 @@ const MYGAME = {
                             ]
                         },
                         open: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "La porte est cassée, je peux donc entrer.",
                             use: "Le bois est fin et fragile. Pas surprenant que la porte ait cassé quand je l'ai frappée.",
                             go: "J'entre à nouveau dans la maison...",
@@ -676,7 +733,7 @@ const MYGAME = {
                             inspect: "La clef est lourde dans ma main. Elle est un peu rouillée."
                         },
                         open: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "La porte est déverouillée, je peux y aller.",
                             use: "Je pousse la porte, qui s'ouvre sur la pièce du rez-de-chaussée.",
                             go: "J'entre une fois de plus dans la maison...",
@@ -706,7 +763,7 @@ const MYGAME = {
                             wait: "J'ai la clef, je n'ai plus besoin d'attendre ou de réfléchir."
                         },
                         open: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "La porte est déverouillée, je peux y aller.",
                             use: "Je pousse la porte, qui donne sur le bureau et la bibliothèque.",
                             go: "J'entre dans la maison...",
@@ -750,7 +807,7 @@ const MYGAME = {
                             accept: "Pourquoi cela serait la fin ? C'est peut-être un commencement."
                         },
                         final: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "La porte est déverouillée, je peux y aller.",
                             use: "Je pousse la porte, qui s'ouvre sur le bureau et la bibliothèque.",
                             go: "J'entre dans la maison une dernière fois. La porte se referme derrière moi.",
@@ -1119,7 +1176,7 @@ const MYGAME = {
                 }
             ]
         }, {    // BUREAU
-            name: "Bureau",
+            name: "bureau",
             texts: [
                 {
                     text: "Me voila dans la maison.",
@@ -1251,7 +1308,7 @@ const MYGAME = {
                             inspect: "La clef est similaire à celle de l'entrée. Elle est lourde et légèrement rouillée."
                         },
                         open: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "La porte donne sur une chambre à coucher éclairée par la lune.",
                             use: "J'ai déjà ouvert la porte.",
                             go: "J'entre dans la pièce à l'étage, baignée dans la lueur lunaire...",
@@ -1289,7 +1346,7 @@ const MYGAME = {
                             wait: "La clef ne va pas se mettre dans la serrure toute seule en attendant..."
                         },
                         final: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "La porte est ouverte et donne sur une chambre à coucher à l'étage.",
                             use: "J'ai déjà ouvert la porte...",
                             go: "J'entre sous la lumière de la lune à l'étage, une fois encore...",
@@ -1332,7 +1389,7 @@ const MYGAME = {
                             accept: "C'est la porte d'entrée de ma chambre quand j'étais enfant."
                         },
                         final: {
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "La porte est ouverte. Derrière, la chambre à coucher. Est-ce que c'est la mienne ?",
                             use: "La porte est desormais ouverte.",
                             go: "J'entre une dernière fois dans la chambre à l'étage...",
@@ -1688,7 +1745,7 @@ const MYGAME = {
                 }
             ]
         }, {    // ETAGE
-            name: "Étage",
+            name: "etage",
             texts: [
                 {
                     text: "J'entre dans une chambre à coucher sombre.",
@@ -1753,7 +1810,7 @@ const MYGAME = {
                 }
             ],
             items: [
-                {       //lit
+                {       // lit
                     name: "lit",
                     determinant: "le ",
                     isLocated: false,
@@ -1785,7 +1842,7 @@ const MYGAME = {
                             inspect: "Le lit reste ferme et devrait supporter le poids d'une personne malgré son état."
                         },
                         final: {
-                            goWin: true,
+                            newAct: { command: "utiliser" },
                             look: "Je devrais aller dans le lit, mes paupières se ferment sans que je le contrôle.",
                             use: "Je pose mes paumes contre le matelas... Il est humide, mais devrait pouvoir servir à dormir.",
                             go: "Je me couche dans le lit. Malgré le froid et l'humidité, je ferme mes paupières, et me laisse bercer par la lune.",
@@ -1817,7 +1874,7 @@ const MYGAME = {
                             accept: "C'est mon lit, celui de mon appartement. Comment est-il arrivé là ? Est-ce que c'est ma chambre ?"
                         }
                     }
-                }, {    //peluche
+                }, {    // peluche
                     name: "peluche",
                     determinant: "la ",
                     isLocated: false,
@@ -1897,7 +1954,7 @@ const MYGAME = {
                             accpet: "C'était la peluche de ma mère avant de devenir la mienne. Elle m'a accompagné jusqu'à mes 12 ans."
                         }
                     }
-                }, {    //mur
+                }, {    // mur
                     name: "mur",
                     determinant: "le ",
                     isLocated: false,
@@ -1962,7 +2019,7 @@ const MYGAME = {
                             accept: "J'ai la terrible impression d'être lié à ces articles de jounaux qui parle d'un accident. Pourtant, je vais bien, non ?."
                         }
                     }
-                }, {    //lampe
+                }, {    // lampe
                     name: "lampe",
                     determinant: "la ",
                     isLocated: false,
@@ -2010,7 +2067,7 @@ const MYGAME = {
                             accept: "C'est la lampe que j'ai dans mon appartement à côté de ma bibliothèque. Pourquoi est-elle ici ?."
                         }
                     }
-                }, {    //échelle
+                }, {    // échelle
                     name: "echelle",
                     determinant: "l' ",
                     isLocated: false,
@@ -2047,7 +2104,7 @@ const MYGAME = {
                         },
                         final: {
                             interaction: [{ command: "utiliser", etat: "open", cible: [4] }],
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "L'échelle est placée sous le trou qui mène au plafond. Comme ça, je peux accéder au toit.",
                             use: "Je me ravise et plie l'échelle, avant de la remettre où je l'avais prise.",
                             go: "L'échelle grince à chaque pas, tandis que je gravis les niveaux uns à uns jusqu'à arriver sur le toit.",
@@ -2092,7 +2149,7 @@ const MYGAME = {
                         },
                         final: {
                             interaction: [{ command: "utiliser", etat: "open", cible: [4] }],
-                            goWin: true,
+                            win: { command: "aller" },
                             look: "L'échelle est placée sous le trou qui mène au plafond. Comme ça, je peux accéder au toit.",
                             use: "Je me ravise et plie l'échelle, avant de la remettre où je l'avais prise.",
                             go: "Je suis vers l'échelle. Elle est à ma portée.",
@@ -2109,12 +2166,272 @@ const MYGAME = {
                     five: { text: "La porte de l'escalier est fermée derrière moi. Je n'ai pas la possibilité de revenir en arrière." }
                 }
             ]
+        }, {    // TOIT
+            name: "toit",
+            texts: [
+                {
+                    text: "Je suis sur le toit de la maison. Un vent frais me parcourt la nuque.",
+                    act: "regular",
+                    active: false
+                }, {
+                    text: "La",
+                    act: "sad",
+                    active: false
+                }, {
+                    text: "lune",
+                    act: "sad",
+                    active: true
+                }, {
+                    text: "éclaire ce qui m'entoure.",
+                    act: "sad",
+                    active: false
+                }, {
+                    text: "Un grand autel est disposé sur le toit. Il y a un",
+                    act: "regular",
+                    active: false
+                }, {
+                    text: "bassin",
+                    act: "regular",
+                    active: true
+                }, {
+                    text: "rempli d'eau claire en son centre. À ses côtés, une",
+                    act: "regular",
+                    active: false
+                }, {
+                    text: "cierge",
+                    act: "regular",
+                    active: true
+                }, {
+                    text: "et un briquet à droite, et une",
+                    act: "regular",
+                    active: false
+                }, {
+                    text: "figurine",
+                    act: "regular",
+                    active: true
+                }, {
+                    text: "en forme de voiture à gauche.",
+                    act: "regular",
+                    active: false
+                }, {
+                    text: "Juste derrière moi, la",
+                    act: "sad",
+                    active: false
+                }, {
+                    text: "cheminée.",
+                    act: "sad",
+                    active: true
+                }, {
+                    text: "Il fait étonnemment chaud ici, comme lors d'un soir d'été. Une torpeur naît en moi.",
+                    act: "accept",
+                    active: false
+                }
+            ],
+            items: [
+                {       // lune
+                    name: "lune",
+                    determinant: "la ",
+                    isLocated: true,
+                    four: {
+                        isOpened: false,
+                        closed: {
+                            look: "La lune brille de sa pâle lumière. Elle éclaire les alentours. Je me rends compte qu'il y a que cette maison en vue.",
+                            use: "Toucher la lune... J'aurais voulu être un astronaute.",
+                            go: "Impossible, c'est la lune.",
+                            hit: "Elle est peut-être un peu trop loin pour pouvoir le faire...",
+                            inspect: "Les cratères de la lune sont visibles d'ici. La lune a l'air paisible malgré ses marques.",
+                            wait: "J'observe la lune. En la fixant, je me sens plus léger."
+                        }
+                    },
+                    five: {
+                        isOpened: false,
+                        closed: {
+                            interaction: [{ commande: "attendre", etat: "open", cible: [0], condition: true }],
+                            look: "La lune trône au milieu du ciel, sa beauté n'a d'égal que sa taille.",
+                            use: "Toucher la lune... Je ne suis malheureusement pas un astronaute.",
+                            go: "Impossible, c'est la lune.",
+                            hit: "Je n'en ressens pas le besoin.",
+                            inspect: "La lune est un astre souvent considéré comme sacré. En la voyant seule dans le ciel, je comprends pourquoi.",
+                            wait: ["En l'observant, je me dis que j'ai probablement encore des choses à faire ici avant de continuer.", "Je sens que la lune m'appelle. Je dois la fixer encore plus longtemps..."],
+                            accept: "La lune est triste. Elle a un air grave. Ses teintes bleutées sont mélancoliques."
+                        },
+                        open: {
+                            win: { command: "attendre" },
+                            look: "La lumière de la lune éclaire les alentours. Il n'y a rien à part cette maison.",
+                            use: "Toucher la lune... C'était un de mes rêves étant enfant. Mais j'ai fini par travailler dans la finance.",
+                            go: "Impossible, c'est la lune.",
+                            hit: "Je n'en ressens pas le besoin.",
+                            inspect: "La lune est porteuse d'espoir, une promesse d'un lendemain. Mais cette fois elle ne me semble pas de bonne augure...",
+                            wait: "En la fixant, elle s'empare de mon champ de vision. Je finis par être aveuglé par sa lumière. La torpeur me saisit pleinement.",
+                            accept: "La lune est symbole de changement cyclique. Elle est plein, ce soir. Est-ce que cela veut dire quelque chose ?"
+                        }
+                    }
+                }, {    // bassin
+                    name: "bassin",
+                    determinant: "le ",
+                    isLocated: false,
+                    four: {
+                        isOpened: false,
+                        isOpening: false,
+                        closed: {
+                            look: "C'est un bassin creusé dans la pierre de l'espèce d'autel qui trône sur le toit. Il y a de l'eau claire.",
+                            use: "L'eau est froide. Elle ondule gentillement en suivant les mouvements de ma main.",
+                            go: "Je suis devant le bassin.",
+                            hit: "J'écrase ma paume contre l'eau du bassin. Elle m'éclabousse un peu.",
+                            inspect: "Je ne vois rien de spécial dans l'eau du bassin.",
+                            wait: "Qu'est-ce que ce bassin et cet autel font ici ? Sur un toit ? C'est absurde."
+                        },
+                        opening: {
+                            interaction: [{ command: "utiliser", etat: "open", cible: [1] }],
+                            look: "Le bassin est rempli d'eau. Je pourrais me laver les mains à l'intérieur.",
+                            use: "Je plonge mes mains couvertes de suie dans le bassin. Son eau se trouble et sa couleur se rapproche de l'antracite.",
+                            go: "Je suis devant le bassin.",
+                            hit: "Je ne pense pas que ce soit le moment de m'éclabousser d'eau froide.",
+                            inspect: "L'eau devrait être suffisemment propre pour pouvoir essuyer la suie de mes mains.",
+                            wait: "Je pourrais me laver les mains dans le bassin. Ce n'est pas comme si quelqu'un allait l'utiliser pour autre chose."
+                        },
+                        open: {
+                            newAct: { command: "utiliser" },
+                            look: "L'eau ondule toute seule à présent, comme si elle prenait vie dans le bassin, malgré sa couleur noire.",
+                            use: "Je plonge mon visage à l'intérieur du bassin. Me voila plongé dans l'obscurité. J'ai l'impression que le monde autour de moi se meut. J'ouvre les yeux sous l'eau, quand soudain...",
+                            go: "Je suis devant le bassin.",
+                            hit: "Et me salire en m'éclaboussant de suie ? Je ne pense pas.",
+                            inspect: "L'eau est devenue noire de suie. Elle est presque opaque désormais.",
+                            wait: "Les ondes de l'eau sont hypnotisantes. J'aurais presque envie de m'y plonger."
+                        }
+                    },
+                    five: {
+                        isOpened: false,
+                        isOpening: false,
+                        closed: {
+                            interaction: [{ command: "accepter", etat: "opening", cible: [1] }],
+                            look: "Le bassin contient toujours de l'eau. Elle est à nouveau claire, plus une trace de suie de mon dernier passage.",
+                            use: "L'eau est froide au toucher. Elle n'a pas l'air différente d'avant.",
+                            go: "Je suis devant le bassin.",
+                            hit: "Je n'ai pas envie de mettre de l'eau partout en la frappant.",
+                            inspect: "Il y a de légères gravures au fond de l'eau. Elles représentent le ciel de nuit, avec la lune.",
+                            wait: "Qu'est-ce que ce bassin et cet autel font ici ? Sur un toit ? C'est absurde.",
+                            accept: "Je me penche vers le bassin. L'air est plus chaud que d'habitude. L'eau m'attire. Ma gorge est sèche."
+                        },
+                        opening: {
+                            collectible: { command: "utiliser", coll: "drankWater" },
+                            interaction: [{ command: "utiliser", etat: "open", cible: [1] }],
+                            look: "L'eau est parfaitement transparente. Elle reflète légèrement la lune.",
+                            use: "J'y plonge mes mains en cuillère, et les ramène à moi, pleine d'eau fraîche, que je bois. Ça fait du bien.",
+                            go: "Je suis devant le bassin.",
+                            hit: "Je n'ai pas envie de mettre de l'eau partout en la frappant.",
+                            inspect: "L'eau est claire et a l'air pure. Elle semble fraîche, comme de l'eau de source.",
+                            wait: "Il doit y avoir une raison pour cet autel ici. Jusque-là, les objets ont généralement du sens.",
+                            accept: "Je me penche vers le bassin. Ma gorge est sèche. Tellement sèche..."
+                        },
+                        open: {
+                            look: "L'eau que j'ai bue est parfaitement transparente. Elle reflète légèrement la lune.",
+                            use: "J'ai pu boire une fois déjà. Pas besoin de boire trop non plus.",
+                            go: "Je suis devant le bassin.",
+                            hit: "Je n'ai pas envie de mettre de l'eau partout en la frappant.",
+                            inspect: "L'eau que j'ai bue est claire et a l'air pure. Elle semble fraîche, comme de l'eau de source.",
+                            wait: "Je ne pense pas que je trouverai un sens à ce bassin, ni à cet autel.",
+                            accept: "Je ne sais pas pourquoi ce bassin est ici, mais il m'a apporté de l'eau quand j'avais soif. Ça me suffit."
+                        }
+                    }
+                }, {    // cierge
+                    name: "cierge",
+                    determinant: "la ",
+                    isLocated: false,
+                    four: {
+                        isOpened: false,
+                        isOpening: false,
+                        closed: {
+                            interaction: [{ command: "utiliser", etat: "opening", cible: [2] }],
+
+                        },
+                        opening: {
+                            interaction: [{ command: "utiliser", etat: "open", cible: [2] }, { command: "utiliser", etat: "opening", cible: [4] }],
+
+                        },
+                        open: {
+
+                        },
+                    }
+                }, {    // figurine
+                    name: "figurine",
+                    determinant: "la ",
+                    isLocated: false,
+                }, {    // cheminée
+                    name: "cheminée",
+                    determinant: "la ",
+                    isLocated: false,
+                    four: {
+                        isFinal: false,
+                        isOpened: false,
+                        isOpening: false,
+                        closed: {
+
+                        },
+                        opening: {
+                            interaction: [{ command: "attendre", etat: "open", cible: [4] }],
+
+                        },
+                        open: {
+                            interaction: [{ command: "attendre", etat: "final", cible: [4] }, { command: "utiliser", etat: "opening", cible: [1] }],
+                        }
+                    }
+                }
+            ]
+        }, {    // JARDIN/CIEL/ETHERAL REALM
+            name: "ciel",
+            texts: [
+                {
+                    text: "lol",
+                    act: "regular",
+                    active: false
+                }, {
+                    text: "mdr",
+                    act: "regular",
+                    active: false
+                },
+            ],
+            items: [
+                {       // ecran
+                    name: "ecran",
+                    determinant: "la ",
+                    isLocated: true,
+                    five: {
+                        isOpened: false,
+                        closed: {
+                            look: ".",
+                            use: ".",
+                            go: ".",
+                            hit: ".",
+                            inspect: ".",
+                            wait: ".",
+                            accept: "."
+                        },
+                        open: {
+                            look: ".",
+                            use: ".",
+                            go: ".",
+                            hit: ".",
+                            inspect: ".",
+                            wait: ".",
+                            accept: ""
+                        }
+                    }
+                },
+            ]
         }
     ],
     currentScene: 0,
     isFinished: false,
     previousInput: [],
     player: {
+        collectibles: {
+            toit: {
+                drankWater: false,
+                litCandles: false,
+                brokenCar: false,
+            }
+        },
         username: "default",
         shortName: "ef",
         currentAct: 0,
@@ -2173,6 +2490,12 @@ function printTxt() {
                     if (itms.five != undefined) txt += itms.five.text + " ";
                 }
                 else {
+                    if (itms.zero != undefined) {
+                        if (itms.zero.closed != undefined) txt += itms.zero.closed.look + " " + itms.zero.closed.use + " " + itms.zero.closed.go + " ";
+                        if (itms.zero.opening != undefined) txt += itms.zero.opening.look + " " + itms.zero.opening.use + " " + itms.zero.opening.go + " ";
+                        if (itms.zero.open != undefined) txt += itms.zero.open.look + " " + itms.zero.open.use + " " + itms.zero.open.go + " ";
+                        if (itms.zero.final != undefined) txt += itms.zero.final.look + " " + itms.zero.final.use + " " + itms.zero.final.go + " ";
+                    }
                     if (itms.one != undefined) {
                         if (itms.one.closed != undefined) txt += itms.one.closed.look + " " + itms.one.closed.use + " " + itms.one.closed.go + " ";
                         if (itms.one.opening != undefined) txt += itms.one.opening.look + " " + itms.one.opening.use + " " + itms.one.opening.go + " ";

@@ -39,10 +39,11 @@ function findText(commandItem) {
     let txt = "",
         act = MYGAME.player.currentAct,
         scene = MYGAME.currentScene,
+        sceneName = MYGAME.scenes[scene].name,
         item = MYGAME.scenes[scene].items,
         command = commandItem[0].toLowerCase(),
         object = commandItem[(commandItem.length - 1)].toLowerCase(),
-        acts = ["one", "two", "three", "four", "five"],
+        acts = ["zero", "one", "two", "three", "four", "five"],
         authorizedCommands = [
             ["voir", "utiliser", "aller", "quitter"],
             ["voir", "utiliser", "aller", "quitter", "frapper"],
@@ -54,7 +55,7 @@ function findText(commandItem) {
     if (!authorizedCommands[act].includes(command)) return "Je ne comprends pas ce que je suis censé faire.";
 
     if (command === "quitter") {
-        if ((scene > 2 && act < 4) || (scene == 3 && act == 4)) displayMainText(parseInt(scene - 1));
+        if ((scene > 2 && act < 5) || (scene == 3 && act == 5)) displayMainText(parseInt(scene - 1));
         return item[item.length - 1][acts[act]].text;
     }
 
@@ -65,20 +66,21 @@ function findText(commandItem) {
         for (const w of mesMots) {
             if (object != w) continue;
 
-            // SI L'OBJET N'EST PAS DIRECTEMENT ACCESSIBLE :
+            // SI L'OBJET N'EST PAS DIRECTEMENT ACCESSIBLE:
             if (!e.isLocated) {
-                if (command != "aller") return "Je dois me rapprocher pour " + command + " " + e.determinant + e.name + ".";
-                else if (command == "aller") {
-                    let txtDepl = ["me déplace ", "me rends ", "vais ", "me dirige "],
-                        txtPrep = ["devant ", "vers ", "en direction de "],
-                        nbrDepl = Math.floor(Math.random() * txtDepl.length),
-                        nbrPrep = Math.floor(Math.random() * txtPrep.length);
+                switch (command) {
+                    case "aller":
+                        const txtDepl = ["me déplace", "me rends", "vais", "me dirige"],
+                            txtPrep = ["devant", "vers", "en direction de"];
 
-                    if (scene >= 4) item.forEach((y) => y.isLocated = false);
+                        if (scene >= 4) item.forEach((y) => y.isLocated = false);
+                        if (scene == 6) item[0].isLocated = true;
 
-                    e.isLocated = true;
+                        e.isLocated = true;
 
-                    return "Je " + txtDepl[nbrDepl] + txtPrep[nbrPrep] + e.determinant + e.name + ".";
+                        return `Je ${txtDepl[Math.floor(Math.random() * txtDepl.length)]} ${txtPrep[Math.floor(Math.random() * txtPrep.length)]} ${e.determinant}${e.name}.`;
+                    default:
+                        return `Je dois me rapprocher pour ${command} ${e.determinant}${e.name}.`;
                 }
             }
 
@@ -89,16 +91,17 @@ function findText(commandItem) {
 
             txt = getCommand(command);
 
-            if (t.goWin && command === "aller") displayMainText(parseInt(scene + 1));
-
+            if (t.win != undefined &&  command == t.win.command) displayMainText(parseInt(scene + 1));
             if (t.newAct != undefined && command == t.newAct.command) return nextActPlease(act + 1, txt);
 
             // CONDITIONS POUR MOMENTS SPECIFIQUES :
-            if (command === "inspecter" && object === "portail" && !el.isOpened && !el.isOpening && (act == 2 || act == 3)) txt += `"` + MYGAME.player.shortName + `"`;
+            if (command === "inspecter" && object === "portail" && !el.isOpened && !el.isOpening && (act == 3 || act == 4)) txt += `"` + MYGAME.player.shortName + `"`;
 
             // CONDITIONS POUR PUSH LE BON TEXTE DANS LES INPUTS PRECEDENTS
             if (command === "aller") MYGAME.previousInput.push(command + " vers " + e.determinant + e.name);
             else MYGAME.previousInput.push(command + " " + e.determinant + e.name);
+
+            if(t.collectible != undefined && command == t.collectible.command) MYGAME.player.collectibles[sceneName][t.collectible.coll] = true;
 
             // CONDITIONS ET BOUCLES POUR LES INTERACTIONS
             if (!t.interaction?.length) return txt;
@@ -110,10 +113,12 @@ function findText(commandItem) {
                     const tar = item[target][acts[act]];
 
                     if (inter.condition) {
-                        if (typeof inter.condition != "string") {
+                        if (typeof inter.condition === "number") {
                             if (compteur >= inter.condition) continue;
 
                             const whatCommand = getCommand(command);
+
+                            console.log(whatCommand)
                             if (compteur < (inter.condition - 1)) {
                                 MYGAME.player.count++;
                                 return whatCommand[MYGAME.player.count - 1];
@@ -121,12 +126,35 @@ function findText(commandItem) {
 
                             MYGAME.player.count = 0;
                             txt = whatCommand[whatCommand.length - 1];
-                        }
-                        else {
-                            if (inter.condition == "closed" && (tar.isOpening || tar.isOpened || tar.isFinal)) continue;
-                            if (inter.condition == "opening" && (!tar.isOpening || tar.isOpened || tar.isFinal)) continue;
-                            if (inter.condition == "open" && (!tar.isOpened || tar.isFinal)) continue;
-                            if (inter.condition == "final" && !tar.isFinal) continue;
+                        } else if (typeof inter.condition === "string") {
+                            switch(inter.condition) {
+                                case "closed":
+                                    if (tar.isOpening || tar.isOpened || tar.isFinal) continue;
+                                    break;
+                                case "opening":
+                                    if (!tar.isOpening) continue;
+                                    else if (tar.isOpening && (tar.isOpened || tar.isFinal)) continue;
+                                    break;
+                                case "open":
+                                    if (!tar.isOpened) continue;
+                                    else if (tar.isOpened && tar.isFinal) continue;
+                                    break;
+                                case "final":
+                                    if (!tar.isFinal) continue;
+                                    break;
+                            }
+                        } else if (typeof inter.condition === "boolean") {
+                            let mesCollectibles = MYGAME.player.collectibles[sceneName],
+                                allTrue = true;
+                            
+                            for (const [key, value] of Object.entries(mesCollectibles)) {
+                                if(!value) {
+                                    allTrue = false;
+                                    break;
+                                }
+                            }
+
+                            if (!allTrue) continue;
                         }
                     }
                     if (inter.etat == "final") tar.isFinal = true;

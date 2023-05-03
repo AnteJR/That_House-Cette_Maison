@@ -7,10 +7,12 @@ document.getElementById("monStyle").addEventListener("click", () => {
 function deleteStyles(fromButton) {
     if (fromButton == true) isDefault = false;
     let whiteText = document.querySelectorAll(".whiteText");
-    let angerText = document.querySelectorAll(".iAmAnger");
+    let shockText = document.querySelectorAll(".iAmShock");
+    let regularText = document.querySelectorAll(".iAmRegular");
+    let angerText = document.querySelectorAll(".iAmAngry");
     let bargainText = document.querySelectorAll(".iAmBargain");
-    let sadText = document.querySelectorAll(".iAmDepression");
-    let acceptText = document.querySelectorAll(".iAmAcceptance");
+    let sadText = document.querySelectorAll(".iAmSad");
+    let acceptText = document.querySelectorAll(".iAmAccept");
     let buttonGo = document.querySelectorAll(".buttonGo");
     let buttonAlert = document.querySelectorAll(".buttonAlert");
     let buttonGoForward = document.querySelectorAll(".buttonGoForward");
@@ -18,6 +20,8 @@ function deleteStyles(fromButton) {
     let myFlicker = document.querySelectorAll(".flicker");
     myFlicker[0].style.display = "none";
     whiteText.forEach((e) => { e.style.animation = "none" });
+    shockText.forEach((e) => { e.style.animation = "none" });
+    regularText.forEach((e) => { e.style.animation = "none" });
     angerText.forEach((e) => { e.style.animation = "none" });
     bargainText.forEach((e) => { e.style.animation = "none" });
     sadText.forEach((e) => { e.style.animation = "none" });
@@ -31,10 +35,12 @@ function deleteStyles(fromButton) {
 function putBackStyles(fromButton) {
     if (fromButton == true) isDefault = true;
     let whiteText = document.querySelectorAll(".whiteText");
-    let angerText = document.querySelectorAll(".iAmAnger");
+    let shockText = document.querySelectorAll(".iAmShock");
+    let regularText = document.querySelectorAll(".iAmRegular");
+    let angerText = document.querySelectorAll(".iAmAngry");
     let bargainText = document.querySelectorAll(".iAmBargain");
-    let sadText = document.querySelectorAll(".iAmDepression");
-    let acceptText = document.querySelectorAll(".iAmAcceptance");
+    let sadText = document.querySelectorAll(".iAmSad");
+    let acceptText = document.querySelectorAll(".iAmAccept");
     let buttonGo = document.querySelectorAll(".buttonGo");
     let buttonAlert = document.querySelectorAll(".buttonAlert");
     let buttonGoForward = document.querySelectorAll(".buttonGoForward");
@@ -42,6 +48,8 @@ function putBackStyles(fromButton) {
     let myFlicker = document.querySelectorAll(".flicker");
     myFlicker[0].style.display = "block";
     whiteText.forEach((e) => { e.style.animation = "textShadowWhite 1.033s infinite" });
+    shockText.forEach((e) => { e.style.animation = "textShadowWhite 1.033s infinite" });
+    regularText.forEach((e) => { e.style.animation = "textShadowWhite 1.033s infinite" });
     angerText.forEach((e) => { e.style.animation = "textShadowAngry 1.033s infinite" });
     bargainText.forEach((e) => { e.style.animation = "textShadowBargain 1.033s infinite" });
     sadText.forEach((e) => { e.style.animation = "textShadowDepression 1.033s infinite" });

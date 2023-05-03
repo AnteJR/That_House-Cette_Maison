@@ -66,7 +66,10 @@ window.addEventListener('keydown', (e) => {
 function validateInput() {
     if (monInput.value == "quitter") monInput.value = "quitter ";
     if (monInput.value.split(" ").length < 2 && monInput.value != "quitter") monInput.value = "false statement";
-    displayAlert(monInput.value);
+
+    let commandToSend = removeSpecialChars(monInput.value.split(""));
+    
+    displayAlert(commandToSend);
     monInput.value = "";
     setTimeout(() => document.activeElement.blur(), 50);
 }
@@ -96,27 +99,14 @@ mesCommandes.forEach((element) => {
         
         // conditions pour rendre disponible les commandes aux bons actes
         if (this.className.split(" ")[2] == "bonusC") {
-            switch (this.className.split(" ")[1]) {
-                case "hitC":
-                    canBeUsed = (monAct >= 1);
-                    break;
-                case "inspectC":
-                    canBeUsed = (monAct >= 2);
-                    break;
-                case "waitC":
-                    canBeUsed = (monAct >= 3);
-                    break;
-                case "acceptC":
-                    canBeUsed = (monAct >= 4);
-                    break;
-                default:
-                    canBeUsed = false;
-                    break;
-            }
+            if(this.className.split(" ")[1] == "hitC") canBeUsed = (monAct >= 1);
+            else if(this.className.split(" ")[1] == "inspectC") canBeUsed = (monAct >= 2);
+            else if(this.className.split(" ")[1] == "waitC") canBeUsed = (monAct >= 3);
+            else if(this.className.split(" ")[1] == "acceptC") canBeUsed = (monAct >= 4);
         } else canBeUsed = true;
 
         // insérer le mot lié à la commande dans l'input
-        if (canBeUsed == true) {
+        if (canBeUsed) {
             document.getElementById('commandInput').value = maCommande + " ";
             if (maCommande.toLowerCase() == "quitter") {
                 displayAlert("quitter ")

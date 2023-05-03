@@ -2,11 +2,9 @@
 function displayMainText(scene) {
     // on revient en haut de la page
     window.scrollTo(0, 0);
-    document.getElementById("titleGame").style.fontSize = "1.25em";
+    title.style.fontSize = "1.25em";
 
     if (scene != undefined) MYGAME.currentScene = parseInt(scene);
-
-    console.log(MYGAME.currentScene);
 
     let thisAct = MYGAME.player.currentAct,
         sceneCourante = MYGAME.currentScene,
@@ -21,14 +19,9 @@ function displayMainText(scene) {
     // CONDITION PRINCIPALE
     if (sceneCourante == 0) {
         gameDiv.style.textAlign = "center";
-
         bottomScreen.style.display = "none";
 
-        mesTxt[thisAct].text.forEach((e) => {
-            if (e[1] == true) monTxt += `<br/><div class = "titleDiv whiteText">`;
-            else monTxt += `<div class = "sadWobble textDiv whiteText">`;
-            monTxt += e[0] + `</div><br/>`;
-        });
+        mesTxt[thisAct].text.forEach((e) => e[1] == true ? monTxt += `<br/><div class = "titleDiv whiteText">` + e[0] + `</div><br/>` : monTxt += `<div class = "sadWobble textDiv whiteText">` + e[0] + `</div><br/>` );
 
         monTxt += `<br/><input type="button" value="Continuer" class="buttonGo" id="buttonGo" style="opacity:0"/>`;
         gameDiv.innerHTML = monTxt;
@@ -96,36 +89,68 @@ function displayMainText(scene) {
 
     // CONDITION PRINCIPALE : si c'est les scènes 2-6
     else {
+        let totalLength = 0;
         gameDiv.style.textAlign = "left";
 
-        mesTxt.forEach((e) => {
-            let isToBeDisplayed = false,
-                activeWord = "";
+        for (const e of mesTxt) {
+            const activeWord = removeSpecialChars(e.text.split("")),
+                actNameUpperCase = firstLetterToUpperCase(e.act.split("")),
+                txtLength = e.text.length;
 
-            if (e.active) {
-                let txtSplit = e.text.split("");
-                txtSplit.forEach((el, idx) => {
-                    if (el == "." || el == ",") activeWord += "";
-                    else if (el == "î") activeWord += "i";
-                    else if (el == "ê" || el == "é" || el == "è") activeWord += "e";
-                    else activeWord += el;
-                });
-            }
-            if (e.act == "regular" || (e.act == "angry" && thisAct >= 1) || (e.act == "bargain" && thisAct >= 2) || (e.act == "sad" && thisAct >= 3) || (e.act == "accept" && thisAct >= 4)) isToBeDisplayed = true;
-            if (e.act == "regular" || (e.act == "angry" && thisAct > 1) || (e.act == "bargain" && thisAct > 2) || (e.act == "sad" && thisAct > 3)) e.active ? txtToAdd = `<div class = "wobblyTxt textDiv interactiveText whiteText" data-word="${activeWord}">` : txtToAdd = `<div class = "textDiv whiteText">`;
-            if (e.act == "angry" && thisAct == 1) e.active ? txtToAdd = `<div class = "angerWobble textDiv iAmAnger interactiveText" data-word="${activeWord}">` : txtToAdd = `<div class = "textDiv iAmAnger">`;
-            if (e.act == "bargain" && thisAct == 2) e.active ? txtToAdd = `<div class = "bargainWobble textDiv iAmBargain interactiveText" data-word="${activeWord}">` : txtToAdd = `<div class = "textDiv iAmBargain">`;
-            if (e.act == "sad" && thisAct == 3) e.active ? txtToAdd = `<div class = "sadWobble textDiv iAmDepression interactiveText" data-word="${activeWord}">` : txtToAdd = `<div class = "textDiv iAmDepression">`;
-            if (e.act == "accept" && thisAct >= 4) e.active ? txtToAdd = `<div class = "acceptanceWobble textDiv iAmAcceptance interactiveText" data-word="${activeWord}">` : txtToAdd = `<div class = "textDiv iAmAcceptance">`;
-            if (isToBeDisplayed) monTxt += txtToAdd + e.text + `</div> `
-        });
+            if ((e.act == "shock" && thisAct > 0) || (e.act == "regular" && thisAct < 1) || (e.act == "angry" && thisAct < 2) || (e.act == "bargain" && thisAct < 3) || (e.act == "sad" && thisAct < 4) || (e.act == "accept" && thisAct < 5)) continue;
+
+            if (!e.active) txtToAdd = returnTxtToAdd (thisAct, e.act, actNameUpperCase, activeWord, false);
+            else txtToAdd = returnTxtToAdd (thisAct, e.act, actNameUpperCase, activeWord, true);
+
+            monTxt += txtToAdd + e.text + `</div> `;
+            totalLength += txtLength;
+        };
 
         // on insère le texte généré dans la div prévue pour les textes du jeu
         gameDiv.innerHTML = monTxt;
+
+        totalLength > 500 ? gameDiv.style.fontSize = "0.8em" : (totalLength > 400 ? gameDiv.style.fontSize = "0.9em" : gameDiv.style.fontSize = "1em");
 
         mesMots = [];
         document.querySelectorAll(".interactiveText").forEach((elems) => mesMots.push(elems.dataset.word));
     }
 
     displayGameText();
+}
+
+function removeSpecialChars(txt) {
+    let word = "";
+
+    txt.forEach((el) => {
+        if (el == "." || el == ",") word += "";
+        else if (el == "î") word += "i";
+        else if (el == "ê" || el == "é" || el == "è") word += "e";
+        else word += el;
+    });
+
+    return word;
+}
+
+function firstLetterToUpperCase(txt) {
+    let word = "";
+
+    txt.forEach((e, i) => {
+        if (i == 0) word += e.toUpperCase();
+        else word += e.toLowerCase();
+    });
+
+    return word;
+}
+
+function returnTxtToAdd (actNumber, actName, actNameUpperCase, activeWord, active) {
+    let newActName = actName,
+        newActNameUpperCase = actNameUpperCase;
+
+    if ((actName == "angry" && actNumber > 2) || (actName == "bargain" && actNumber > 3) || (actName = "sad" && actNumber > 4)) {
+        newActName = "regular";
+        newActNameUpperCase = "Regular";
+    }
+
+    if (active) return `<div class = "${newActName}Wobble textDiv iAm${newActNameUpperCase} interactiveText" data-word="${activeWord}">`;
+    else return `<div class = "textDiv iAm${newActNameUpperCase}">`;
 }

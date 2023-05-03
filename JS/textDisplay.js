@@ -49,10 +49,10 @@ function displayGameText() {
                     let maClass = element.getAttribute("class").split(" ")[0];
 
                     // afficher les espaces comme des espaces inséquables
-                    if (txtFrag[j] == " " && (maClass == "wobblyTxt" || maClass == "angerWobble" || maClass == "bargainWobble" || maClass == "sadWobble" || maClass == "acceptanceWobble")) txtFrag[j] = "&nbsp;";
+                    if (txtFrag[j] == " " && (maClass == "wobblyTxt" || maClass == "shockWobble" || maClass == "regularWobble" || maClass == "angerWobble" || maClass == "bargainWobble" || maClass == "sadWobble" || maClass == "acceptanceWobble")) txtFrag[j] = "&nbsp;";
 
                     // set de condition pour appliquer des délais aux spans qui contiennent les animations
-                    if (maClass == "wobblyTxt") element.innerHTML += `<span style="animation-delay: ${j * 50}ms">${txtFrag[j]}</span>`;
+                    if (maClass == "wobblyTxt" || maClass == "shockWobble" || maClass == "regularWobble") element.innerHTML += `<span style="animation-delay: ${j * 50}ms">${txtFrag[j]}</span>`;
                     else if (maClass == "angerWobble") element.innerHTML += `<span style="animation-delay: ${j * 20}ms">${txtFrag[j]}</span>`;
                     else if (maClass == "bargainWobble") element.innerHTML += `<span style="animation-delay: ${j * 500}ms">${txtFrag[j]}</span>`;
                     else if (maClass == "sadWobble") element.innerHTML += `<span style="animation-delay: ${j * 500}ms">${txtFrag[j]}</span>`;

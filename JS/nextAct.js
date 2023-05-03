@@ -1,10 +1,14 @@
 // THIS FUNCTION STARTS THE NEXT ACT
 function nextActPlease(newAct, myTextToDisplay) {
+    gameDiv.style.fontSize = "1em";
+    bottomScreen.style.display = "none";
+
     let txtToDisplay = "";
 
     MYGAME.player.currentAct = newAct;
 
     // set all items to not located for scenes after the 4th
+    // BEWARE HERE, MAYBE NOT THE BEST (POSTCARD, MOON, ALTAR ETC.)
     MYGAME.scenes.forEach((scn, i) => {
         if (i >= 4) scn.items.forEach((itm) => itm.isLocated = false);
     });
