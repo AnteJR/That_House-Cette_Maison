@@ -2,143 +2,159 @@
     font-family: "dogica";
     src: url("./polices/dogica.otf");
 }
+
 @font-face {
     font-family: "retroGame";
     src: url("./polices/RetroGaming.ttf");
 }
 
 /*  BODY, HTML & GENERAL RULES  */
-html, body {
-    width:100%;
-    height:100%;
+html,
+body {
+    width: 100%;
+    height: 100%;
     font-family: "retroGame";
-    color:white;
+    color: white;
     font-size: 1.5em;
 }
+
 body {
-    padding:0px;
-    margin:0px;
+    padding: 0px;
+    margin: 0px;
     background-color: rgb(3, 15, 26);
     overflow: hidden;
 }
 
 /*  DIV QUI COMPOSENT LA PAGE  */
 .gameContainer {
-    width:95%;
+    width: 95%;
     height: 95%;
-    margin-left:2.5%;
+    margin-left: 2.5%;
     margin-top: 2.5%;
     border-width: 5px;
     border-style: solid;
     background-color: rgb(3, 15, 26);
-    border-image: 
-      linear-gradient(
-        to bottom,
-        white,
-        rgba(3, 15, 26, 0)) 1;
+    border-image:
+        linear-gradient(to bottom,
+            white,
+            rgba(3, 15, 26, 0)) 1;
 }
+
 .topScreen {
     width: 100%;
     height: 60%;
 }
+
 .titleGame {
-    width:100%;
-    height:10%;
+    width: 100%;
+    height: 10%;
 }
+
 .gameScreen {
-    width:80%;
-    height:90%;
+    width: 80%;
+    height: 90%;
     margin-left: 10%;
 }
+
 .bottomScreen {
-    z-index:-1;
-    width:100%;
+    z-index: -1;
+    width: 100%;
     height: 40%;
-    border-width:5px 0px 0px 0px;
-    border-style:solid;
-    border-image: 
-      linear-gradient(
-          to left,
-        rgba(3, 15, 26, 0),
-        white,
-        rgba(3, 15, 26, 0)) 5;
+    border-width: 5px 0px 0px 0px;
+    border-style: solid;
+    border-image:
+        linear-gradient(to left,
+            rgba(3, 15, 26, 0),
+            white,
+            rgba(3, 15, 26, 0)) 5;
 }
+
 .enterTxt {
     width: 50%;
     height: 25%;
     margin-left: 25%;
 }
+
 .menuDiv {
-    width:100%;
+    width: 100%;
 }
+
 .commandsList {
     width: 80%;
     height: 70%;
     margin-left: 10%;
     padding-top: 1%;
-    border-width:5px 0px 0px 0px;
-    border-style:solid;
-    border-image: 
-      linear-gradient(
-          to left,
-        rgba(3, 15, 26, 0),
-        white,
-        rgba(3, 15, 26, 0)) 5;
+    border-width: 5px 0px 0px 0px;
+    border-style: solid;
+    border-image:
+        linear-gradient(to left,
+            rgba(3, 15, 26, 0),
+            white,
+            rgba(3, 15, 26, 0)) 5;
 }
+
 .mesStyles {
-    width:15%;
-    height:1.25em;
+    width: 15%;
+    height: 1.25em;
     position: absolute;
-    top:6%;
-    left:5%;
-    text-align:center;
+    top: 6%;
+    left: 5%;
+    text-align: center;
 }
 
 /*  COMMANDES ET LEURS AFFICHAGES  */
 .baseCommands {
-    float:left;
-    width:49%;
-    height:100%;
-    padding-top:1%;
-    padding-left:1%;
+    float: left;
+    width: 49%;
+    height: 100%;
+    padding-top: 1%;
+    padding-left: 1%;
 }
+
 .baseCommands div {
-    width:49%;
-    float:left;
+    width: 49%;
+    float: left;
 }
+
 .command span {
     cursor: pointer;
 }
+
 .iAmAngry {
     color: rgb(230, 97, 45);
 }
+
 .iAmBargain {
     color: rgb(12, 145, 67);
 }
+
 .iAmSad {
     color: rgb(92, 128, 206);
 }
+
 .iAmAccept {
     color: rgb(252, 220, 132);
 }
+
 .command span:hover {
     color: rgba(255, 255, 255, 0.2);
 }
 
 /*  INPUT  */
 .inputCommand {
-    text-align:center;
-    color:white;
-    font-size:1em;
-    width:100%;
-    height:100%;
+    text-align: center;
+    color: white;
+    font-size: 1em;
+    width: 100%;
+    height: 100%;
     font-family: "retroGame";
     background-color: rgba(0, 0, 0, 0);
-    border:none;
-    text-transform:uppercase;
+    border: none;
+    text-transform: uppercase;
 }
+
 .inputCommand:focus {
-    outline:none;
+    outline: none;
 }
 
 /*  CSS TEXTE GÉNÉRIQUE  */
@@ -146,27 +162,35 @@ body {
     text-align: center;
     font-size: 1.25em;
 }
+
 .textDiv {
-    display:inline;
+    display: inline;
     font-size: 0.75em;
 }
+
 .bigTextDiv {
     font-size: 1.25em;
     cursor: pointer;
 }
+
 .interactiveText {
     cursor: pointer;
     display: inline-block;
 }
+
 .hoverableText {
     cursor: pointer;
     display: inline-block;
     user-select: none;
 }
+
 .decorationTxt {
-    display:inline-block;
+    display: inline-block;
 }
-.interactiveText:hover, .menuTxt:hover, .hoverableText:hover {
+
+.interactiveText:hover,
+.menuTxt:hover,
+.hoverableText:hover {
     color: rgba(255, 255, 255, 0.2);
 }
 
@@ -176,125 +200,134 @@ body {
     height: 50%;
     top: 20%;
     margin-left: 20%;
-    border-width:5px 0px 5px 0px;
-    border-style:solid;
-    border-image: 
-      linear-gradient(
-          to left,
-        rgba(3, 15, 26, 0),
-        white,
-        rgba(3, 15, 26, 0)) 5;
+    border-width: 5px 0px 5px 0px;
+    border-style: solid;
+    border-image:
+        linear-gradient(to left,
+            rgba(3, 15, 26, 0),
+            white,
+            rgba(3, 15, 26, 0)) 5;
     position: absolute;
     background-color: rgb(3, 15, 26);
-    z-index:1;
+    z-index: 1;
     font-size: 0.9em;
 }
+
 .txtAlert {
-    width:80%;
-    height:60%;
-    margin-top:25px;
-    margin-left:10%;
+    width: 80%;
+    height: 60%;
+    margin-top: 25px;
+    margin-left: 10%;
 }
 
 /*  BOUTON ALERT  */
 .buttonAlert {
-    width:50%;
-    height:20%;
-    border:none;
-    margin-left:25%;
+    width: 50%;
+    height: 20%;
+    border: none;
+    margin-left: 25%;
     background-color: rgba(3, 15, 26, 0);
-    color:white;
-    text-transform:uppercase;
+    color: white;
+    text-transform: uppercase;
     font-family: "retroGame";
-    font-size:1em;
+    font-size: 1em;
     transition: width 0.2s;
     transition: margin-left 0.2s;
 }
+
 .buttonAlert:hover {
     cursor: pointer;
     background: linear-gradient(90deg, rgba(3, 15, 26, 0) 0%, white 50%, rgba(3, 15, 26, 0) 100%);
     color: rgb(3, 15, 26);
-    width:54%;
+    width: 54%;
     margin-left: 23%;
 }
+
 .buttonAlert:active {
     background: none;
     background-color: rgba(3, 15, 26, 0);
-    color:white;
+    color: white;
 }
 
 /*  BOUTON SANS MARGIN-LEFT  */
 .buttonGo {
-    width:50%;
-    height:20%;
-    border:none;
+    width: 50%;
+    height: 20%;
+    border: none;
     background-color: rgba(3, 15, 26, 0);
-    color:white;
-    text-transform:uppercase;
+    color: white;
+    text-transform: uppercase;
     font-family: "retroGame";
-    font-size:1em;
+    font-size: 1em;
     transition: width 0.2s;
     transition: margin-left 0.2s;
 }
+
 .buttonGo:hover {
     cursor: pointer;
     background: linear-gradient(90deg, rgba(3, 15, 26, 0) 0%, white 50%, rgba(3, 15, 26, 0) 100%);
     color: rgb(3, 15, 26);
-    width:54%;
+    width: 54%;
 }
+
 .buttonGo:active {
     background: none;
     background-color: rgba(3, 15, 26, 0);
-    color:white;
+    color: white;
 }
+
 .submitName {
-    padding-top:10px;
-    padding-bottom:10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 /*  BOUTON COULEURS INVERSÉES  */
 .buttonGoBack {
-    width:50%;
-    height:20%;
-    border:none;
+    width: 50%;
+    height: 20%;
+    border: none;
     margin-left: 25%;
     background-color: white;
-    color:rgb(3, 15, 26);
-    text-transform:uppercase;
+    color: rgb(3, 15, 26);
+    text-transform: uppercase;
     font-family: "retroGame";
-    font-size:1em;
+    font-size: 1em;
 }
+
 .buttonGoBack:hover {
     cursor: pointer;
     background: linear-gradient(90deg, white 0%, rgba(3, 15, 26) 50%, white 100%);
     color: white;
 }
+
 .buttonGoBack:active {
     background: none;
     background-color: white;
-    color:rgb(3, 15, 26);
+    color: rgb(3, 15, 26);
 }
 
 /*  BOUTON LARGE SANS MARGIN-LEFT  */
 .buttonGoForward {
-    width:80%;
-    height:20%;
-    border:none;
+    width: 80%;
+    height: 20%;
+    border: none;
     background-color: rgba(3, 15, 26, 0);
-    color:white;
-    text-transform:uppercase;
+    color: white;
+    text-transform: uppercase;
     font-family: "retroGame";
-    font-size:1em;
+    font-size: 1em;
 }
+
 .buttonGoForward:hover {
     cursor: pointer;
     background: linear-gradient(90deg, rgba(3, 15, 26, 0) 0%, white 50%, rgba(3, 15, 26, 0) 100%);
     color: rgb(3, 15, 26);
 }
+
 .buttonGoForward:active {
     background: none;
     background-color: rgba(3, 15, 26, 0);
-    color:white;
+    color: white;
 }
 
 /*  STYLE POUR LA DIV .FLICKER  */
@@ -303,9 +336,56 @@ body {
     position: absolute;
     width: auto;
     min-width: 100%;
-    height:105%;
-    z-index:15;
+    height: 105%;
+    z-index: 15;
     background: rgba(9, 8, 8, 0.1);
+}
+
+/* STYLE POUR LA LETTRE */
+.myLetter {
+    background-color: white;
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    color: rgb(3, 15, 26);
+}
+.myLetterText {
+    width: 80%;
+    height: 80%;
+    margin-left: 10%;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/*  BOUTON LETTRE */
+.buttonLetter {
+    width: 60%;
+    height: 15%;
+    margin-left: 20%;
+    margin-bottom: 15%;
+    border: none;
+    background-color: white;
+    color: rgb(3, 15, 26);
+    text-transform: uppercase;
+    font-family: "retroGame";
+    font-size: 1em;
+}
+
+.buttonLetter:hover {
+    cursor: pointer;
+    background: linear-gradient(90deg, white 0%, rgba(3, 15, 26) 50%, white 100%);
+    color: white;
+}
+
+.buttonLetter:active {
+    background: none;
+    background-color: white;
+    color: rgb(3, 15, 26);
 }
 
 /*  STYLE POUR LES SMARTPHONE  */
@@ -314,6 +394,6 @@ n'était peut-être pas des plus pertinent vu le texte à afficher  */
 /*  A VOIR SI JE DÉVELOPPE  */
 @media only screen and (max-width: 786px) {
     .decorationTxt {
-        display:none;
+        display: none;
     }
 }

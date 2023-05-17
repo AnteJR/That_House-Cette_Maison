@@ -31,15 +31,12 @@ function displayGameText() {
     // AFFICHER LES STRINGS LES UN APRES LES AUTRES, PUIS LES CHAR LES UNS APRES LES AUTRES
     function txtDisplay(i, j, element, txtFrag, index) {
         let interval1 = 0,
-            interval2 = 30,
-            diviser = 1;
+            interval2 = 30;
 
-        // dans le cas spécifique de l'affichage de la lettre, on a besoin que ça s'affiche plus rapidement
-        if (MYGAME.player.currentAct >= 4 && MYGAME.currentScene >= 5 && MYGAME.scenes[5].items[0].lookingAtLetter == true) interval2 = (interval2 - 13) / 3;
         if (index > 0) {
             let previousTexts = 0;
             for (let k = 0; k < texts.length - 1; k++) previousTexts += texts[k].length;
-            interval1 = (35 * previousTexts) / diviser;
+            interval1 = (36 * previousTexts);
         }
 
         // AFFICHAGE STRING APRES STRING, LETTRE APRES LETTRE
@@ -53,10 +50,10 @@ function displayGameText() {
 
                     // set de condition pour appliquer des délais aux spans qui contiennent les animations
                     if (maClass == "wobblyTxt" || maClass == "shockWobble" || maClass == "regularWobble") element.innerHTML += `<span style="animation-delay: ${j * 50}ms">${txtFrag[j]}</span>`;
-                    else if (maClass == "angerWobble") element.innerHTML += `<span style="animation-delay: ${j * 20}ms">${txtFrag[j]}</span>`;
+                    else if (maClass == "angryWobble") element.innerHTML += `<span style="animation-delay: ${j * 20}ms">${txtFrag[j]}</span>`;
                     else if (maClass == "bargainWobble") element.innerHTML += `<span style="animation-delay: ${j * 500}ms">${txtFrag[j]}</span>`;
                     else if (maClass == "sadWobble") element.innerHTML += `<span style="animation-delay: ${j * 500}ms">${txtFrag[j]}</span>`;
-                    else if (maClass == "acceptanceWobble") element.innerHTML += `<span style="animation-delay: ${0}ms">${txtFrag[j]}</span>`;
+                    else if (maClass == "acceptWobble") element.innerHTML += `<span style="animation-delay: ${j * 1000}ms">${txtFrag[j]}</span>`;
                     else element.innerHTML += txtFrag[j];
 
                     if (isDefault == true) putBackStyles(false);

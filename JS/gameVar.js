@@ -178,7 +178,7 @@ const MYGAME = {
                         isOpened: false,
                         isOpening: false,
                         closed: {
-                            interaction: [{ command: "frapper", etat: "open", cible: [0, 1, 2] }],
+                            interaction: [{ command: "frapper", state: "open", target: [0, 1, 2] }],
                             look: "Le portail est différent. Il est maintenant en métal. Il est aussi fermé à clef et l'accès m'est bloqué.",
                             use: "Le métal est froid sous mes doigts. La serrure est rouillée, et s'effrite par endroit.",
                             go: "Je suis déjà devant le portail.",
@@ -203,7 +203,7 @@ const MYGAME = {
 
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [0, 1, 2] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [0, 1, 2] }],
                             look: "J'ai maintenant la clef, je peux ouvrir le portail.",
                             use: "J'ouvre le portail avec la clef de la boîte aux lettres.",
                             go: "Je suis déjà devant le portail.",
@@ -230,7 +230,7 @@ const MYGAME = {
                             wait: "Attendre devant le portail me rend inconfortable. Il fait froid à l'extérieur.",
                         },
                         opening: {
-                            interaction: [{ command: "frapper", etat: "open", cible: [1, 2] }],
+                            interaction: [{ command: "frapper", state: "open", target: [1, 2] }],
                             look: "J'ai maintenant la clef, je peux ouvrir le portail.",
                             use: "J'ouvre le portail avec la clef récupérée dans le buisson.",
                             go: "Je suis déjà devant le portail.",
@@ -434,7 +434,7 @@ const MYGAME = {
                     three: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "frapper", etat: "open", cible: [3] }],
+                            interaction: [{ command: "frapper", state: "open", target: [3] }],
                             look: "La boîte est toute cabossée et tient à peine debout.",
                             use: "La boîte est fermée, et un pli du métal la coince dans cette position.",
                             go: "La boîte est déjà devant moi.",
@@ -442,7 +442,7 @@ const MYGAME = {
                             inspect: "Il n'y a rien à voir de spécial sur cette boîte, la plaquette du nom n'est plus là.",
                         },
                         open: {
-                            interaction: [{ command: "inspecter", etat: "opening", cible: [0] }],
+                            interaction: [{ command: "inspecter", state: "opening", target: [0] }],
                             look: "Suite à mon coup de poing, la boîte est encore plus difforme.",
                             use: "Je peux ouvrir la porte de la boîte aux lettres, mais elle ne se ferme plus.",
                             go: "La boîte est déjà devant moi.",
@@ -480,7 +480,7 @@ const MYGAME = {
                     four: {
                         isOpened: true,
                         open: {
-                            interaction: [{ command: "attendre", etat: "opening", cible: [5] }],
+                            interaction: [{ command: "attendre", state: "opening", target: [5] }],
                             look: "La lune brille dans le ciel d'une pâle lueur. Elle est presque pleine.",
                             use: "Je ne peux pas toucher la lune. Même si l'idée me plairait.",
                             go: "Impossible, c'est la lune...",
@@ -517,7 +517,7 @@ const MYGAME = {
                             wait: "Le vent fait frémir les branches mortes, virvoleter les feuilles déséchées."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "opening", cible: [0] }, { command: "utiliser", etat: "open", cible: [5] }],
+                            interaction: [{ command: "utiliser", state: "opening", target: [0] }, { command: "utiliser", state: "open", target: [5] }],
                             look: "La lune reflète une clef, coincée entre les brindilles déséchées.",
                             use: "Je ramasse la clef. L'arbuste craque quand je la retire. Je la glisse dans une poche.",
                             go: "Je suis déjà devant le buisson.",
@@ -553,7 +553,7 @@ const MYGAME = {
                     five: {
                         isOpened: true,
                         open: {
-                            interaction: [{ command: "accepter", etat: "open", cible: [2] }],
+                            interaction: [{ command: "accepter", state: "open", target: [2] }],
                             look: "Ma maison est assez modeste, de par ses deux étages et sa peinture beige très sobre.",
                             use: "Je devrais me rapprocher de ma maison pour la toucher.",
                             go: "Je préfère prendre mon temps et ne pas me presser. J'observe ma maison un moment.",
@@ -570,7 +570,7 @@ const MYGAME = {
                     zero: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "voir", etat: "open", cible: [7], condition: 4 }],
+                            interaction: [{ command: "voir", state: "open", target: [7], condition: 4 }],
                             look: ["Pourquoi cette route ? Qu'est-ce que je fais là ? Elle ne m'a pas l'air familière. Je n'ai pas envie de la prendre.",
                                 "La route est comme un gouffre qui s'enfonce dans un quartier que je ne connais pas. Est-ce que je me suis perdu ?",
                                 "Je ne sais pas si je veux continuer. Mon estomac se tord. Mes tempes transpirent. Mes joues se crispent.",
@@ -683,7 +683,7 @@ const MYGAME = {
                             go: "Je suis déjà devant la porte."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [0] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [0] }],
                             look: "La clef que j'ai en main semble correspondre à la serrure.",
                             use: "Je tourne la clef dans la porte, et un bruit sourd m'indique qu'elle est déverouillée.",
                             go: "Je suis déjà devant la porte."
@@ -698,7 +698,7 @@ const MYGAME = {
                     two: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "frapper", etat: "open", cible: [0], condition: 2 }],
+                            interaction: [{ command: "frapper", state: "open", target: [0], condition: 2 }],
                             look: "La porte est toujours en mauvais état, mais cette fois a en son centre un carreau de verre opaque.",
                             use: "La porte est fermée à clef, impossible de l'ouvrir.",
                             go: "Je suis déjà devant la porte.",
@@ -725,7 +725,7 @@ const MYGAME = {
                             inspect: "La peinture est argileuse, comme si on avait jeté de la terre sur la porte."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [0] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [0] }],
                             look: "La clef que j'ai en main semble correspondre à la serrure.",
                             use: "En un mouvement sec de la clef dans la serrure, la porte se déverouille.",
                             go: "Je suis déjà devant la porte.",
@@ -745,7 +745,7 @@ const MYGAME = {
                         isOpened: false,
                         isOpening: false,
                         closed: {
-                            interaction: [{ command: "attendre", etat: "opening", cible: [3] }],
+                            interaction: [{ command: "attendre", state: "opening", target: [3] }],
                             look: "La porte est fermée. Ses teintes rouges me barrent une nouvelle fois l'entrée.",
                             use: "À nouveau fermée à clef. À ce stade, cela ne me surprent guère.",
                             go: "Je suis déjà devant la porte.",
@@ -754,7 +754,7 @@ const MYGAME = {
                             wait: "Je réfléchis à comment l'ouvrir... Est-ce que la boîte à code serait la solution cette fois-ci ?"
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [0] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [0] }],
                             look: "La clef que j'ai en main correspond à la serrure.",
                             use: "La porte était fermée à double tour. Je tourne la clef plusieurs fois, et la porte est ouverte.",
                             go: "Je suis déjà devant la porte.",
@@ -777,7 +777,7 @@ const MYGAME = {
                         isOpened: false,
                         isOpening: false,
                         closed: {
-                            interaction: [{ command: "accepter", etat: "opening", cible: [4] }],
+                            interaction: [{ command: "accepter", state: "opening", target: [4] }],
                             look: "La porte est encore une fois fermée. Elle est en bois peint, visiblement à la main.",
                             use: "À nouveau fermée à clef. Aucune surprise. Où est-ce que la clef se trouve cette fois ?",
                             go: "Je suis déjà devant la porte.",
@@ -787,7 +787,7 @@ const MYGAME = {
                             accepter: "Peut-être que la clef est sous le paillasson, comme au début ?"
                         },
                         opening: {
-                            interaction: [{ command: "accepter", etat: "open", cible: [0] }],
+                            interaction: [{ command: "accepter", state: "open", target: [0] }],
                             look: "La clef que j'ai en main semble correspondre à la serrure de la porte.",
                             use: "J'essaie de mettre la clef dans la porte, mais un sentiment de peur m'envahit. Je me ravise.",
                             go: "Je suis déjà devant la porte.",
@@ -797,7 +797,7 @@ const MYGAME = {
                             accept: "Ce sera la dernière fois que j'entrerai dans la maison. Je dois accepter cela."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "final", cible: [0] }],
+                            interaction: [{ command: "utiliser", state: "final", target: [0] }],
                             look: "La clef que j'ai en main correspond à la serrure de la porte.",
                             use: "J'essaie de mettre la clef dans la porte, malgré mon malaise. Je tourne la clef dans la serrure...",
                             go: "Je suis déjà devant la porte.",
@@ -832,7 +832,7 @@ const MYGAME = {
                     two: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "frapper", etat: "open", cible: [1] }],
+                            interaction: [{ command: "frapper", state: "open", target: [1] }],
                             look: "Impossible de voir à travers cette vitre, elle est toujours aussi sale.",
                             use: "Il n'y a pas de poignée à l'extérieur, je peux seulement toucher le verre opaque.",
                             go: "Je suis déjà devant la fenêtre.",
@@ -850,7 +850,7 @@ const MYGAME = {
                         isOpened: false,
                         isOpening: false,
                         closed: {
-                            interaction: [{ command: "inspecter", etat: "opening", cible: [1] }],
+                            interaction: [{ command: "inspecter", state: "opening", target: [1] }],
                             look: "La vitre est moins sale, mais la buée épaisse n'aide pas à voir à travers.",
                             use: "Je ne peux pas ouvrir la fenêtre de l'extérieur.",
                             go: "Je suis déjà devant la fenêtre.",
@@ -858,7 +858,7 @@ const MYGAME = {
                             inspect: "De l'autre côté, pendant à un fil, la clef de la maison. Je dois ouvrir cette fenêtre."
                         },
                         opening: {
-                            interaction: [{ command: "frapper", etat: "open", cible: [1] }],
+                            interaction: [{ command: "frapper", state: "open", target: [1] }],
                             look: "La clef est derrière la fenêtre, mais je ne vois pas de poignée pour l'ouvrir.",
                             use: "Je ne peux pas l'ouvrir depuis l'extérieur.",
                             go: "Je suis déjà devant la fenêtre.",
@@ -866,7 +866,7 @@ const MYGAME = {
                             inspect: "La clef est clairement celle de la maison, c'est la même qu'à mon premier passage."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "final", cible: [1] }, { command: "utiliser", etat: "opening", cible: [0] }],
+                            interaction: [{ command: "utiliser", state: "final", target: [1] }, { command: "utiliser", state: "opening", target: [0] }],
                             look: "La vitre est cassée en son centre. De là, je peux aisément saisir la clef.",
                             use: "Je tends mon bras en faisant attention à ne pas me couper. Je prends la clef de la maison.",
                             go: "Je suis déjà devant la fenêtre.",
@@ -884,7 +884,7 @@ const MYGAME = {
                     four: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "inspecter", etat: "open", cible: [1] }],
+                            interaction: [{ command: "inspecter", state: "open", target: [1] }],
                             look: "Toujours couverte de buée, la fenêtre a un triste air d'abandon.",
                             use: "Je ne peux toujours pas ouvrir la fenêtre de l'extérieur.",
                             go: "Je suis déjà devant la fenêtre.",
@@ -958,7 +958,7 @@ const MYGAME = {
                     five: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [2] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [2] }],
                             look: "La sonnette est nettement plus moderne. Va-t-elle fonctionner cette fois ?",
                             use: "Elle sonne ! Pas sûr que cela serve à quelque chose, cependant.",
                             go: "La sonnette est déjà à ma portée.",
@@ -1013,7 +1013,7 @@ const MYGAME = {
                             wait: "J'essaie de réfléchir à un code, mais je ne suis pas sûr que la clef soit à l'intérieur."
                         },
                         opening: {
-                            interaction: [{ command: "attendre", etat: "open", cible: [3] }],
+                            interaction: [{ command: "attendre", state: "open", target: [3] }],
                             look: "Plus je la regarde, plus je me dis qu'elle doit être la solution.",
                             use: "Je dois être patient et réfléchir à un code. Cette boîte m'est familière.",
                             go: "La boîte est déjà à ma portée.",
@@ -1022,7 +1022,7 @@ const MYGAME = {
                             wait: "Elle ressemble à un coffre que je possède, dont le code est mon année de naissance, 1996. Je l'entre. La boîte s'ouvre..."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "final", cible: [3] }, { command: "utiliser", etat: "opening", cible: [0] }],
+                            interaction: [{ command: "utiliser", state: "final", target: [3] }, { command: "utiliser", state: "opening", target: [0] }],
                             look: "À l'intérieur, une clef en metal est accrochée à un petit porte-clef rouge.",
                             use: "Je saisis la clef, qui devrait me permettre d'ouvrir la porte.",
                             go: "La boîte est déjà à ma portée.",
@@ -1042,7 +1042,7 @@ const MYGAME = {
                     five: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [3] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [3] }],
                             look: "La boîte a plus des airs de coffre-fort. Je me demande si elle contient la clef.",
                             use: "J'entre 1996. La boîte s'ouvre, mais pas de clef à l'intérieur.",
                             go: "La boîte est déjà à ma portée.",
@@ -1068,13 +1068,13 @@ const MYGAME = {
                     one: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "utiliser", etat: "opening", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "opening", target: [4] }],
                             look: "Le paillasson à mes pieds est sale et répugnant.",
                             use: "Je retire le paillasson. Une vieille clef métallique se trouve dessous.",
                             go: "Le paillasson est à mes pieds."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "opening", cible: [0] }, { command: "utiliser", etat: "open", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "opening", target: [0] }, { command: "utiliser", state: "open", target: [4] }],
                             look: "La clef est rouillée et sale. Elle est assez grosse et semble correspondre à la porte.",
                             use: "Je ramasse la clef et la met dans ma poche.",
                             go: "Le paillasson est à mes pieds."
@@ -1088,14 +1088,14 @@ const MYGAME = {
                     two: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [4] }],
                             look: "Le paillasson à mes pieds est toujours aussi sale.",
                             use: "Je retourne le paillasson. Pas de clef dessous cette fois-ci.",
                             go: "Le paillasson est à mes pieds.",
                             hit: "Je donne un coup de talon au paillasson. Un peu de poussière s'en dégage."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "closed", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "closed", target: [4] }],
                             look: "Le paillasson est moins sale dessous. Son message est caché maintenant par contre.",
                             use: "Je retourne le paillasson pour le remettre à l'endroit.",
                             go: "Le paillasson est à mes pieds.",
@@ -1105,7 +1105,7 @@ const MYGAME = {
                     three: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [4] }],
                             look: "Le paillasson est relativement propre, mais a tout de même vécu.",
                             use: "Je retourne le paillasson. Il n'y a pas de clef dessous.",
                             go: "Le paillasson est à mes pieds.",
@@ -1113,7 +1113,7 @@ const MYGAME = {
                             inspect: `Le "bienvenue" est écrit en noir dans une police sans-serif facile à lire.`
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "closed", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "closed", target: [4] }],
                             look: "C'est un paillasson retourné, il n'y a rien à voir.",
                             use: "Je retourne le paillasson pour le remettre à l'endroit.",
                             go: "Le paillasson est à mes pieds.",
@@ -1136,7 +1136,7 @@ const MYGAME = {
                         isOpened: false,
                         isOpening: false,
                         closed: {
-                            interaction: [{ command: "accepter", etat: "opening", cible: [4] }],
+                            interaction: [{ command: "accepter", state: "opening", target: [4] }],
                             look: "C'est un joli paillasson presque neuf. Il me souhaite la bienvenue.",
                             use: "Je ne pense pas que la clef sera dessous cette fois, c'était différent à chaque passage.",
                             go: "Le paillasson est à mes pieds.",
@@ -1146,7 +1146,7 @@ const MYGAME = {
                             accept: "Mes parents cachaient un double des clefs sous le paillasson. Peut-être que ça vaut la peine que je le retourne."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [4] }],
                             look: "C'est un joli paillasson presque neuf. Il me souhaite la bienvenue.",
                             use: "Je retourne le paillasson. Pas de clef dessous cette fois.",
                             go: "Le paillasson est à mes pieds.",
@@ -1156,7 +1156,7 @@ const MYGAME = {
                             accept: "Est-ce que mon intuition sera correcte ?"
                         },
                         open: {
-                            interaction: [{ command: "accepter", etat: "opening", cible: [0] }],
+                            interaction: [{ command: "accepter", state: "opening", target: [0] }],
                             look: "Rien sous le paillasson. Je dois chercher ailleurs.",
                             use: "Je ne vais pas remettre le paillasson en place, pas besoin de m'y attarder plus que ça.",
                             go: "Le paillasson est à mes pieds.",
@@ -1275,7 +1275,7 @@ const MYGAME = {
                             hit: "Je donne un coup d'épaule à la porte, comme je l'ai fait à l'entrée. Rien ne se passe."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [0] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [0] }],
                             look: "La clef que j'ai en main semble correspondre à la porte en haut des escaliers.",
                             use: "J'insère la clef dans la serrure. Après un tour, la porte est ouverte.",
                             go: "Je suis déjà en haut des escaliers.",
@@ -1300,7 +1300,7 @@ const MYGAME = {
                             inspect: "Je remarque quelques gravures aux motifs animaliers dans la rampe de l'escalier."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [0] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [0] }],
                             look: "J'ai enfin récupéré une clef. Elle semble correspondre à la porte, heureusement.",
                             use: "J'insère la clef dans la serrure. Après deux tours cette fois, la porte s'ouvre.",
                             go: "Je suis en haut des escaliers.",
@@ -1337,7 +1337,7 @@ const MYGAME = {
                             wait: `Mes pensées sont absorbées par le livre "La Brume". J'ai l'impression que je dois le livre avant de continuer.`
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "final", cible: [0] }],
+                            interaction: [{ command: "utiliser", state: "final", target: [0] }],
                             look: "La clef que j'ai en main semble correspondre à la porte.",
                             use: "Je mets la clef dans la serrure et la tourne. La porte s'ouvre face à moi.",
                             go: "Je suis en haut des escaliers, devant la porte.",
@@ -1369,7 +1369,7 @@ const MYGAME = {
                             accept: "Cette porte m'est familière, mais je ne saurais dire comment. Il y a peut-être des choses qui me rafraîront la mémoire dans le bureau."
                         },
                         opening: {
-                            interaction: [{ command: "accepter", etat: "open", cible: [0] }],
+                            interaction: [{ command: "accepter", state: "open", target: [0] }],
                             look: "La porte est toujours fermée, mais je n'ai toujours pas de clef pour l'ouvrir.",
                             use: "La porte est toujours impossible à ouvrir...",
                             go: "Je suis devant la porte, en haut des escaliers.",
@@ -1379,7 +1379,7 @@ const MYGAME = {
                             accept: "C'est la porte d'entrée de ma chambre quand j'étais enfant ! Elle n'avait pas à clef, elle devrait s'ouvrir sans ça."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "final", cible: [0] }],
+                            interaction: [{ command: "utiliser", state: "final", target: [0] }],
                             look: "Je me revois enfant, montant les escaliers pour aller dans ma chambre. Celle-ci en est une exacte réplique.",
                             use: "Mes doigts se posent sur la poignée, et la porte s'ouvre. Était-elle ouverte tout ce temps ?",
                             go: "Je suis devant la porte, en haut des escaliers.",
@@ -1406,14 +1406,14 @@ const MYGAME = {
                     two: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "frapper", etat: "opening", cible: [1] }],
+                            interaction: [{ command: "frapper", state: "opening", target: [1] }],
                             look: "C'est un bureau en métal gris-vert aux coins et bords rouillés. Il y a un cabinet à sa droite.",
                             use: "Le bureau est froid et fragile sous mes mains. Le cabinet ne s'ouvre pas quand je tire dessus.",
                             go: "Je suis devant le bureau.",
                             hit: "Je frappe le cabinet d'un coup de pied sec. Un éclat métallique sourd m'indique que le tiroir devrait être débloqué."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "opening", cible: [0] }, { command: "utiliser", etat: "open", cible: [1] }],
+                            interaction: [{ command: "utiliser", state: "opening", target: [0] }, { command: "utiliser", state: "open", target: [1] }],
                             look: "Le bureau a l'air en piteux état. Le tiroir du cabinet est cassé et entrouvert.",
                             use: "Je tire sur le tiroir déboîté. À l'intérieur, une clef rouillée. Je la prends avec moi.",
                             go: "Je suis devant le bureau.",
@@ -1438,7 +1438,7 @@ const MYGAME = {
                             inspect: "Il y a un cadenas couvert de rouille sur le côté du cabinet. Je me demande comment l'ouvrir."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [1] }, { command: "inspecter", etat: "open", cible: [1] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [1] }, { command: "inspecter", state: "open", target: [1] }],
                             look: "Le bureau est en métal vert-gris, et a des airs de cabinet militaire. Il a toujours un cabinet à droite, fermé.",
                             use: "Le cabinet est fermé à clef par un code. Je pourrais essayer d'y entrer la date de la carte postale.",
                             go: "Je suis devant le bureau.",
@@ -1446,7 +1446,7 @@ const MYGAME = {
                             inspect: "Est-ce que je pourrais utiliser la date de la carte postale comme code pour le cadenas ?"
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "final", cible: [1] }, { command: "utiliser", etat: "opening", cible: [0] }],
+                            interaction: [{ command: "utiliser", state: "final", target: [1] }, { command: "utiliser", state: "opening", target: [0] }],
                             look: "Le cadenas demande un nombre à 6 chiffres. Une date pourrait y être entré.",
                             use: "J'entre la date 21-06-14 comme code. Le cabinet s'ouvre, et je récupère la clef qu'il contient.", // année de ses 18 ans
                             go: "Je suis devant le bureau.",
@@ -1473,7 +1473,7 @@ const MYGAME = {
                             wait: "J'attends devant le bureau. Comment ouvrir le cabinet cette fois-ci ? Je remarque qu'il faut un code."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "opening", cible: [0] }, { command: "utiliser", etat: "open", cible: [1] }],
+                            interaction: [{ command: "utiliser", state: "opening", target: [0] }, { command: "utiliser", state: "open", target: [1] }],
                             look: "Le cabinet est accompagné d'un système de blocage par un code, situé au-dessus de sa poignée.",
                             use: `J'entre le code 1667, l'année de publication du "Paradis Perdu" de Milton. Le tiroir s'ouvre et je récupère la clef qu'il contient.`,
                             go: "Je suis devant le bureau.",
@@ -1494,21 +1494,21 @@ const MYGAME = {
                         ifFinal: false,
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "accepter", etat: "open", cible: [4] }, { command: "accepter", etat: "open", cible: [1] }],
+                            interaction: [{ command: "accepter", state: "open", target: [4] }, { command: "accepter", state: "open", target: [1] }],
                             look: "Le bureau est un peu vieillot, mais magnifique et imposant au milieu de la pièce.",
                             use: "Le cabinet du bureau est à nouveau fermé, mais j'ai le code sur le bout des lèvres.",
                             go: "Je suis devant le bureau.",
-                            hit: "Je ne suis plus en colère.",
+                            hit: "Je ne vois pas l'utilité.",
                             inspect: "Le cabinet est encore fermé au profit d'une ouverture utilisant un code, mais je ne sais pas lequel.",
                             wait: "J'attends devant le bureau. Des souvenirs me reviennent. Mon père entrain de travailler ?",
                             accept: "C'était le bureau de mon père. Le code pour son cabinet était ma date de naissance, le 21 juin 1996."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "final", cible: [1] }],
+                            interaction: [{ command: "utiliser", state: "final", target: [1] }],
                             look: "Le bureau est vieux, mais très bien entretenu. Il magnifique et imposant au milieu de la pièce.",
                             use: "J'entre ma date de naissance comme code ; le cabinet est ouvert, mais il ne contient pas de clef cette fois.",
                             go: "Je suis devant le bureau.",
-                            hit: "Je ne suis plus en colère.",
+                            hit: "Je ne vois pas l'utilité.",
                             inspect: "Je revois mon père, installé dans sa chaise de bureau, travailler minutieusement. Que faisait-il comme métier ?",
                             wait: "J'essaie de me souvenir de mon père, installé à ce bureau. Les images me sont floues.",
                             accept: "Mon père faisait un travail dans la fine mécanique. Est-ce que c'était de l'électronique, de l'horlogerie...?"
@@ -1517,7 +1517,7 @@ const MYGAME = {
                             look: "Le bureau est une belle antiquité. Il magnifique et imposant au milieu de la pièce.",
                             use: "Je passe mes doigts sur le bureau pour m'imprégner de son histoire. Je revois mon père, penché dessus, un fer à soudure en main.",
                             go: "Je suis devant le bureau.",
-                            hit: "Je ne suis plus en colère.",
+                            hit: "Je ne vois pas l'utilité.",
                             inspect: "Je revois mon père, installé dans sa chaise de bureau, travailler minutieusement. Il travaillait sur des horloges je crois.",
                             wait: "J'essaie de me souvenir de mon père, installé à ce bureau. Je n'arrive pas à me rappeler son visage.",
                             accept: "Mon père était horloger. Il n'a pas arrêté de travailler même après sa retraite."
@@ -1530,7 +1530,7 @@ const MYGAME = {
                     three: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [2] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [2] }],
                             look: "C'est une carte postale qui montre des montagnes eneigées avec un photo-montage de ski.",
                             use: "Je retourne la carte pour voir le dos.",
                             go: "La carte est déjà à ma portée.",
@@ -1538,7 +1538,7 @@ const MYGAME = {
                             inspect: "Il y a le lieu marqué en transparence en bas de la carte : Zermatt, CH."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "closed", cible: [2] }, { command: "inspecter", etat: "opening", cible: [1], condition: "closed" }],
+                            interaction: [{ command: "utiliser", state: "closed", target: [2] }, { command: "inspecter", state: "opening", target: [1], condition: "closed" }],
                             look: `"Souvenirs de vacances en Suisse ! Un petit voyage avant de ne plus pouvoir en faire !" est écrit au dos. La signature n'est pas lisible.`,
                             use: "Je retourne la carte pour voir l'image de l'autre côté.",
                             go: "La carte est déjà à ma portée.",
@@ -1549,7 +1549,7 @@ const MYGAME = {
                     four: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [2] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [2] }],
                             look: "C'est une carte postale qui montre une silhouette de ville avec un lac en fond.",
                             use: "Je retourne la carte pour voir le dos.",
                             go: "La carte est déjà à ma portée.",
@@ -1558,7 +1558,7 @@ const MYGAME = {
                             wait: "Je m'arrête devant la carte, à l'entrée. Je ne sais pas trop pourquoi j'attends."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "closed", cible: [2] }],
+                            interaction: [{ command: "utiliser", state: "closed", target: [2] }],
                             look: `"Je me sens enfin en paix ici, mais qu'est-ce que tu me manques ! Fais un bec à [illisible]" est écrit au dos de la carte.`,
                             use: "Je retourne la carte pour voir l'image de l'autre côté.",
                             go: "La carte est déjà à ma portée.",
@@ -1570,7 +1570,7 @@ const MYGAME = {
                     five: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [2] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [2] }],
                             look: "C'est une carte d'une autoroute. Drôle d'objet à mettre en avant sur une carte postale.",
                             use: "Je retourne la carte pour voir le dos.",
                             go: "La carte est déjà à ma portée.",
@@ -1580,7 +1580,7 @@ const MYGAME = {
                             accept: "J'ai l'impression de reconnaître l'autoroute, mais je ne saurais dire d'où. Étrange."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "closed", cible: [2] }],
+                            interaction: [{ command: "utiliser", state: "closed", target: [2] }],
                             look: `"Nous restons immobiles dans le chemin du temps. Avant que tu partes, montre-moi ce que tu sais." est écrit au dos.`,
                             use: "Je retourne la carte pour voir l'image de l'autre côté.",
                             go: "La carte est déjà à ma portée.",
@@ -1618,7 +1618,7 @@ const MYGAME = {
                         isOpened: false,
                         isOpening: false,
                         closed: {
-                            interaction: [{ command: "inspecter", etat: "opening", cible: [3] }],
+                            interaction: [{ command: "inspecter", state: "opening", target: [3] }],
                             look: "La bibliothèque est désormais en bois massif, de façon similaire au bureau. Elle est remplie de livres.",
                             use: "Le bois est lisse sous mes doigts. Ma main s'arrête sur un livre plus large que les autres. Je suis pris de curiosité.",
                             go: "Je suis déjà devant la bibliothèque.",
@@ -1627,7 +1627,7 @@ const MYGAME = {
                             wait: "J'attends un moment devant la bibliothèque. J'ai envie de voir les livres de plus près."
                         },
                         opening: {
-                            interaction: [{ command: "attendre", etat: "open", cible: [3] }],
+                            interaction: [{ command: "attendre", state: "open", target: [3] }],
                             look: `Le livre "Vanités" est un grand ouvrage à la reliure en cuir rouge, avec son titre gravé en doré.`,
                             use: `Au toucher, la tranche du livre "Vanités" est rugueuse, épaisse et resistante.`,
                             go: "Je suis déjà devant la bibliothèque.",
@@ -1636,7 +1636,7 @@ const MYGAME = {
                             wait: `J'attends un moment devant la bibliothèque. J'ai très envie de lire ce livre, "Vanités".`
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "final", cible: [3] }, { command: "utiliser", etat: "opening", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "final", target: [3] }, { command: "utiliser", state: "opening", target: [4] }],
                             look: `"Vanités" est un livre de grande qualité. Il est immense, et semble avoir coûté cher. Son présence est étonnante.`,
                             use: `J'ouvre "Vanités". Un recueil de poème y est régulièrement cité : "La Brume". Serait-ce le livre posé à côté de la bilbiothèque ?`,
                             go: "Je suis déjà devant la bibliothèque.",
@@ -1682,7 +1682,7 @@ const MYGAME = {
                             wait: "J'attends devant le livre. Sa vue m'angoisse, et je n'ose pas le prendre pour le lire."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [4] }, { command: "inspecter", etat: "opening", cible: [1] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [4] }, { command: "inspecter", state: "opening", target: [1] }],
                             look: `À y regarder de plus près, il ressemble à une version plus petite de "Vanités".`,
                             use: "Je prends le livre en main, et l'ouvre. Je peux désormais en lire quelques passages.",
                             go: "Je suis devant le livre.",
@@ -1691,8 +1691,9 @@ const MYGAME = {
                             wait: "J'aimerais lire ce que le livre a à m'offrir, m'imprégnier de ses vers."
                         },
                         open: {
-                            interaction: [{ command: "voir", etat: "final", cible: [4], condition: 5 }, { command: "voir", etat: "open", cible: [0] }],
-                            look: [`"Nous dansons comme des flammes, scintillant dans la nuit. Nous nous balançons au rythme du vent avant de fondre."`,
+                            interaction: [{ command: "voir", state: "final", target: [4], condition: 5 }],
+                            look: [
+                                `"Nous dansons comme des flammes, scintillant dans la nuit. Nous nous balançons au rythme du vent avant de fondre."`,
                                 `"Tu parles d'un monde que j'ai connu, avant de perdre l'air. Nous connaissons tous le mensonge. Tu l'as laissé mourir."`,
                                 `"Te laisser entrer c'est me laisser partir. Je m'en vais, pour que tu puisse grandir."`,
                                 `"Les étés rêvent et la nuit s'arrête. J'attends patiemment sur la colline. Tous ces visages se transforment en sable"`,
@@ -1705,6 +1706,7 @@ const MYGAME = {
                             wait: "J'essaie de comprendre ce livre, son sujet, ses thèmes..."
                         },
                         final: {
+                            interaction: [{ command: "voir", state: "open", target: [0] }],
                             look: "Mes yeux clignent, et je sors de l'emprise du livre. Je me rends compte que je l'ai lâché, et qu'il est tombé à terre.",
                             use: "Je n'ose pas le ramasser. Je suis chamboulé par ce que j'ai lu...",
                             go: "Le livre est à mes pieds.",
@@ -1716,7 +1718,7 @@ const MYGAME = {
                     five: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "accepter", etat: "open", cible: [4] }],
+                            interaction: [{ command: "accepter", state: "open", target: [4] }],
                             look: `"La Brume" est un recueil de poème. Sa couverture est rouge, avec un lettrage doré.`,
                             use: "Le livre est léger, et agréable à prendre en main.",
                             go: "Je suis devant le livre.",
@@ -1726,7 +1728,7 @@ const MYGAME = {
                             accept: "Si je me souviens bien, ma mère possédait ce livre quand j'étais enfant. Elle le lisait sous le porche."
                         },
                         open: {
-                            interaction: [{ command: "accepter", etat: "opening", cible: [0] }],
+                            interaction: [{ command: "accepter", state: "opening", target: [0] }],
                             look: `J'ai l'impression de reconnaître cette copie de "La Brume". Serait-ce celle de ma mère ?`,
                             use: "Le livre est petit dans mes mains aujourd'hui, je me souviens qu'il me paraissait grand étant enfant.",
                             go: "Je suis devant le livre.",
@@ -1819,7 +1821,7 @@ const MYGAME = {
                         isOpened: false,
                         isOpening: false,
                         closed: {
-                            interaction: [{ command: "inspecter", etat: "opening", cible: [0, 1] }],
+                            interaction: [{ command: "inspecter", state: "opening", target: [0, 1] }],
                             look: "C'est un lit une place, défais, qui a l'air d'avoir été abandonné depuis des années...",
                             use: "Je presse ma main contre le lit. Il est humide et froid, probablement pourri à l'intérieur...",
                             go: "Je suis devant le lit, mais je n'ai pas envie d'aller dedans...",
@@ -1834,7 +1836,7 @@ const MYGAME = {
                             inspect: "Je ne vois rien de spécial outre le compartement que j'ai trouvé précédemment."
                         },
                         open: {
-                            interaction: [{ command: "voir", etat: "final", cible: [0] }],
+                            interaction: [{ command: "voir", state: "final", target: [0] }],
                             look: "Je suis pris de fatigue, et malgré son apparence, le lit semble m'accueillir.",
                             use: "Je touche une fois encore le lit... Son humidité me repousse, mais je suis si fatigué...",
                             go: "Je suis devant le lit... Est-ce que j'ose aller dedans...?",
@@ -1864,7 +1866,7 @@ const MYGAME = {
                     five: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "accepter", etat: "opening", cible: [4] }],
+                            interaction: [{ command: "accepter", state: "opening", target: [4] }],
                             look: "C'est un lit nettement plus moderne qu'avant. D'un coup d'oeil, on dirait mon lit, celui de mon appartement.",
                             use: "Les draps sont faits, frais et changés. Ils sont propres et doux au toucher.",
                             go: "Je suis devant le lit. Je ne suis pas fatigué, donc je n'ai pas de raison d'aller dedans.",
@@ -1889,7 +1891,7 @@ const MYGAME = {
                             inspect: "L'ourson est raffistolé de partout, il semble être passé entre les mains de plusieurs enfants."
                         },
                         opening: {
-                            interaction: [{ command: "inspecter", etat: "open", cible: [1] }],
+                            interaction: [{ command: "inspecter", state: "open", target: [1] }],
                             look: "C'est un ourson en peluche vieux et sale. Sa tête est à moitié détachée de son corps.",
                             use: "En portant l'ourson, il me paraît plus lours que ce qu'il devrait être. Est-ce qu'il cache quelque chose ?",
                             go: "L'ours en peluche est à mes pieds.",
@@ -1897,7 +1899,7 @@ const MYGAME = {
                             inspect: "Je vois un petit compartiment caché dans la nuque de l'ourson. Il est fermé à clef pour le moment."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [0] }, { command: "utiliser", etat: "final", cible: [1] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [0] }, { command: "utiliser", state: "final", target: [1] }],
                             look: "La petite clef que j'ai récupérée dans le lit semble correspondre au compartiment dans la peluche.",
                             use: `J'ouvre le compartiment À l'intérieur, une note : "Ton chemin est long, prends le temps pour te reposer".`,
                             go: "L'ours en peluche est à mes pieds.",
@@ -1924,7 +1926,7 @@ const MYGAME = {
                             wait: "J'attends et réfléchis... La dernière fois, c'était dans le lit que j'ai trouvé la clef."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [1, 4] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [1, 4] }],
                             look: "La clef que j'ai récupérée derrière le poster correpond au compartiment dans l'ourson.",
                             use: `Je tourne la clef. Un autre message cette fois : "Rejoins les astres".`,
                             go: "L'ours en peluche est à mes pieds.",
@@ -1944,7 +1946,7 @@ const MYGAME = {
                     five: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "accepter", etat: "opening", cible: [4] }],
+                            interaction: [{ command: "accepter", state: "opening", target: [4] }],
                             look: "La peluche est dans le même état qu'avant. Elle est vieille, mais bien entretenue, reprise de partout.",
                             use: "Je la porte. Cette fois, son poids semble normal. Il n'y a probablement pas de compartiment.",
                             go: "L'ours en peluche est à mes pieds.",
@@ -1981,7 +1983,7 @@ const MYGAME = {
                             wait: "J'attends devant le mur. Je réfléchis. Est-ce qu'il y aurait un indice sur l'un de ces papiers collés ?"
                         },
                         opening: {
-                            interaction: [{ command: "inspecter", etat: "open", cible: [2] }],
+                            interaction: [{ command: "inspecter", state: "open", target: [2] }],
                             look: "La lumière de la lampe met en évidence un article qui parle d'un bouchon sur une autoroute.",
                             use: "L'article est mis en évidence par une peinture fluorescente verte, qui semble encore fraîche au toucher.",
                             go: "Je suis devant le mur.",
@@ -1990,7 +1992,7 @@ const MYGAME = {
                             wait: "Je prends le temps de lire l'article. Il mentionne un accident de voiture qui bloque la circulation."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "opening", cible: [1] }, { command: "utiliser", etat: "final", cible: [2] }],
+                            interaction: [{ command: "utiliser", state: "opening", target: [1] }, { command: "utiliser", state: "final", target: [2] }],
                             look: "Maintenant que j'ai remarqué la bosse en forme de clef, je ne vois plus que ça.",
                             use: "Je déchire la page de journal pour récupérer la clef derrière. Je garde avec moi.",
                             go: "Je suis devant le mur.",
@@ -2026,7 +2028,7 @@ const MYGAME = {
                     four: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [3] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [3] }],
                             look: "C'est une lampe sur un long pied de bois. Elle pointe en direction du mur. Elle est éteinte.",
                             use: "Je tire sur la ficelle qui pend de la lampe. Elle s'allume.",
                             go: "Je suis devant la lampe.",
@@ -2035,7 +2037,7 @@ const MYGAME = {
                             wait: "J'attends un moment dans la pénombre de la lune. Je pourrai allumer la lumière pour y voir plus clair."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "closed", cible: [3] }, { command: "utiliser", etat: "closed", cible: [2], condition: "opening" }, { command: "attendre", etat: "opening", cible: [2], condition: "closed" }],
+                            interaction: [{ command: "utiliser", state: "closed", target: [3] }, { command: "utiliser", state: "closed", target: [2], condition: "opening" }, { command: "attendre", state: "opening", target: [2], condition: "closed" }],
                             look: "La lumière pointe en direction du mur. Elle éclaire les posters et articles de journaux qui y sont collés.",
                             use: "Je tire à nouveau sur le fil de la lampe. Elle s'éteint.",
                             go: "Je suis devant la lampe.",
@@ -2047,7 +2049,7 @@ const MYGAME = {
                     five: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [3] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [3] }],
                             look: "La lampe n'a pas changé depuis mon dernier passage.",
                             use: "Je tire sur le fil de la lampe. Elle s'allume.",
                             go: "Je suis devant la lampe.",
@@ -2057,7 +2059,7 @@ const MYGAME = {
                             accept: "C'est la lampe que j'ai dans mon appartement à côté de ma bibliothèque. Pourquoi est-elle ici ?."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "closed", cible: [3] }],
+                            interaction: [{ command: "utiliser", state: "closed", target: [3] }],
                             look: "La lampe n'a pas changé depuis mon dernier passage.",
                             use: "Je tire sur le fil de la lampe. Elle s'éteint.",
                             go: "Je suis devant la lampe.",
@@ -2076,7 +2078,7 @@ const MYGAME = {
                         isOpened: false,
                         isOpening: false,
                         closed: {
-                            interaction: [{ command: "utiliser", etat: "opening", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "opening", target: [4] }],
                             look: "L'échelle est couchée au fond de la pièce. Elle est en bois mais paraît tout de même solide.",
                             use: "Je redresse l'échelle pour la poser contre le mur du fond.",
                             go: "Je suis vers l'échelle. Elle est à ma portée.",
@@ -2085,7 +2087,7 @@ const MYGAME = {
                             wait: "J'attends devant l'échelle. Et si je la mettais contre le mur du fond ?"
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "closed", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "closed", target: [4] }],
                             look: "L'échelle est placée contre le mur au fond de la pièce. Elle ne mène nulle part, posée ici.",
                             use: "Je reprends l'échelle et la repose là où je l'ai trouvée.",
                             go: "Je suis vers l'échelle. Elle est à ma portée.",
@@ -2094,7 +2096,7 @@ const MYGAME = {
                             wait: "Après réflexion je ne pense pas que ce soit un bon endroit pour grimper où que ce soit."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "final", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "final", target: [4] }],
                             look: "L'échelle n'est pas au bon endroit. Il faut que je la pose là où il y a un trou dans la toiture.",
                             use: "Je prends l'échelle et la déplace jusqu'au trou dans le plafond. Là, je la pose contre le mur, droite.",
                             go: "Je suis vers l'échelle. Elle est à ma portée.",
@@ -2103,7 +2105,7 @@ const MYGAME = {
                             wait: "J'attends devant l'échelle. Et si je la mettais contre le mur, sous le trou au plafond ?"
                         },
                         final: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [4] }],
                             win: { command: "aller" },
                             look: "L'échelle est placée sous le trou qui mène au plafond. Comme ça, je peux accéder au toit.",
                             use: "Je me ravise et plie l'échelle, avant de la remettre où je l'avais prise.",
@@ -2118,7 +2120,7 @@ const MYGAME = {
                         isOpened: false,
                         isOpening: false,
                         closed: {
-                            interaction: [{ command: "utiliser", etat: "opening", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "opening", target: [4] }],
                             look: "L'échelle est couchée au fond de la pièce. Elle est en métal et paraît solide.",
                             use: "Je redresse l'échelle pour la poser contre le mur du fond.",
                             go: "Je suis vers l'échelle. Elle est à ma portée.",
@@ -2128,7 +2130,7 @@ const MYGAME = {
                             accept: "C'est une échelle comme une autre, je ne pense pas qu'elle me soit importante outre mesure."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "closed", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "closed", target: [4] }],
                             look: "L'échelle est placée contre le mur au fond de la pièce. Elle ne mène nulle part, posée ici.",
                             use: "Je reprends l'échelle et la repose là où je l'ai trouvée.",
                             go: "Je suis vers l'échelle. Elle est à ma portée.",
@@ -2138,7 +2140,7 @@ const MYGAME = {
                             accept: "C'est une échelle comme une autre, je ne pense pas qu'elle me soit importante outre mesure."
                         },
                         open: {
-                            interaction: [{ command: "utiliser", etat: "final", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "final", target: [4] }],
                             look: "L'échelle n'est pas au bon endroit. Il faut que je la pose là où il y a un trou dans la toiture.",
                             use: "Je prends l'échelle et la déplace jusqu'au trou dans le plafond. Là, je la pose contre le mur, droite.",
                             go: "Je suis vers l'échelle. Elle est à ma portée.",
@@ -2148,7 +2150,7 @@ const MYGAME = {
                             accept: "C'est un outil important pour la suite, finalement, la fin de mon aventure. Je suis content qu'elle m'ait facilité le trajet."
                         },
                         final: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [4] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [4] }],
                             win: { command: "aller" },
                             look: "L'échelle est placée sous le trou qui mène au plafond. Comme ça, je peux accéder au toit.",
                             use: "Je me ravise et plie l'échelle, avant de la remettre où je l'avais prise.",
@@ -2246,7 +2248,7 @@ const MYGAME = {
                     five: {
                         isOpened: false,
                         closed: {
-                            interaction: [{ commande: "attendre", etat: "open", cible: [0], condition: true }],
+                            interaction: [{ commande: "attendre", state: "open", target: [0], condition: true }],
                             look: "La lune trône au milieu du ciel, sa beauté n'a d'égal que sa taille.",
                             use: "Toucher la lune... Je ne suis malheureusement pas un astronaute.",
                             go: "Impossible, c'est la lune.",
@@ -2282,7 +2284,7 @@ const MYGAME = {
                             wait: "Qu'est-ce que ce bassin et cet autel font ici ? Sur un toit ? C'est absurde."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [1] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [1] }],
                             look: "Le bassin est rempli d'eau. Je pourrais me laver les mains à l'intérieur.",
                             use: "Je plonge mes mains couvertes de suie dans le bassin. Son eau se trouble et sa couleur se rapproche de l'antracite.",
                             go: "Je suis devant le bassin.",
@@ -2304,7 +2306,7 @@ const MYGAME = {
                         isOpened: false,
                         isOpening: false,
                         closed: {
-                            interaction: [{ command: "accepter", etat: "opening", cible: [1] }],
+                            interaction: [{ command: "accepter", state: "opening", target: [1] }],
                             look: "Le bassin contient toujours de l'eau. Elle est à nouveau claire, plus une trace de suie de mon dernier passage.",
                             use: "L'eau est froide au toucher. Elle n'a pas l'air différente d'avant.",
                             go: "Je suis devant le bassin.",
@@ -2315,7 +2317,7 @@ const MYGAME = {
                         },
                         opening: {
                             collectible: { command: "utiliser", coll: "drankWater" },
-                            interaction: [{ command: "utiliser", etat: "open", cible: [1] }],
+                            interaction: [{ command: "utiliser", state: "open", target: [1] }],
                             look: "L'eau est parfaitement transparente. Elle reflète légèrement la lune.",
                             use: "J'y plonge mes mains en cuillère, et les ramène à moi, pleine d'eau fraîche, que je bois. Ça fait du bien.",
                             go: "Je suis devant le bassin.",
@@ -2339,24 +2341,140 @@ const MYGAME = {
                     determinant: "la ",
                     isLocated: false,
                     four: {
+                        isFinale: false,
                         isOpened: false,
                         isOpening: false,
                         closed: {
-                            interaction: [{ command: "utiliser", etat: "opening", cible: [2] }],
-
+                            interaction: [{ command: "utiliser", state: "opening", target: [2] }],
+                            look: "C'est une cierge éteinte. Elle est blanche est longue. Il y a un briquet à côté d'elle.",
+                            use: "Je saisis le briquet et le prends avec moi.",
+                            go: "Je suis devant la cierge et le briquet.",
+                            hit: "Je ne vois pas ce que cela m'apporterait...",
+                            inspect: "La cire est blanche-beige, légèrement translucide. On peut voire le fil à travers, si on se concentre.",
+                            wait: "Je réfléchis un moment. Le briquet traîne juste à côté. Je pourrais le prendre."
                         },
                         opening: {
-                            interaction: [{ command: "utiliser", etat: "open", cible: [2] }, { command: "utiliser", etat: "opening", cible: [4] }],
-
+                            interaction: [{ command: "utiliser", state: "open", target: [2] }, { command: "utiliser", state: "opening", target: [4] }],
+                            look: "C'est une cierge éteinte. Elle est blanche est longue. J'ai le briquet en main, je pourrais l'allumer.",
+                            use: "Je prends briquet et l'enclenche. J'allume la cierge et la prends en main. Je peux éclairer des objets avec elle.",
+                            go: "Je suis devant la cierge, le briquet est dans ma poche.",
+                            hit: "Je ne vois pas ce que cela m'apporterait...",
+                            inspect: "La cire est blanche-beige, légèrement translucide. On peut voire le fil à travers, si on se concentre.",
+                            wait: "Je me pose deux minutes pour réfléchir. Si j'allumais la bougie, je pourrais éclairer l'intérieur de la cheminée."
                         },
                         open: {
-
+                            look: "La cierge brûle d'une flamme virevoltant au gré des courants d'air.",
+                            use: "Je me suis déjà saisis de la cierge. Je peux l'utiliser pour éclairer des objets.",
+                            go: "Je suis devant la cierge, le briquet est dans ma poche.",
+                            hit: "Je ne vois pas ce que cela m'apporterait... et je préfère ne pas prendre de risque avec du feu...",
+                            inspect: "La flamme est bleutée en sa base, et devient blanche, puis passe au rouge-orange.",
+                            wait: "Que faire avec cette bougie allumée ? Après réflexion, je pourrais éclairer la cheminée, voir si elle contient quelque chose."
+                        },
+                        final: {
+                            look: "La cierge brûle d'une flamme virevoltant au gré des courants d'air.",
+                            use: "Je me suis déjà saisis de la cierge.",
+                            go: "Je suis devant la cierge, le briquet est dans ma poche.",
+                            hit: "Je ne vois pas ce que cela m'apporterait... et je préfère ne pas prendre de risque avec du feu...",
+                            inspect: "La flamme est bleutée en sa base, et devient blanche, puis passe au rouge-orange.",
+                            wait: "Je m'arrête pour réfléchir. J'ai déjà éclairé la cheminée avec. Je ne pense pas que la cierge me soit utile outre-mesure."
+                        }
+                    },
+                    five: {
+                        isOpened: false,
+                        isOpening: false,
+                        closed: {
+                            interaction: [{ command: "utiliser", state: "opening", target: [2] }],
+                            look: "La cierge est éteinte, et neuve, comme si je ne l'avais pas allumée à mon passage précédent.",
+                            use: "Je saisis le briquet et le prends avec moi.",
+                            go: "Je suis devant la cierge et le briquet.",
+                            hit: "Je ne pense pas que ça me soit utile.",
+                            inspect: "La cire est légèrement translucide. Une croix chrétienne est gravée à la base de la cierge.",
+                            wait: "Je réfléchis un moment. Le briquet traîne juste à côté. Je pourrais le prendre.",
+                            accept: "C'est une cierge, qu'on trouverait typiquement dans une église, pour faire un vœux ou une prière."
+                        },
+                        opening: {
+                            interaction: [{ command: "utiliser", state: "open", target: [2] }],
+                            collectible: { command: "utiliser", coll: "litCandle" },
+                            look: "La cierge est éteinte, et neuve, comme si je ne l'avais pas allumée à mon passage précédent.",
+                            use: "Je me saisis du briquet, et d'un coup sec du pouce, une flamme en jaillit. J'allume la cierge.",
+                            go: "Je suis devant la cierge, le briquet est dans ma poche.",
+                            hit: "Je ne pense pas que ça me soit utile.",
+                            inspect: "La cire est légèrement translucide. Une croix chrétienne est gravée à la base de la cierge.",
+                            wait: "En réfléchissant, je me demande : est-ce que ça vaut la peine d'allumer la cierge encore une fois ?",
+                            accept: "Un objet de prière... que fait-il ici ? Je suis baptisé, mais pas croyant pour autant. Si ce lieu est lié à moi, je ne sais pas ce que ça fait là."
+                        },
+                        open: {
+                            look: "La cierge brûle d'une flamme virevoltant au gré des courants d'air",
+                            use: "Je ne pense pas que j'aies besoin d'éclairer quoi que ce soit cette fois.",
+                            go: "Je suis devant la cierge, le briquet est dans ma poche.",
+                            hit: "Je ne pense pas que ça me soit utile. Et puis, je n'aimerais pas prendre de risque avec du feu.",
+                            inspect: "Sur la croix chrétienne gravée à la base de la cierge, une lettre : ",
+                            wait: "J'attends devant la cierge allumée, sa flamme consumme 1cm de cire. Je ne vais pas attendre jusqu'à ce qu'elle soit consummée.",
+                            accept: "Une cierge allumée sur un autel, éclairée par la lumière de la lune... quelle image funeste."
                         },
                     }
                 }, {    // figurine
                     name: "figurine",
                     determinant: "la ",
                     isLocated: false,
+                    four: {
+                        isOpened: false,
+                        close: {
+                            interaction: [{ command: "frapper", state: "open", target: [3] }],
+                            look: "C'est une figurine en forme de voiture de couleur verte. Un vert bouteille quelque peu daté.",
+                            use: "La voiture fait quelques 20 centimètres, et pèse probablement 1kg. La figurine est assez lourde.",
+                            go: "Je suis devant la figurine. Elle est à ma portée.",
+                            hit: "Et si je...? Je me saisis de la voiture et la frappe contre l'autel. Elle est à présent toute cabossée.",
+                            inspect: "C'est une Renault Clio des années 1990. Elle ressemble à la voiture que j'avais quand j'ai commencé à conduire.",
+                            wait: "C'est une figurine de voiture... je ne vois pas ce qu'il y a à faire avec elle."
+                        },
+                        open: {
+                            look: "La voiture est cassée comme si un véhicule lui était rentré dans le côté. Elle est pliée sur la longueur.",
+                            use: "Je prends la voiture cabossée en main. Elle semble nettement plus fragile, malgré son poids.",
+                            go: "Je suis devant la figurine. Elle est à ma portée.",
+                            hit: "Elle est déjà cassée... je ne vois pas l'intérêt de la détruire plus que ça.",
+                            inspect: "La portière passager est enfoncée à cause du choc, et le pare-brise est en miettes. Ça fait froid dans le dos.",
+                            wait: "J'ai déjà cassé cette figurine... je ne vois pas ce qu'il y a à faire avec elle."
+                        }
+                    },
+                    five: {
+                        isFinal: false,
+                        isOpened: false,
+                        close: {
+                            interaction: [{ command: "frapper", state: "open", target: [3], condition: 3 }],
+                            look: "La figurine est un modèle plus moderne, une Toyota Yaris grise.",
+                            use: "La figurine fait entre 15-20 centimètres, et pèse probablement 1-1,5kg. Elle est étonnament lourde.",
+                            go: "Je suis devant la figurine. Elle est à ma portée.",
+                            hit: [
+                                "Je prends la figurine et la frappe capot en premier contre l'autel. Le pare-choc s'arrache, le capot se tord. Je suis tenté de le refaire.",
+                                "Je lance la voiture contre l'autel une nouvelle fois. Son pare-brise vole en éclat. Je suis poussé de la casser encore plus. Une colère me prend.",
+                                "Je ramasse la carcasse qu'est la figurine, et je l'écrase contre le sol. Une des roues avant se déboîte, tandis que la plaque avant se décroche. Encore."
+                            ],
+                            inspect: "C'est le modèle de voiture que je conduis aujourd'hui. La figurine a la même couleur que ma voiture. C'est un peu perturbant.",
+                            wait: "En voulant attendre et réfléchir, une envie me prend de saisir cette voiture et de la réduire en miettes.",
+                            accept: "C'est la même voiture que je conduis habituellement. Je l'ai achetée il y a quelques années d'occasion, c'est un bon modèle."
+                        },
+                        open: {
+                            interaction: [{ command: "frapper", state: "final", target: [3] }],
+                            collectible: { command: "frapper", coll: "brokenCar" },
+                            look: "La voiture est dans un sale état. Mais je peux encore lui donner le coup de grâce.",
+                            use: "Je prends la voiture cassée en main. Des miettes s'en détachent quand je la soulève. Ma colère est toujours là. Je veux la jeter une dernière fois.",
+                            go: "Je suis devant la figurine. Elle est à ma portée.",
+                            hit: "Je m'en saisis une dernière fois et la lance de toutes mes forces. Elle s'écrase à mes pieds avec violence. Elle n'est plus qu'une ruine.",
+                            inspect: "Tout l'avant de la voiture est enfoncé vers l'arrière. S'il y avait un pilote, il n'aurait pratiquement aucune chance de survie.",
+                            wait: "Je n'arrive pas à penser à autre chose qu'à donner le coup de grâce à cette figurine. La détruire.",
+                            accept: "Pourquoi suis-je poussé à la détruire peu à peu ? Une colère bouillonne en moi."
+                        },
+                        final: {
+                            look: "La voiture est une ruine. Il n'y a plus rien à détruire. Elle n'est plus. On dirait qu'elle a été écrasée par un camion.",
+                            use: "Je prends la carcasse en main. Des miettes s'en détachent quand je la soulève.",
+                            go: "Je suis devant la figurine. Elle est à ma portée.",
+                            hit: "Je ne suis plus en colère.",
+                            inspect: "La figurine n'est plus celle d'une voiture, mais d'un amas difforme de carrosserie avec deux roues à l'arrière...",
+                            wait: "Je... je ne sais pas quoi en penser, même en prenant le temps d'attendre et de réfléchir.",
+                            accept: "Pourquoi ce sentiment de profond malaise après ma colère noire ? J'ai comme un mauvais présentiment maintenant."
+                        }
+                    }
                 }, {    // cheminée
                     name: "cheminée",
                     determinant: "la ",
@@ -2366,35 +2484,200 @@ const MYGAME = {
                         isOpened: false,
                         isOpening: false,
                         closed: {
-
+                            look: "C'est une cheminée en brique rouge. Il n'y a rien de spécial.",
+                            use: "Je touche l'extérieur de la cheminée. Les briques sont rugueuses sous mes doigts.",
+                            go: "Je suis devant la cheminée.",
+                            hit: "... je ne pense pas que ça soit utile de faire ça.",
+                            inspect: "Il fait trop sombre pour voir quoi que ce soit à part sa surface.",
+                            wait: "Je réfléchis 5 minutes. Il me faudrait une source de lumière pour pouvoir mieux l'observer."
                         },
                         opening: {
-                            interaction: [{ command: "attendre", etat: "open", cible: [4] }],
-
+                            interaction: [{ command: "attendre", state: "open", target: [4] }],
+                            look: "En pointant la bougie allumée vers l'intérieur de la cheminée, je remarque qu'il y a énormément de suie.",
+                            use: "Je ne vois pas pourquoi je me salirais les mains à toucher de la suie.",
+                            go: "Je suis devant la cheminée.",
+                            hit: "... je ne pense pas que ça soit utile de faire ça.",
+                            inspect: "Plus bas dans la cheminée, je remarque que la suie bouche le conduit. Elle n'a pas dû être nettoyée depuis des lustres.",
+                            wait: "Comme un appel du vide, je suis pris de l'envie d'imprégner mes doigts de la suie."
                         },
                         open: {
-                            interaction: [{ command: "attendre", etat: "final", cible: [4] }, { command: "utiliser", etat: "opening", cible: [1] }],
+                            interaction: [{ command: "utiliser", state: "final", target: [2, 4] }, { command: "utiliser", state: "opening", target: [1] }],
+                            look: "Avec la bougie allumée à l'intérieur de la cheminée, je vois la suie, épaisse et grasse, qui recouvre ses murs.",
+                            use: "Une à une, je frotte mes mains contre les parois grasses de la cheminée, les recouvrant d'une couche épaisse de suie.",
+                            go: "Je suis devant la cheminée.",
+                            hit: "... je ne pense pas que ça soit utile de faire ça.",
+                            inspect: "La suie est antracite, et de la poussière s'y est collée. Elle semble inflammable, je ferais mieux de faire attention avec la bougie.",
+                            wait: "Je suis pris de l'envie de frotter mes mains dans la cheminée pour m'imprégner de la suie."
+                        },
+                        final: {
+                            look: "La cheminée n'est particulièrement notable en-dehors de son intérieur très sale.",
+                            use: "Je me suis enduit les mains de suie déjà une fois, je ne pense pas que ça me serve d'en rajouter une couche.",
+                            go: "Je suis devant la cheminée.",
+                            hit: "... je ne pense pas que ça soit utile de faire ça.",
+                            inspect: "Il n'y a rien de plus à observer. C'est une cheminée sale. Fin de l'histoire.",
+                            wait: "Je ne pense pas que cette cheminée m'apportera quoi que ce soit."
+                        }
+                    },
+                    five: {
+                        isOpened: true,
+                        open: {
+                            look: "C'est la même cheminée que la dernière fois, quoi que légèrement plus propre d'apparence, et peinte en gris.",
+                            use: "Les briques rouges sont recouvertes d'une fine couche de béton, ou peut-être de peinture grise.",
+                            go: "Je suis devant la cheminée.",
+                            hit: "... je ne pense pas que ça soit utile de faire ça.",
+                            inspect: "C'est une cheminée. Elle ne semble rien avoir de spécial, et je n'ai pas envie de me salir une nouvelle fois les mains",
+                            wait: "Je ne pense pas que cette cheminée m'apportera quoi que ce soit.",
+                            accept: "Je ne vois pas ce que cette cheminée a de spécial."
                         }
                     }
+                }, {    // leave
+                    name: "leave",
+                    four: { text: "Je descends l'échelle et reviens dans la chambre. Est-ce que j'ai oublié quelque chose en bas ?" },
+                    five: { text: "En me retournant, le trou dans le toit par lequel je suis monté est fermé, et l'échelle n'est plus là. Pourquoi donc ? Je suis coincé là-haut." }
                 }
             ]
         }, {    // JARDIN/CIEL/ETHERAL REALM
-            name: "ciel",
+            name: "jardin",
             texts: [
                 {
-                    text: "lol",
+                    text: "La lumière m'aveugle avant de s'estomper. Une chaleur m'envahit, contrastant avec la fraîcheur de la maison jusqu'à maintenant. Où suis-je ?",
                     act: "regular",
                     active: false
                 }, {
-                    text: "mdr",
+                    text: "On dirait un",
                     act: "regular",
                     active: false
-                },
+                }, {
+                    text: "jardin,",
+                    act: "regular",
+                    active: true
+                }, {
+                    text: "mais pas celui de la maison. Derrière moi, cette dernière a d'ailleurs disparu.",
+                    act: "regular",
+                    active: false
+                }, {
+                    text: "Sur une petite table en bois est posée une",
+                    act: "accept",
+                    active: false
+                }, {
+                    text: "lettre,",
+                    act: "accept",
+                    active: true
+                }, {
+                    text: "pliée en deux.",
+                    act: "accept",
+                    active: false
+                }, {
+                    text: "Au fond du jardin, sous un saule pleureur, se trouve un",
+                    act: "regular",
+                    active: false
+                }, {
+                    text: "écran",
+                    act: "regular",
+                    active: true
+                }, {
+                    text: "de télévision assez ancien, mais en état de marche.",
+                    act: "regular",
+                    active: false
+                }, {
+                    text: "Je me sens étrangement calme, en paix avec moi-même et le monde qui m'entoure.",
+                    act: "accept",
+                    active: false
+                }
             ],
             items: [
-                {       // ecran
-                    name: "ecran",
+                {       // jardin
+                    name: "jardin",
+                    determinant: "le ",
+                    isLocated: true,
+                    five: {
+                        isOpened: false,
+                        closed: {
+                            look: ".",
+                            use: ".",
+                            go: ".",
+                            hit: ".",
+                            inspect: ".",
+                            wait: ".",
+                            accept: "."
+                        },
+                        open: {
+                            look: ".",
+                            use: ".",
+                            go: ".",
+                            hit: ".",
+                            inspect: ".",
+                            wait: ".",
+                            accept: ""
+                        }
+                    }
+                }, {    // lettre
+                    name: "lettre",
                     determinant: "la ",
+                    isLocated: false,
+                    five: {
+                        isFinal: false,
+                        isOpened: false,
+                        isOpening: false,
+                        closed: {
+                            interaction: [{ command: "utiliser", state: "opening", target: [1] }],
+                            look: "C'est une lettre pliée, estampillée à la cire rouge d'un écusson.",
+                            use: "J'ouvre délicatement la lettre en déchirant la cire.",
+                            go: "Je suis devant la lettre.",
+                            hit: "Je ne vois pas l'intérêt. Je ne veux pas chiffoner ou déchirer la lettre.",
+                            inspect: "L'écusson est divisé en quatre avec un animal en son centre brandissant une marteau.",
+                            wait: "En prenant quelques instants pour réfléchir, je me demande ce que la lettre contient.",
+                            accept: "C'est l'écusson de ma famille, il représente un ours avec un marteau car mes ancêtres étaient des forgerons."
+                        },
+                        opening: {
+                            interaction: [{ command: "voir", state: "opening", target: [1] }],
+                            triggerEvent: { command: "voir", name: "readingLetter" },
+                            look: [
+                                "Cher moi,",
+                                "Tu dois avoir de nombreuses questions. Laisse-moi y répondre ici.",
+                                "Tout d'abord, tu l'auras probablement compris, la maison que tu visites depuis tout ce temps est bel et bien la tienne. Enfin, la nôtre. Celle dans laquelle on a grandi, ensemble.",
+                                "Son état de ruine est dû au fait qu'on ait cessé d'y penser durant notre vie d'adulte. Nous vivions notre vie, nous n'avions pas besoin de nous souvenir. Nous avions plein de préoccupations ; le travail, l'amour, nos amies et amis, notre famille...",
+                                "C'est quelque chose de regrettable, l'oubli. L'absence de pensée envers ce qu'on a vécu, ce qui nous a construit. Nos préoccupations sont maintenant derrière nous, et nous avons enfin pu nous souvenir. Nous n'avons plus à nous préoccuper de ce qui nous distrayait.",
+                                "J'ai une nouvelle importante et déchirante à t'annoncer. Tu ne respires plus, l'air t'as été dérobé. Tu es en train de mourir.",
+                                "Enfin, nous le sommes, tous les deux, en même temps. Tu as eu un accident de voiture. Les médecins et la polices diront que tu es mort sur le coup.",
+                                "Mais en ce moment, tu n'es pas encore mort. Alors que le monde autour de toi disparaît et se contorsionne, tes neurones s'activent une dernière fois dans une explosion d'endorphines, de souvenirs, de regrets, de pensées, qui s'entrechoquent et se mêlent les unes aux autres.",
+                                "Les électrons de ton corps se mettent à danser avec ceux du sol sous nos pieds et du ciel au-dessus de nous. On pourrait penser que c'est le fin de tout.",
+                                "Mais il n'y a aucun moment où nous commençons et nous finissons. Nous sommes de l'énergie, pas juste un souvenir. Nos choix, notre nom, notre personnalité, tout ça est venu après nous. Nous étions là avant tout ça, et nous continuerons d'exister après.",
+                                "L'oubli est regrettable, mais n'est pas la fin de nous, de notre existence, de notre présence.",
+                                "Il n'y a pas de temps. Il n'y a pas de mort non plus, du moins, pas comme on l'entend. La vie est un rêve. C'est un voeu. Réalisé encore et encore, et encore, et encore, et ainsi de suite, pour l'éternité.",
+                                "Nous sommes tous ce souhait. Nous sommes toutes choses. Nous sommes tous les éléments. Il n'y a donc pas de peur à avoir.",
+                                "Nos atomes sont partout. Malgré notre mort, nous sommes d'une certaine façon encore remplis de vie. Nous avons rejoint les étoiles, et le reste de l'univers.",
+                                "Je serai toujours à tes côtés,"
+                            ],
+                            use: ".",
+                            go: "Je suis devant la lettre.",
+                            hit: "Je ne vois pas l'intérêt. Je ne veux pas chiffoner ou déchirer la lettre.",
+                            inspect: ".",
+                            wait: ".",
+                            accept: ""
+                        },
+                        open: {
+                            look: ".",
+                            use: ".",
+                            go: "Je suis devant la lettre.",
+                            hit: "Je ne vois pas l'intérêt. Je ne veux pas chiffoner ou déchirer la lettre.",
+                            inspect: ".",
+                            wait: ".",
+                            accept: ""
+                        },
+                        final: {
+                            look: ".",
+                            use: ".",
+                            go: "Je suis devant la lettre.",
+                            hit: "Je ne vois pas l'intérêt. Je ne veux pas chiffoner ou déchirer la lettre.",
+                            inspect: ".",
+                            wait: ".",
+                            accept: ""
+                        }
+                    }
+                }, {    // ecran
+                    name: "ecran",
+                    determinant: "l' ",
                     isLocated: true,
                     five: {
                         isOpened: false,
@@ -2428,8 +2711,14 @@ const MYGAME = {
         collectibles: {
             toit: {
                 drankWater: false,
-                litCandles: false,
-                brokenCar: false,
+                litCandle: false,
+                brokenCar: false
+            },
+            jardin: {
+                readLetter: false,
+                acceptedLetter: false,
+                acceptedGarden: false,
+                lookedScreen: false
             }
         },
         username: "default",
@@ -2441,12 +2730,15 @@ const MYGAME = {
     }
 }
 
-const title = document.getElementById('titleGame'),
+const monBody = document.body,
+    gameContainer = document.getElementById("gameContainer"),
+    title = document.getElementById('titleGame'),
     gameDiv = document.getElementById("gameScreen"),
     bottomScreen = document.getElementById("screenBottom"),
     monInput = document.getElementById("commandInput"),
     mesCommandes = document.querySelectorAll(".command"),
-    monAlert = document.getElementById("boxAlert");
+    monAlert = document.getElementById("boxAlert"),
+    monStyle = document.getElementById("monStyle");
 
 let mesMots = [],
     titleText = title.textContent,

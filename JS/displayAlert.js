@@ -10,7 +10,10 @@ function displayAlert(text) {
 
     if (txtFrag == "") return;
     monAlert.style.display = "block";
+    monAlert.style.fontSize = "0.9em";
     clearInt = false;
+
+    if (monTxt.length > 140) monAlert.style.fontSize = "0.8em";
 
     txtDisplay();
 
@@ -45,6 +48,7 @@ function findText(commandItem) {
         object = commandItem[(commandItem.length - 1)].toLowerCase(),
         acts = ["zero", "one", "two", "three", "four", "five"],
         authorizedCommands = [
+            ["voir", "utiliser", "aller", "quitter"],
             ["voir", "utiliser", "aller", "quitter"],
             ["voir", "utiliser", "aller", "quitter", "frapper"],
             ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter"],
@@ -95,7 +99,8 @@ function findText(commandItem) {
             if (t.newAct != undefined && command == t.newAct.command) return nextActPlease(act + 1, txt);
 
             // CONDITIONS POUR MOMENTS SPECIFIQUES :
-            if (command === "inspecter" && object === "portail" && !el.isOpened && !el.isOpening && (act == 3 || act == 4)) txt += `"` + MYGAME.player.shortName + `"`;
+            if (command === "inspecter" && object === "portail" && !el.isOpened && !el.isOpening && (act == 3 || act == 4)) txt += `"` + MYGAME.player.shortName + `".`;
+            if (command === "inspecter" && object === "cierge" && el.isOpened && act == 5) txt += `"` + MYGAME.player.name.toUpperCase().split("").shift() + `".`;
 
             // CONDITIONS POUR PUSH LE BON TEXTE DANS LES INPUTS PRECEDENTS
             if (command === "aller") MYGAME.previousInput.push(command + " vers " + e.determinant + e.name);
@@ -109,7 +114,7 @@ function findText(commandItem) {
             for (const inter of t.interaction) {
                 if (command != inter.command) continue;
 
-                for (const target of inter.cible) {
+                for (const target of inter.target) {
                     const tar = item[target][acts[act]];
 
                     if (inter.condition) {
@@ -118,7 +123,6 @@ function findText(commandItem) {
 
                             const whatCommand = getCommand(command);
 
-                            console.log(whatCommand)
                             if (compteur < (inter.condition - 1)) {
                                 MYGAME.player.count++;
                                 return whatCommand[MYGAME.player.count - 1];
@@ -144,25 +148,35 @@ function findText(commandItem) {
                                     break;
                             }
                         } else if (typeof inter.condition === "boolean") {
-                            let mesCollectibles = MYGAME.player.collectibles[sceneName],
-                                allTrue = true;
-                            
+                            let mesCollectibles = MYGAME.player.collectibles[sceneName];
+
                             for (const [key, value] of Object.entries(mesCollectibles)) {
-                                if(!value) {
-                                    allTrue = false;
-                                    break;
-                                }
+                                if(!value) return getCommand(command)[0];
                             }
 
-                            if (!allTrue) continue;
+                            txt = getCommand(command)[1];
                         }
                     }
-                    if (inter.etat == "final") tar.isFinal = true;
-                    else if (inter.etat == "open") tar.isOpened = true;
-                    else if (inter.etat == "opening") tar.isOpening = true;
-                    else if (inter.etat == "closed") tar.isOpened = false;
+                    if (inter.state == "final") tar.isFinal = true;
+                    else if (inter.state == "open") tar.isOpened = true;
+                    else if (inter.state == "opening") tar.isOpening = true;
+                    else if (inter.state == "closed") tar.isOpened = false;
                 }
             }
+
+            // S'IL Y A UN EVENT
+            if (t.triggerEvent != undefined && command == t.triggerEvent.command) {
+                switch(t.triggerEvent.name) {
+                    case "readingLetter":
+                        let maCommand = getCommand(command)
+                        openLetter(maCommand);
+                        return "";
+                    case "endGame":
+                        endScreen();
+                        return "";
+                }
+            }
+
             return txt;
 
             function getCommand(name) {

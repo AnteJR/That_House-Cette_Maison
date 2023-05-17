@@ -1,5 +1,5 @@
 // FONCTIONS POUR GERER LE STYLE DU JEU
-document.getElementById("monStyle").addEventListener("click", () => {
+monStyle.addEventListener("click", () => {
     if (isDefault == true) deleteStyles(true);
     else if (isDefault == false) putBackStyles(true);
 });

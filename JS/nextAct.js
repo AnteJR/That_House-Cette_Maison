@@ -8,9 +8,11 @@ function nextActPlease(newAct, myTextToDisplay) {
     MYGAME.player.currentAct = newAct;
 
     // set all items to not located for scenes after the 4th
-    // BEWARE HERE, MAYBE NOT THE BEST (POSTCARD, MOON, ALTAR ETC.)
+    // BEWARE HERE, MAYBE NOT THE BEST (POSTCARD, MOON, ETC.)
     MYGAME.scenes.forEach((scn, i) => {
-        if (i >= 4) scn.items.forEach((itm) => itm.isLocated = false);
+        if (i > 3) scn.items.forEach((itm) => {
+            if(itm.name!="leave" || itm.name!="carte" || itm.name!="lune" || itm.name!="jardin") itm.isLocated = false
+        });
     });
 
     // hide the alert and insert the text normally planned in the alert into the gameDiv, which is centered

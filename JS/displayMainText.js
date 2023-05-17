@@ -99,8 +99,7 @@ function displayMainText(scene) {
 
             if ((e.act == "shock" && thisAct > 0) || (e.act == "regular" && thisAct < 1) || (e.act == "angry" && thisAct < 2) || (e.act == "bargain" && thisAct < 3) || (e.act == "sad" && thisAct < 4) || (e.act == "accept" && thisAct < 5)) continue;
 
-            if (!e.active) txtToAdd = returnTxtToAdd (thisAct, e.act, actNameUpperCase, activeWord, false);
-            else txtToAdd = returnTxtToAdd (thisAct, e.act, actNameUpperCase, activeWord, true);
+            txtToAdd = returnTxtToAdd (thisAct, e.act, actNameUpperCase, activeWord, e.active);
 
             monTxt += txtToAdd + e.text + `</div> `;
             totalLength += txtLength;
@@ -146,7 +145,7 @@ function returnTxtToAdd (actNumber, actName, actNameUpperCase, activeWord, activ
     let newActName = actName,
         newActNameUpperCase = actNameUpperCase;
 
-    if ((actName == "angry" && actNumber > 2) || (actName == "bargain" && actNumber > 3) || (actName = "sad" && actNumber > 4)) {
+    if ((actName == "angry" && actNumber > 2) || (actName == "bargain" && actNumber > 3) || (actName == "sad" && actNumber > 4) || (actName == "accept" && actNumber > 5)) {
         newActName = "regular";
         newActNameUpperCase = "Regular";
     }

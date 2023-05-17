@@ -27,18 +27,18 @@
 @keyframes sWobble { 
     0%      { transform: rotate(0deg) translateY(0px) }
     25%     { transform: rotate(4deg) translateY(4px) }
-    0%      { transform: rotate(0deg) translateY(0px) }
+    50%      { transform: rotate(0deg) translateY(0px) }
     75%     { transform: rotate(-4deg) translateY(-4px) }
     100%    { transform: rotate(0deg) translateY(0px) }
 }
 
 /*  ANIMATION POUR LES TEXTES "ACCEPT"  */
 @keyframes acceptWobble { 
-    0%      { transform: translateX(2px) translateY(0px) }
-    25%     { transform: translateX(0px) translateY(2px) }
-    50%     { transform: translateX(-2px) translateY(0px) }
-    75%     { transform: translateX(0px) translateY(-2px) }
-    100%    { transform: translateX(2px) translateY(0px) }
+    0%      { transform: rotate(0deg) translateX(0px) }
+    25%      { transform: rotate(5deg) translateX(2px) }
+    50%      { transform: rotate(0deg) translateX(0px) }
+    75%      { transform: rotate(-5deg) translateX(-2px) }
+    100%    { transform: rotate(0deg) translateX(0px) }
 }
 
 /*  LOT D'ANIMATIONS POUR L'EFFET VIEIL ÉCRAN SUR LE TEXTE  */
@@ -136,17 +136,30 @@
 
 /*  ANIMATION POUR LE CÔTÉ OSCILLANT DE L'ÉCRAN  */
 @keyframes flicker {  
-  0%      { opacity: 1; } 
-  10%     { opacity: 0.35748; } 
-  20%     { opacity: 0.9408; } 
-  30%     { opacity: 0.22426; }
-  40%     { opacity: 0.09249; }
-  50%     { opacity: 0.89436; } 
-  60%     { opacity: 0.19754; } 
-  70%     { opacity: 0.12137; } 
-  80%     { opacity: 0.89617; } 
-  90%     { opacity: 0.20657; } 
-  100%    { opacity: 0.78042; }
+  0%    { opacity: 1; } 
+  10%   { opacity: 0.35748; } 
+  20%   { opacity: 0.9408; } 
+  30%   { opacity: 0.22426; }
+  40%   { opacity: 0.09249; }
+  50%   { opacity: 0.89436; } 
+  60%   { opacity: 0.19754; } 
+  70%   { opacity: 0.12137; } 
+  80%   { opacity: 0.89617; } 
+  90%   { opacity: 0.20657; } 
+  100%  { opacity: 0.78042; }
+}
+
+/* LOT D'ANIMATIONS POUR LA LETTRE */
+/* APPARITION */
+@keyframes letterAppears {
+    0%  { top: 100%; }
+    100%  { top: 0%; }
+}
+
+/* DISPARITION */
+@keyframes letterDisappears {
+    0%  { top: 0%; }
+    100%  { top: 100%; }
 }
 
 /*  ATTRIBUTIONS DES ANIMATIONS (MOUVEMENTS DES LETTRES)  */
@@ -199,7 +212,7 @@
     animation-name: acceptWobble;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
-    animation-duration: 3s;
+    animation-duration: 5s;
     display: inline-block;
     transform: translateY(0px);
 }
@@ -210,7 +223,7 @@ body .whiteText, .iAmShock, .iAmRegular{
 }
 
 body .buttonGo, .buttonAlert, .buttonGoForward, .inputCommand { 
-  animation: textShadowWhite 1.033s infinite;
+    animation: textShadowWhite 1.033s infinite;
 }
 
 body .iAmAngry { 
