@@ -10,10 +10,9 @@ function displayAlert(text) {
 
     if (txtFrag == "") return;
     monAlert.style.display = "block";
-    monAlert.style.fontSize = "0.9em";
     clearInt = false;
 
-    if (monTxt.length > 140) monAlert.style.fontSize = "0.8em";
+    monTxt.length > 160 ? monAlert.style.fontSize = "0.75em" : (monTxt.length > 140 ? monAlert.style.fontSize = "0.8em" : (monTxt.length > 120 ? monAlert.style.fontSize = "0.85em" : monAlert.style.fontSize = "0.9em"));
 
     txtDisplay();
 
@@ -46,14 +45,15 @@ function findText(commandItem) {
         item = MYGAME.scenes[scene].items,
         command = commandItem[0].toLowerCase(),
         object = commandItem[(commandItem.length - 1)].toLowerCase(),
-        acts = ["zero", "one", "two", "three", "four", "five"],
+        acts = ["zero", "one", "two", "three", "four", "five", "six"],
         authorizedCommands = [
             ["voir", "utiliser", "aller", "quitter"],
             ["voir", "utiliser", "aller", "quitter"],
             ["voir", "utiliser", "aller", "quitter", "frapper"],
             ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter"],
             ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter", "attendre"],
-            ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter", "attendre", "accepter"]
+            ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter", "attendre", "accepter"],
+            ["accepter"]
         ];
 
     if (!authorizedCommands[act].includes(command)) return "Je ne comprends pas ce que je suis censé faire.";
@@ -95,7 +95,7 @@ function findText(commandItem) {
 
             txt = getCommand(command);
 
-            if (t.win != undefined &&  command == t.win.command) displayMainText(parseInt(scene + 1));
+            if (t.win != undefined && command == t.win.command) displayMainText(parseInt(scene + 1));
             if (t.newAct != undefined && command == t.newAct.command) return nextActPlease(act + 1, txt);
 
             // CONDITIONS POUR MOMENTS SPECIFIQUES :
@@ -106,73 +106,78 @@ function findText(commandItem) {
             if (command === "aller") MYGAME.previousInput.push(command + " vers " + e.determinant + e.name);
             else MYGAME.previousInput.push(command + " " + e.determinant + e.name);
 
-            if(t.collectible != undefined && command == t.collectible.command) MYGAME.player.collectibles[sceneName][t.collectible.coll] = true;
+            if (t.collectible != undefined && command == t.collectible.command) MYGAME.player.collectibles[sceneName][t.collectible.coll] = true;
 
             // CONDITIONS ET BOUCLES POUR LES INTERACTIONS
-            if (!t.interaction?.length) return txt;
+            if (t.interaction != undefined) {
+                for (const inter of t.interaction) {
+                    if (command != inter.command) continue;
 
-            for (const inter of t.interaction) {
-                if (command != inter.command) continue;
+                    for (const target of inter.target) {
+                        const tar = item[target][acts[act]];
 
-                for (const target of inter.target) {
-                    const tar = item[target][acts[act]];
+                        if (inter.condition) {
+                            if (typeof inter.condition === "number") {
+                                if (compteur >= inter.condition) continue;
 
-                    if (inter.condition) {
-                        if (typeof inter.condition === "number") {
-                            if (compteur >= inter.condition) continue;
+                                const whatCommand = getCommand(command);
 
-                            const whatCommand = getCommand(command);
+                                if (compteur < (inter.condition - 1)) {
+                                    MYGAME.player.count++;
+                                    return whatCommand[MYGAME.player.count - 1];
+                                }
 
-                            if (compteur < (inter.condition - 1)) {
-                                MYGAME.player.count++;
-                                return whatCommand[MYGAME.player.count - 1];
+                                MYGAME.player.count = 0;
+                                txt = whatCommand[whatCommand.length - 1];
+                            } else if (typeof inter.condition === "string") {
+                                switch (inter.condition) {
+                                    case "closed":
+                                        if (tar.isOpening || tar.isOpened || tar.isFinal) continue;
+                                        break;
+                                    case "opening":
+                                        if (!tar.isOpening) continue;
+                                        else if (tar.isOpening && (tar.isOpened || tar.isFinal)) continue;
+                                        break;
+                                    case "open":
+                                        if (!tar.isOpened) continue;
+                                        else if (tar.isOpened && tar.isFinal) continue;
+                                        break;
+                                    case "final":
+                                        if (!tar.isFinal) continue;
+                                        break;
+                                }
+                            } else if (typeof inter.condition === "boolean") {
+                                let mesCollectibles = MYGAME.player.collectibles[sceneName];
+
+                                for (const [key, value] of Object.entries(mesCollectibles)) {
+                                    if (!value) return getCommand(command)[0];
+                                }
+
+                                txt = getCommand(command)[1];
                             }
-
-                            MYGAME.player.count = 0;
-                            txt = whatCommand[whatCommand.length - 1];
-                        } else if (typeof inter.condition === "string") {
-                            switch(inter.condition) {
-                                case "closed":
-                                    if (tar.isOpening || tar.isOpened || tar.isFinal) continue;
-                                    break;
-                                case "opening":
-                                    if (!tar.isOpening) continue;
-                                    else if (tar.isOpening && (tar.isOpened || tar.isFinal)) continue;
-                                    break;
-                                case "open":
-                                    if (!tar.isOpened) continue;
-                                    else if (tar.isOpened && tar.isFinal) continue;
-                                    break;
-                                case "final":
-                                    if (!tar.isFinal) continue;
-                                    break;
-                            }
-                        } else if (typeof inter.condition === "boolean") {
-                            let mesCollectibles = MYGAME.player.collectibles[sceneName];
-
-                            for (const [key, value] of Object.entries(mesCollectibles)) {
-                                if(!value) return getCommand(command)[0];
-                            }
-
-                            txt = getCommand(command)[1];
                         }
+                        if (inter.state == "final") tar.isFinal = true;
+                        else if (inter.state == "open") tar.isOpened = true;
+                        else if (inter.state == "opening") tar.isOpening = true;
+                        else if (inter.state == "closed") tar.isOpened = false;
                     }
-                    if (inter.state == "final") tar.isFinal = true;
-                    else if (inter.state == "open") tar.isOpened = true;
-                    else if (inter.state == "opening") tar.isOpening = true;
-                    else if (inter.state == "closed") tar.isOpened = false;
                 }
             }
 
             // S'IL Y A UN EVENT
             if (t.triggerEvent != undefined && command == t.triggerEvent.command) {
-                switch(t.triggerEvent.name) {
+                switch (t.triggerEvent.name) {
                     case "readingLetter":
-                        let maCommand = getCommand(command)
-                        openLetter(maCommand);
+                        let maCommandLetter = getCommand(command);
+                        openLetter(maCommandLetter);
                         return "";
                     case "endGame":
-                        endScreen();
+                        let maCommandEnd = getCommand(command);
+                        endScreen(maCommandEnd, maCommandEnd[0].length);
+                        return "";
+                    case "theEnd":
+                        let maCommandFinish = getCommand(command);
+                        theEnd(maCommandFinish);
                         return "";
                 }
             }

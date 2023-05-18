@@ -63,8 +63,7 @@ function startUpSetUp() {
                 joueur.currentAct = parseInt(localStorage.act);
                 joueur.username = localStorage.username;
                 joueur.shortName = localStorage.shortName;
-                MYGAME.currentScene = 7;
-                MYGAME.player.currentAct = 5;
+                MYGAME.currentScene = 0;
 
                 // reset le style, notamment en affichant le bas de l'écran, et c'est parti
                 gameDiv.style.textAlign = "left";

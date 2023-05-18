@@ -42,7 +42,7 @@ function displayMainText(scene) {
     else if (sceneCourante == 1) {
         gameDiv.style.textAlign = "center";
         monTxt = `<br/>
-                <div class="titleDiv whiteText">
+                <div class="textDiv bigTextDiv whiteText">
                     ${maScene.title}
                 </div>
             <br/>
@@ -56,7 +56,7 @@ function displayMainText(scene) {
             <br/>
             <br/>
                 <form id="maForm" autocomplete="off">
-                    <input type="text" placeholder="~~enter your name here~~" class="inputCommand" id="monUsername"/>
+                    <input type="text" placeholder="~~entrez votre nom ici~~" class="inputCommand" id="monUsername"/>
                     <br/>
                     <br/>
                     <input type="submit" value="Confirmer" class="buttonGo submitName" id="buttonStart"/>
@@ -97,7 +97,8 @@ function displayMainText(scene) {
                 actNameUpperCase = firstLetterToUpperCase(e.act.split("")),
                 txtLength = e.text.length;
 
-            if ((e.act == "shock" && thisAct > 0) || (e.act == "regular" && thisAct < 1) || (e.act == "angry" && thisAct < 2) || (e.act == "bargain" && thisAct < 3) || (e.act == "sad" && thisAct < 4) || (e.act == "accept" && thisAct < 5)) continue;
+            if ((e.act == "regular" && thisAct < 1) || (e.act == "angry" && thisAct < 2) || (e.act == "bargain" && thisAct < 3) || (e.act == "sad" && thisAct < 4) || (e.act == "accept" && thisAct < 5) || (e.act == "end" && thisAct < 6)) continue;
+            if ((e.act == "shock" && thisAct > 0) || (e.act == "regular" && thisAct > 5) || (e.act == "angry" && thisAct > 5) || (e.act == "bargain" && thisAct > 5) || (e.act == "sad" && thisAct > 5) || (e.act == "accept" && thisAct > 5)) continue;
 
             txtToAdd = returnTxtToAdd (thisAct, e.act, actNameUpperCase, activeWord, e.active);
 
@@ -145,7 +146,7 @@ function returnTxtToAdd (actNumber, actName, actNameUpperCase, activeWord, activ
     let newActName = actName,
         newActNameUpperCase = actNameUpperCase;
 
-    if ((actName == "angry" && actNumber > 2) || (actName == "bargain" && actNumber > 3) || (actName == "sad" && actNumber > 4) || (actName == "accept" && actNumber > 5)) {
+    if ((actName == "angry" && actNumber > 2) || (actName == "bargain" && actNumber > 3) || (actName == "sad" && actNumber > 4) || actName == "end") {
         newActName = "regular";
         newActNameUpperCase = "Regular";
     }

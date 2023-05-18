@@ -149,17 +149,30 @@
   100%  { opacity: 0.78042; }
 }
 
-/* LOT D'ANIMATIONS POUR LA LETTRE */
+/* LOT D'ANIMATIONS POUR LA LETTRE ET LA FIN */
 /* APPARITION */
-@keyframes letterAppears {
+@keyframes divAppears {
     0%  { top: 100%; }
     100%  { top: 0%; }
 }
 
 /* DISPARITION */
-@keyframes letterDisappears {
+@keyframes divDisappears {
     0%  { top: 0%; }
     100%  { top: 100%; }
+}
+
+/* LOT D'ANIMATIONS POUR LA FIN */
+/* APPARITION */
+@keyframes gameDivDisappears {
+    0%  { top: 2.5%; }
+    100%  { top: -100%; }
+}
+
+/* DISPARITION */
+@keyframes gameDivAppears {
+    0%  { top: -100%; }
+    100%  { top: 2.5%; }
 }
 
 /*  ATTRIBUTIONS DES ANIMATIONS (MOUVEMENTS DES LETTRES)  */

@@ -21,7 +21,7 @@ window.addEventListener('keydown', (e) => {
         else input = document.getElementById("commandInput");
 
         // mettre le son ici permet de le jouer chaque fois que le user presse une touche, peu importe ce qui est focus
-        if (!MYGAME.isFinished) canPlaySound = true;
+        if (!MYGAME.isSilent) canPlaySound = true;
         if (canPlaySound) playKeyType();
 
         // ne fonctionne que si l'input n'est pas focused, ce afin d'éviter les doubles inputs
@@ -68,7 +68,7 @@ function validateInput() {
     if (monInput.value.split(" ").length < 2 && monInput.value != "quitter") monInput.value = "false statement";
 
     let commandToSend = removeSpecialChars(monInput.value.split(""));
-    
+
     displayAlert(commandToSend);
     monInput.value = "";
     setTimeout(() => document.activeElement.blur(), 50);
@@ -96,14 +96,19 @@ mesCommandes.forEach((element) => {
         let maCommande = this.dataset.command,
             canBeUsed = false,
             monAct = MYGAME.player.currentAct;
-        
-        // conditions pour rendre disponible les commandes aux bons actes
-        if (this.className.split(" ")[2] == "bonusC") {
-            if(this.className.split(" ")[1] == "hitC") canBeUsed = (monAct >= 1);
-            else if(this.className.split(" ")[1] == "inspectC") canBeUsed = (monAct >= 2);
-            else if(this.className.split(" ")[1] == "waitC") canBeUsed = (monAct >= 3);
-            else if(this.className.split(" ")[1] == "acceptC") canBeUsed = (monAct >= 4);
-        } else canBeUsed = true;
+
+        if (monAct > 5) {
+            this.className.split(" ")[1] == "acceptC" ? canBeUsed = true : canBeUsed = false;
+        }
+        else {
+            // conditions pour rendre disponible les commandes aux bons actes
+            if (this.className.split(" ")[2] == "bonusC") {
+                if (this.className.split(" ")[1] == "hitC") canBeUsed = (monAct >= 1);
+                else if (this.className.split(" ")[1] == "inspectC") canBeUsed = (monAct >= 2);
+                else if (this.className.split(" ")[1] == "waitC") canBeUsed = (monAct >= 3);
+                else if (this.className.split(" ")[1] == "acceptC") canBeUsed = (monAct >= 4);
+            } else canBeUsed = true;
+        }
 
         // insérer le mot lié à la commande dans l'input
         if (canBeUsed) {

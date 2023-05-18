@@ -41,6 +41,12 @@ const MYGAME = {
                         ["Acte 5", true],
                         ["Par-delà cette maison.", false]
                     ]
+                }, {
+                    id: 6,
+                    text: [
+                        ["Épilogue", true],
+                        ["L'horizon.", false]
+                    ]
                 }
             ],
         }, {    // PRENOM
@@ -158,6 +164,30 @@ const MYGAME = {
                 }, {
                     text: "dans laquelle j'ai grandi.",
                     act: "accept",
+                    active: false
+                }, {
+                    text: `Je ne suis plus seul. Parler en "je" est même trompeur. Mes particules flottent avec le reste du monde.`,
+                    act: "end",
+                    active: false
+                }, {
+                    text: `Le temps s'écroule, et ne s'écoule plus comme avant. Est-ce que 10 secondes ont passé ? Ou serait-ce plutôt 10 ans, ou 10 siècles ?`,
+                    act: "end",
+                    active: false
+                }, {
+                    text: `Rien n'est moins sûr. Cette`,
+                    act: "end",
+                    active: false
+                }, {
+                    text: `maison,`,
+                    act: "end",
+                    active: true
+                }, {
+                    text: `celle que j'ai revisité, m'a permis de comprendre ce qui m'attendait au-delà de ce qu'on appelle la vie.`,
+                    act: "end",
+                    active: false
+                }, {
+                    text: `L'horizon est vaste, invisible tant il est grand. L'univers est partout, tout comme mes électons, et mes atomes.`,
+                    act: "end",
                     active: false
                 }
             ],
@@ -562,6 +592,17 @@ const MYGAME = {
                             wait: "L'air doux d'une nuit d'été est agréable. Il manque tout de même le bruit des criquets.",
                             accept: "C'est donc ma maison. Je suis prêt à y entrer une dernière fois.",
                         }
+                    },
+                    six: {
+                        isOpened: false,
+                        closed: {
+                            interaction: [{ command: "accepter", state: "open", target: [6] }],
+                            accept: "Cette maison qui est la mienne est maintenant lointaine. Un souvenir. Elle est aussi omniprésente. Une énergie"
+                        },
+                        open: {
+                            triggerEvent: { command: "accepter", name: "theEnd" },
+                            accept: "Je (ne) suis (plus)."
+                        }
                     }
                 }, {    // route
                     name: "route",
@@ -571,7 +612,8 @@ const MYGAME = {
                         isOpened: false,
                         closed: {
                             interaction: [{ command: "voir", state: "open", target: [7], condition: 4 }],
-                            look: ["Pourquoi cette route ? Qu'est-ce que je fais là ? Elle ne m'a pas l'air familière. Je n'ai pas envie de la prendre.",
+                            look: [
+                                "Pourquoi cette route ? Qu'est-ce que je fais là ? Elle ne m'a pas l'air familière. Je n'ai pas envie de la prendre.",
                                 "La route est comme un gouffre qui s'enfonce dans un quartier que je ne connais pas. Est-ce que je me suis perdu ?",
                                 "Je ne sais pas si je veux continuer. Mon estomac se tord. Mes tempes transpirent. Mes joues se crispent.",
                                 "La brume derrière moi m'empêche de revenir en arrière. Est-ce que je devrais juste prendre la route ? Continuer d'avancer ?"
@@ -588,6 +630,7 @@ const MYGAME = {
                     }
                 }, {    // leave
                     name: "leave",
+                    zero: { text: "La route derrière moi est plongée dans la brume. Je ferais mieux d'avancer." },
                     one: { text: "Cette maison m'attire. En plus, j'ai marché trop longtemps, je ne vais pas partir maintenant." },
                     two: { text: "Je suis à nouveau devant cette maison. Pourquoi ? Je ne peux pas partir maintenant." },
                     three: { text: "Je ne comprends pas pourquoi je suis à nouveau devant cette maison, mais je compte le découvrir. Je reste." },
@@ -2593,22 +2636,23 @@ const MYGAME = {
                     five: {
                         isOpened: false,
                         closed: {
-                            look: ".",
-                            use: ".",
-                            go: ".",
-                            hit: ".",
-                            inspect: ".",
-                            wait: ".",
-                            accept: "."
+                            look: "C'est un jardin paisible. Le sol est recouvert d'herbe et de paquerettes. Quelques jonquilles sont éparpillées çà et là.",
+                            use: "Je touche le sol du jardin. Il est légèrement humide, comme si la rosée du matin était encore présente.",
+                            go: "Je suis déjà dans le jardin.",
+                            hit: "Je n'ai rien à frapper ou casser ici. La nature, au contraire, m'appaise.",
+                            inspect: "Au fond, un très grand saule pleureur domine le reste du jardin. Ses branches se balancent lentement au gré de la brise.",
+                            wait: "Je prends le temps de respirer. Le jardin est magnifique. Je me sens bien quand je suis à l'intérieur.",
+                            accept: "Ce jardin me rappelle celui de mes parents, en campagne. Il y avait un cours d'eau pas loin au Sud."
                         },
                         open: {
-                            look: ".",
-                            use: ".",
-                            go: ".",
-                            hit: ".",
-                            inspect: ".",
-                            wait: ".",
-                            accept: ""
+                            collectible: { command: "accepter", coll: "acceptedGarden" },
+                            look: "Après avoir lu la lettre, le jardin semble rappetisser petit à petit. Il se referme sur moi.",
+                            use: "Je caresse le saule pleureur. Son écorce rugueuse me calme, après le choc de la lettre.",
+                            go: "Je suis déjà dans le jardin.",
+                            hit: "Je ne cherche pas à casser quoi que ce soit.",
+                            inspect: "Le saule pleureur est très vieux. Ses branches touchent presque le sol. Il est majestueux, et trône sur le reste du jardin.",
+                            wait: "Je prends quelques minutes posé contre le gigantesque arbre. Il me calme.",
+                            accept: "Le jardin autour de moi disparaît peu à peu. Il devient de plus en plus étriqué. Cela doit être ma conscience qui s'envole. Ma fin est-elle proche ?"
                         }
                     }
                 }, {    // lettre
@@ -2630,8 +2674,9 @@ const MYGAME = {
                             accept: "C'est l'écusson de ma famille, il représente un ours avec un marteau car mes ancêtres étaient des forgerons."
                         },
                         opening: {
-                            interaction: [{ command: "voir", state: "opening", target: [1] }],
+                            interaction: [{ command: "voir", state: "open", target: [0, 1] }],
                             triggerEvent: { command: "voir", name: "readingLetter" },
+                            collectible: { command: "voir", coll: "readLetter" },
                             look: [
                                 "Cher moi,",
                                 "Tu dois avoir de nombreuses questions. Laisse-moi y répondre ici.",
@@ -2647,32 +2692,34 @@ const MYGAME = {
                                 "Il n'y a pas de temps. Il n'y a pas de mort non plus, du moins, pas comme on l'entend. La vie est un rêve. C'est un voeu. Réalisé encore et encore, et encore, et encore, et ainsi de suite, pour l'éternité.",
                                 "Nous sommes tous ce souhait. Nous sommes toutes choses. Nous sommes tous les éléments. Il n'y a donc pas de peur à avoir.",
                                 "Nos atomes sont partout. Malgré notre mort, nous sommes d'une certaine façon encore remplis de vie. Nous avons rejoint les étoiles, et le reste de l'univers.",
-                                "Je serai toujours à tes côtés,"
+                                "Je serai toujours à tes côtés, "
                             ],
-                            use: ".",
+                            use: "J'ai déjà ouvert la lettre. En la prenant en main, elle est légère.",
                             go: "Je suis devant la lettre.",
                             hit: "Je ne vois pas l'intérêt. Je ne veux pas chiffoner ou déchirer la lettre.",
-                            inspect: ".",
-                            wait: ".",
-                            accept: ""
+                            inspect: "L'écriture est la mienne. La lettre est également signé par moi.",
+                            wait: "Je prends quelques minutes devant la lettre, ouverte. Elle m'invite à la lire.",
+                            accept: "C'est une lettre que j'ai apparemment écrite. Comment et quand, je ne sais pas."
                         },
                         open: {
-                            look: ".",
-                            use: ".",
-                            go: "Je suis devant la lettre.",
-                            hit: "Je ne vois pas l'intérêt. Je ne veux pas chiffoner ou déchirer la lettre.",
-                            inspect: ".",
-                            wait: ".",
-                            accept: ""
+                            interaction: [{ command: "attendre", state: "final", target: [1] }],
+                            look: "La lettre est par-terre. Je l'ai lâchée après l'avoir lue. J'ai pris peur de ce qu'elle contenait.",
+                            use: "Je n'ose pas la toucher après ce qu'elle m'annonce. Ma respiration est haletante.",
+                            go: "La lettre est à mes pieds.",
+                            hit: "Je ne vois pas l'intérêt. Je ne suis pas en colère, je suis sous le choc.",
+                            inspect: "La lettre gît au milieu de l'herbe et des paquerettes. Elle semble si... paisible, au milieu du jardin.",
+                            wait: "Je reprends mon souffle. Je suis mourrant, mais je suis encore en vie en ce moment. Je n'ai pas d'autre choix que d'accepter mon destin.",
+                            accept: "Je serais... mort ? Ou en tout cas mourrant ? Mais pourquoi... et comment ? Une larme coule le long de ma joue droite."
                         },
                         final: {
-                            look: ".",
-                            use: ".",
+                            collectible: { command: "accepter", coll: "acceptedLetter" },
+                            look: "La lettre est toujours au sol. Je regarde mes deux mains. Deviennent-elles... transparente ?",
+                            use: "J'essuie mes larmes, face à cette lettre qui m'a tant chamboulé.",
                             go: "Je suis devant la lettre.",
                             hit: "Je ne vois pas l'intérêt. Je ne veux pas chiffoner ou déchirer la lettre.",
-                            inspect: ".",
-                            wait: ".",
-                            accept: ""
+                            inspect: "Je ressens mon corps devenir plus léger. Je n'en n'ai plus pour longtemps. Le bout de mes doigts est légèrement translucide.",
+                            wait: "J'attends quelques minutes, reprends mon souffle. Une fatigue me parcourt.",
+                            accept: "Ça doit être mon inconscient qui me parle dans cette lettre. Je vais mourir. C'est absurde, et pourtant une quiétude me prends peu à peu."
                         }
                     }
                 }, {    // ecran
@@ -2680,32 +2727,92 @@ const MYGAME = {
                     determinant: "l' ",
                     isLocated: true,
                     five: {
+                        isFinal: false,
                         isOpened: false,
+                        isOpening: false,
                         closed: {
-                            look: ".",
-                            use: ".",
-                            go: ".",
-                            hit: ".",
-                            inspect: ".",
-                            wait: ".",
-                            accept: "."
+                            interaction: [{ command: "voir", state: "opening", target: [2], condition: 5 }],
+                            look: [
+                                "L'écran est allumé, et montre des images à un rythme effreiné. En me concentrant, j'arrive à en voir quelques-unes.",
+                                "Je me vois enfant, assis à l'école, levant la main pour répondre à une question. Le professeur se retourne au moment où je cligne des yeux, et le moment est déjà passé.",
+                                "Je me vois vers 13 ans. Mon premier amour, la personne qui m'a marqué quand j'étais en fin de scolarité. L'image change presque immédiatement.",
+                                "Je me vois à l'anniversaire de mes 18 ans. La vie d'adulte, enfin ! Je distingue à peine les visages de mes amies et mes amis. L'écran passe à autre chose.",
+                                "Je me vois au travail. Ça devait être mon premier jour, j'avais mis de beaux vêtement par excès de zèle. L'image zappe encore une fois"
+                            ],
+                            use: ".Il n'y a pas de bouton pour l'éteindre ou changer la source des images. Il n'y a rien qui m'indique d'où elles viennent non plus.",
+                            go: "Je fais face à l'écran de télévision.",
+                            hit: "Je n'ai pas envie de casser l'écran.",
+                            inspect: "L'écran n'a pas de marque. Il n'a pas un design particulier qui pourrait m'indiquer ses origines.",
+                            wait: "J'attends devant l'écran, alors que des images flashent à toutes vitesses. Des moments d'une vie. De la mienne.",
+                            accept: "L'écran montre mes souvenirs, la vie que j'ai vécue. Il commence depuis le tout début, et passe tout en revue."
+                        },
+                        opening: {
+                            interaction: [{ command: "voir", state: "open", target: [2] }],
+                            collectible: { command: "voir", coll: "lookedScreen" },
+                            look: "Je me vois au volant d'une voiture, sur l'autoroute. Il pleut, la route est mouillée. Un virage. Un aquaplanning. Et l'écran s'éteint.",
+                            use: "Il n'y a pas de bouton pour l'éteindre ou changer la source des images. Il n'y a rien qui m'indique d'où elles viennent non plus..",
+                            go: "Je fais face à l'écran de télévision.",
+                            hit: "Je n'ai pas envie de casser l'écran.",
+                            inspect: "L'écran n'a pas de marque. Il n'a pas un design particulier qui pourrait m'indiquer ses origines.",
+                            wait: "J'attends devant l'écran, alors que des images flashent à toutes vitesses. Des moments d'une vie. De la mienne.",
+                            accept: "L'écran montre mes souvenirs, la vie que j'ai vécue. Il commence depuis le tout début, et passe tout en revue."
                         },
                         open: {
-                            look: ".",
-                            use: ".",
-                            go: ".",
-                            hit: ".",
-                            inspect: ".",
-                            wait: ".",
-                            accept: ""
+                            interaction: [{ command: "attendre", state: "final", target: [2], condition: true }],
+                            look: "L'écran est éteint. Il n'affiche plus aucune image.",
+                            use: "Je touche l'écran. Tape une petit coup dessus, comme si ça allait faire revenir l'image... Rien.",
+                            go: "Je fais face à l'écran de télévision.",
+                            hit: "Je n'ai pas envie de casser l'écran.",
+                            inspect: "Je n'arrive pas à déterminer pourquoi il s'est éteint, ni comment le rallumer.",
+                            wait: [
+                                "J'attends devant l'écran éteint. Rien ne se passe. J'ai le sentiment d'avoir manqué quelque chose dans le jardin, ou dans la lettre.",
+                                "J'attends 15, 30, 60 minutes. L'écran se rallume soudain, et me montre, moi, comme un miroir, entrain de le regarder. Puis mon reflet disparaît peu à peu."
+                            ],
+                            accept: "L'écran montrait mes souvenirs, la vie que j'ai vécue. Il s'est arrêté. Comme si ma vie, une fois passées devant mes yeux, s'arrêtait."
+                        },
+                        final: {
+                            triggerEvent: { command: "accepter", name: "endGame" },
+                            look: "En regardant mes mains, elles disparaissent toujours plus vite. Au rythme de mon reflet dans l'écran.",
+                            use: "J'essaie de m'appuyer contre l'écran, l'arrêter, mais mes mains passent à travers.",
+                            go: "Je fais face à l'écran de télévision.",
+                            hit: "Même si je le voulais, je ne peux plus casser l'écran. Mon corps le traverse.",
+                            inspect: "Mes mains s'effritent et partent en un million de petites particules. Je me défais comme un gaz.",
+                            wait: "Plus j'attends, plus je disparais.",
+                            accept: [
+                                [
+                                    "Je disaparaît et rejoins le reste de l'univers. Je ne suis plus. Ma conscience est partout.",
+                                    "Me voila, à la fin de mon voyage.",
+                                    "Cette maison, d'abord étrangère, m'est maintenant familière.",
+                                    "Je l'accepte à bras ouvert.",
+                                    "Soudain, tout devient noir.",
+                                    "Je flotte au milieu des éléments",
+                                    "Je fais maintenant partie du reste de ce qui existe.",
+                                    "J'ai arrêté de rêver.",
+                                    "Vivant..."
+                                ],
+                                [
+                                    "Je peux à présent me reposer",
+                                    "Je suis à la maison",
+                                    "Je suis chez moi",
+                                    "Je rejoins mes souvenirs",
+                                    "Je rejoins le reste de l'univers",
+                                    "Je ne suis qu'atomes",
+                                    "Je suis entier",
+                                    "Je suis vivant",
+                                    "Je plonge dans l'horizon"
+                                ]
+                            ]
                         }
                     }
-                },
+                }, {    // leave
+                    name: "leave",
+                    five: { text: "Je n'ai nulle part où aller. Mon voyage prend fin ici." }
+                }
             ]
         }
     ],
     currentScene: 0,
-    isFinished: false,
+    isSilent: false,
     previousInput: [],
     player: {
         collectibles: {
@@ -2715,18 +2822,16 @@ const MYGAME = {
                 brokenCar: false
             },
             jardin: {
-                readLetter: false,
-                acceptedLetter: false,
-                acceptedGarden: false,
-                lookedScreen: false
+                readLetter: true,
+                acceptedLetter: true,
+                acceptedGarden: true,
+                lookedScreen: true
             }
         },
         username: "default",
         shortName: "ef",
         currentAct: 0,
         count: 0,
-        readLetter: false,
-        canWin: false
     }
 }
 
@@ -2825,4 +2930,4 @@ function printTxt() {
     return txt;
 }
 
-setTimeout(() => console.log(printTxt()), 10000);
+setTimeout(() => console.log(printTxt()), 20000);
