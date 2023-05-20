@@ -69,7 +69,7 @@ function validateInput() {
 
     let commandToSend = removeSpecialChars(monInput.value.split(""));
 
-    displayAlert(commandToSend);
+    displayAlert(commandToSend.toLowerCase());
     monInput.value = "";
     setTimeout(() => document.activeElement.blur(), 50);
 }
@@ -103,10 +103,10 @@ mesCommandes.forEach((element) => {
         else {
             // conditions pour rendre disponible les commandes aux bons actes
             if (this.className.split(" ")[2] == "bonusC") {
-                if (this.className.split(" ")[1] == "hitC") canBeUsed = (monAct >= 1);
-                else if (this.className.split(" ")[1] == "inspectC") canBeUsed = (monAct >= 2);
-                else if (this.className.split(" ")[1] == "waitC") canBeUsed = (monAct >= 3);
-                else if (this.className.split(" ")[1] == "acceptC") canBeUsed = (monAct >= 4);
+                if (this.className.split(" ")[1] == "hitC") canBeUsed = (monAct >= 2 && monAct < 6);
+                else if (this.className.split(" ")[1] == "inspectC") canBeUsed = (monAct >= 3 && monAct < 6);
+                else if (this.className.split(" ")[1] == "waitC") canBeUsed = (monAct >= 4 && monAct < 6);
+                else if (this.className.split(" ")[1] == "acceptC") canBeUsed = (monAct >= 5);
             } else canBeUsed = true;
         }
 

@@ -77,11 +77,11 @@ function inspectColor(monAct) {
     }
     else {
         document.querySelectorAll(".bonusC").forEach((e) => {
-            if (monAct == 0) e.style.opacity = 0.2;
-            else if (monAct == 1) e.className.split(" ")[1] == "hitC" ? e.style.opacity = 1 : e.style.opacity = 0.2;
-            else if (monAct == 2) (e.className.split(" ")[1] == "hitC" || e.className.split(" ")[1] == "inspectC") ? e.style.opacity = 1 : e.style.opacity = 0.2;
-            else if (monAct == 3) e.className.split(" ")[1] == "acceptC" ? e.style.opacity = 0.2 : e.style.opacity = 1;
-            else if (monAct > 3 && monAct < 6) e.style.opacity = 1;
+            if (monAct < 2) e.style.opacity = 0.2;
+            else if (monAct == 2) e.className.split(" ")[1] == "hitC" ? e.style.opacity = 1 : e.style.opacity = 0.2;
+            else if (monAct == 3) (e.className.split(" ")[1] == "hitC" || e.className.split(" ")[1] == "inspectC") ? e.style.opacity = 1 : e.style.opacity = 0.2;
+            else if (monAct == 4) e.className.split(" ")[1] == "acceptC" ? e.style.opacity = 0.2 : e.style.opacity = 1;
+            else if (monAct > 4 && monAct < 6) e.style.opacity = 1;
         });
     }
 }

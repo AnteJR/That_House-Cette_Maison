@@ -57,7 +57,10 @@ function startUpSetUp() {
             }
             // pour continuer sa partie
             else if (maClass == "continueButton") {
-                if (localStorage.username == undefined) return;
+                if (localStorage.username == undefined) {
+                    e.style.opacity = "0.1";
+                    return;
+                }
 
                 let joueur = MYGAME.player;
                 joueur.currentAct = parseInt(localStorage.act);

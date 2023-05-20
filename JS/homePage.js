@@ -8,6 +8,7 @@ function homePage() {
     gameDiv.style.textAlign = "center";
     bottomScreen.style.display = "none";
     title.style.fontSize = "2em";
+    monAlert.innerHTML += `<input type="button" value="${UITXT[LANG].buttons.back}" class="buttonAlert" id="alertButton" />`;
 
     // on insère le texte à afficher
     gameDiv.innerHTML = `<br />
@@ -31,6 +32,7 @@ function homePage() {
 
 // CETTE FONCTION LANCE LE MENU
 function gameLaunch() {
+    mesFlags.style.display = "flex";
     gameDiv.style.textAlign = "center";
     gameDiv.style.marginTop = "10%";
     bottomScreen.style.display = "none";

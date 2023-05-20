@@ -1,7 +1,6 @@
 // CETTE FONCTION AFFICHE L'ALERT ET LE TEXTE QU'ELLE CONTIENT
 function displayAlert(text) {
-    let maDiv = document.getElementById("alertTxt"),
-        alertBtn = document.getElementById("alertButton"),
+    let monAlertTxt = document.getElementById("alertTxt"),
         command = text.split(" "),
         monTxt = findText(command),
         txtFrag = typeof monTxt == "string" ? monTxt.split("") : "",
@@ -16,24 +15,25 @@ function displayAlert(text) {
 
     txtDisplay();
 
-    alertBtn.addEventListener("click", () => {
+    document.getElementById("alertButton").addEventListener("click", () => {
         clickButton();
         clearInt = true;
-        maDiv.innerHTML = "";
+        monAlertTxt.innerHTML = "";
         monAlert.style.display = "none";
     });
-    alertBtn.addEventListener("mouseover", () => hoverButton());
+    document.getElementById("alertButton").addEventListener("mouseover", () => hoverButton());
 
     // afficher le texte lettre après lettre
     function txtDisplay() {
         setTimeout(function () {
             if (i > 0 && !clearInt) {
-                maDiv.innerHTML += txtFrag[txtFrag.length - i];
+                monAlertTxt.innerHTML += txtFrag[txtFrag.length - i];
                 i--;
                 txtDisplay();
             }
         }, interval);
     }
+    
 }
 
 // CETTE FONCTION TROUVE LE TEXTE A AFFICHER
@@ -41,24 +41,35 @@ function findText(commandItem) {
     let txt = "",
         act = MYGAME.player.currentAct,
         scene = MYGAME.currentScene,
-        sceneName = MYGAME.scenes[scene].name,
-        item = MYGAME.scenes[scene].items,
+        sceneName = MYGAME[LANG].scenes[scene].name,
+        item = MYGAME[LANG].scenes[scene].items,
         command = commandItem[0].toLowerCase(),
         object = commandItem[(commandItem.length - 1)].toLowerCase(),
         acts = ["zero", "one", "two", "three", "four", "five", "six"],
-        authorizedCommands = [
-            ["voir", "utiliser", "aller", "quitter"],
-            ["voir", "utiliser", "aller", "quitter"],
-            ["voir", "utiliser", "aller", "quitter", "frapper"],
-            ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter"],
-            ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter", "attendre"],
-            ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter", "attendre", "accepter"],
-            ["accepter"]
-        ];
+        authorizedCommands = {
+            FR: [
+                ["voir", "utiliser", "aller", "quitter"],
+                ["voir", "utiliser", "aller", "quitter"],
+                ["voir", "utiliser", "aller", "quitter", "frapper"],
+                ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter"],
+                ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter", "attendre"],
+                ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter", "attendre", "accepter"],
+                ["accepter"]
+            ],
+            ENG: [
+                ["look", "use", "go", "leave"],
+                ["look", "use", "go", "leave"],
+                ["look", "use", "go", "leave", "hit"],
+                ["look", "use", "go", "leave", "hit", "inspect"],
+                ["look", "use", "go", "leave", "hit", "inspect", "wait"],
+                ["look", "use", "go", "leave", "hit", "inspect", "wait", "accept"],
+                ["accept"]
+            ]
+        };
 
-    if (!authorizedCommands[act].includes(command)) return "Je ne comprends pas ce que je suis censé faire.";
+    if (!authorizedCommands[LANG][act].includes(command)) return "Je ne comprends pas ce que je suis censé faire.";
 
-    if (command === "quitter") {
+    if (command == "quitter" || command == "leave") {
         if ((scene > 2 && act < 5) || (scene == 3 && act == 5)) displayMainText(parseInt(scene - 1));
         return item[item.length - 1][acts[act]].text;
     }
@@ -67,6 +78,7 @@ function findText(commandItem) {
     for (const e of item) {
         if (object != e.name) continue;
 
+
         for (const w of mesMots) {
             if (object != w) continue;
 
@@ -74,15 +86,21 @@ function findText(commandItem) {
             if (!e.isLocated) {
                 switch (command) {
                     case "aller":
-                        const txtDepl = ["me déplace", "me rends", "vais", "me dirige"],
-                            txtPrep = ["devant", "vers", "en direction de"];
+                        const txtDepl = {
+                            FR: ["me déplace", "me rends", "vais", "me dirige"],
+                            ENG: ["move", "go", "walk", "navigate"]
+                        },
+                            txtPrep = {
+                                FR: ["devant", "vers", "en direction de"],
+                                ENG: ["to", "towards", "in the direction of"]
+                            };
 
                         if (scene >= 4) item.forEach((y) => y.isLocated = false);
                         if (scene == 6) item[0].isLocated = true;
 
                         e.isLocated = true;
 
-                        return `Je ${txtDepl[Math.floor(Math.random() * txtDepl.length)]} ${txtPrep[Math.floor(Math.random() * txtPrep.length)]} ${e.determinant}${e.name}.`;
+                        return `Je ${txtDepl[LANG][Math.floor(Math.random() * txtDepl[LANG].length)]} ${txtPrep[LANG][Math.floor(Math.random() * txtPrep[LANG].length)]} ${e.determinant}${e.name}.`;
                     default:
                         return `Je dois me rapprocher pour ${command} ${e.determinant}${e.name}.`;
                 }
@@ -93,8 +111,9 @@ function findText(commandItem) {
                 t = el.isFinal ? el.final : (el.isOpened ? el.open : (el.isOpening ? el.opening : el.closed)),
                 compteur = MYGAME.player.count;
 
-            txt = getCommand(command);
+            txt = LANG == "FR" ? getCommandFR(command) : getCommandENG(command);
 
+            // CONDITION POUR CHANGER DE SCENE ET D'ACTE :
             if (t.win != undefined && command == t.win.command) displayMainText(parseInt(scene + 1));
             if (t.newAct != undefined && command == t.newAct.command) return nextActPlease(act + 1, txt);
 
@@ -102,10 +121,11 @@ function findText(commandItem) {
             if (command === "inspecter" && object === "portail" && !el.isOpened && !el.isOpening && (act == 3 || act == 4)) txt += `"` + MYGAME.player.shortName + `".`;
             if (command === "inspecter" && object === "cierge" && el.isOpened && act == 5) txt += `"` + MYGAME.player.name.toUpperCase().split("").shift() + `".`;
 
-            // CONDITIONS POUR PUSH LE BON TEXTE DANS LES INPUTS PRECEDENTS
+            // CONDITIONS POUR PUSH LE BON TEXTE DANS LES INPUTS PRECEDENTS :
             if (command === "aller") MYGAME.previousInput.push(command + " vers " + e.determinant + e.name);
             else MYGAME.previousInput.push(command + " " + e.determinant + e.name);
 
+            // CONDITION POUR LES "COLLECTIBLES" :
             if (t.collectible != undefined && command == t.collectible.command) MYGAME.player.collectibles[sceneName][t.collectible.coll] = true;
 
             // CONDITIONS ET BOUCLES POUR LES INTERACTIONS
@@ -120,7 +140,7 @@ function findText(commandItem) {
                             if (typeof inter.condition === "number") {
                                 if (compteur >= inter.condition) continue;
 
-                                const whatCommand = getCommand(command);
+                                const whatCommand = LANG == "FR" ? getCommandFR(command) : getCommandENG(command);;
 
                                 if (compteur < (inter.condition - 1)) {
                                     MYGAME.player.count++;
@@ -150,10 +170,10 @@ function findText(commandItem) {
                                 let mesCollectibles = MYGAME.player.collectibles[sceneName];
 
                                 for (const [key, value] of Object.entries(mesCollectibles)) {
-                                    if (!value) return getCommand(command)[0];
+                                    if (!value) return LANG == "FR" ? getCommandFR(command)[0] : getCommandENG(command)[0];
                                 }
 
-                                txt = getCommand(command)[1];
+                                txt = LANG == "FR" ? getCommandFR(command)[1] : getCommandENG(command)[1];
                             }
                         }
                         if (inter.state == "final") tar.isFinal = true;
@@ -168,15 +188,15 @@ function findText(commandItem) {
             if (t.triggerEvent != undefined && command == t.triggerEvent.command) {
                 switch (t.triggerEvent.name) {
                     case "readingLetter":
-                        let maCommandLetter = getCommand(command);
+                        let maCommandLetter = LANG == "FR" ? getCommandFR(command) : getCommandENG(command);;
                         openLetter(maCommandLetter);
                         return "";
                     case "endGame":
-                        let maCommandEnd = getCommand(command);
+                        let maCommandEnd = LANG == "FR" ? getCommandFR(command) : getCommandENG(command);;
                         endScreen(maCommandEnd, maCommandEnd[0].length);
                         return "";
                     case "theEnd":
-                        let maCommandFinish = getCommand(command);
+                        let maCommandFinish = LANG == "FR" ? getCommandFR(command) : getCommandENG(command);;
                         theEnd(maCommandFinish);
                         return "";
                 }
@@ -184,7 +204,7 @@ function findText(commandItem) {
 
             return txt;
 
-            function getCommand(name) {
+            function getCommandFR(name) {
                 return {
                     voir: t.look,
                     utiliser: t.use,
@@ -195,6 +215,7 @@ function findText(commandItem) {
                     accepter: t.accept,
                 }[name];
             }
+            function getCommandENG(name) { return t[name] };
         }
     }
     if (txt === "") return `Qu'est-ce que "${object}" veut dire ?`;

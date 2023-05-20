@@ -152,6 +152,7 @@ body {
     background-color: rgba(0, 0, 0, 0);
     border: none;
     text-transform: uppercase;
+    caret-color: white;
 }
 
 .inputCommand:focus {
@@ -263,17 +264,20 @@ body {
     transition: width 0.2s;
     transition: margin-left 0.2s;
 }
+
 .buttonGo:hover {
     cursor: pointer;
     background: linear-gradient(90deg, rgba(3, 15, 26, 0) 0%, white 50%, rgba(3, 15, 26, 0) 100%);
     color: rgb(3, 15, 26);
     width: 54%;
 }
+
 .buttonGo:active {
     background: none;
     background-color: rgba(3, 15, 26, 0);
     color: white;
 }
+
 .submitName {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -291,11 +295,13 @@ body {
     font-family: "retroGame";
     font-size: 1em;
 }
+
 .buttonGoBack:hover {
     cursor: pointer;
     background: linear-gradient(90deg, white 0%, rgba(3, 15, 26) 50%, white 100%);
     color: white;
 }
+
 .buttonGoBack:active {
     background: none;
     background-color: white;
@@ -313,11 +319,13 @@ body {
     font-family: "retroGame";
     font-size: 1em;
 }
+
 .buttonGoForward:hover {
     cursor: pointer;
     background: linear-gradient(90deg, rgba(3, 15, 26, 0) 0%, white 50%, rgba(3, 15, 26, 0) 100%);
     color: rgb(3, 15, 26);
 }
+
 .buttonGoForward:active {
     background: none;
     background-color: rgba(3, 15, 26, 0);
@@ -346,6 +354,7 @@ body {
     z-index: 2;
     color: rgb(3, 15, 26);
 }
+
 .myLetterText {
     width: 80%;
     height: 80%;
@@ -369,11 +378,13 @@ body {
     font-family: "retroGame";
     font-size: 1em;
 }
+
 .buttonLetter:hover {
     cursor: pointer;
     background: linear-gradient(90deg, white 0%, rgba(3, 15, 26) 50%, white 100%);
     color: white;
 }
+
 .buttonLetter:active {
     background: none;
     background-color: white;
@@ -390,6 +401,7 @@ body {
     z-index: 2;
     background-color: rgb(3, 15, 26);
 }
+
 .endSectionText {
     width: 80%;
     height: 80%;
@@ -414,23 +426,91 @@ body {
     background-color: rgba(3, 15, 26, 0);
     color: white;
 }
+
 .buttonEnd:hover {
     cursor: pointer;
     color: rgb(3, 15, 26);
     background: linear-gradient(90deg, rgba(3, 15, 26, 0) 0%, white 50%, rgba(3, 15, 26, 0) 100%);
 }
+
 .buttonEnd:active {
     background: none;
     background-color: rgba(3, 15, 26, 0);
     color: white;
 }
 
-/*  STYLE POUR LES SMARTPHONE  */
-/*  J'avais commencé mais me suis finalement rendu compte que ce
-n'était peut-être pas des plus pertinent vu le texte à afficher  */
-/*  A VOIR SI JE DÉVELOPPE  */
-@media only screen and (max-width: 786px) {
-    .decorationTxt {
-        display: none;
-    }
+/* DRAPEAUX */
+.mesFlags {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 120px;
+    position: relative;
+    top: 85%;
+    left: 5%;
+    z-index: 10;
+}
+
+.flag {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.line {
+    display: flex;
+}
+
+.pixel {
+    height: 5px;
+    background-color: black;
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;
+}
+
+.one {
+    flex: 0 0 5px;
+}
+
+.two {
+    flex: 0 0 10px;
+}
+
+.three {
+    flex: 0 0 15px;
+}
+
+.five {
+    flex: 0 0 25px;
+}
+
+.six {
+    flex: 0 0 30px;
+}
+
+.eigth {
+    flex: 0 0 40px;
+}
+
+.maximum {
+    flex: 0 0 90px;
+}
+
+.white {
+    background-color: rgba(0, 0, 0, 0);
+}
+.flag:hover .white {
+    background-color: rgba(255, 255, 255, 1);
+}
+.flag:active .white {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.blue {
+    background-color: rgb(92, 128, 206);
+}
+
+.red {
+    background-color: rgb(230, 97, 45);
 }

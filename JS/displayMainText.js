@@ -1,5 +1,6 @@
 //CETTE FONCTION SERT À AFFICHER UNE NOUVELLE SCÈNE
 function displayMainText(scene) {
+    mesFlags.style.display = "none";
     // on revient en haut de la page
     window.scrollTo(0, 0);
     title.style.fontSize = "1.25em";
@@ -8,7 +9,7 @@ function displayMainText(scene) {
 
     let thisAct = MYGAME.player.currentAct,
         sceneCourante = MYGAME.currentScene,
-        maScene = MYGAME.scenes[sceneCourante],
+        maScene = MYGAME[LANG].scenes[sceneCourante],
         txtToAdd = "",
         monTxt = "",
         mesTxt = maScene.texts;
@@ -23,7 +24,7 @@ function displayMainText(scene) {
 
         mesTxt[thisAct].text.forEach((e) => e[1] == true ? monTxt += `<br/><div class = "titleDiv whiteText">` + e[0] + `</div><br/>` : monTxt += `<div class = "sadWobble textDiv whiteText">` + e[0] + `</div><br/>` );
 
-        monTxt += `<br/><input type="button" value="Continuer" class="buttonGo" id="buttonGo" style="opacity:0"/>`;
+        monTxt += `<br/><input type="button" value="${UITXT[LANG].buttons.continue}" class="buttonGo" id="buttonGo" style="opacity:0"/>`;
         gameDiv.innerHTML = monTxt;
 
         setTimeout(() => displayFade(50, 0.05, document.getElementById("buttonGo")), 1000);
@@ -41,6 +42,7 @@ function displayMainText(scene) {
     // CONDITION PRINCIPALE
     else if (sceneCourante == 1) {
         gameDiv.style.textAlign = "center";
+        gameDiv.style.marginTop = "5%";
         monTxt = `<br/>
                 <div class="textDiv bigTextDiv whiteText">
                     ${maScene.title}
@@ -56,10 +58,10 @@ function displayMainText(scene) {
             <br/>
             <br/>
                 <form id="maForm" autocomplete="off">
-                    <input type="text" placeholder="~~entrez votre nom ici~~" class="inputCommand" id="monUsername"/>
+                    <input type="text" placeholder="~~${maScene.text3}~~" class="inputCommand" id="monUsername"/>
                     <br/>
                     <br/>
-                    <input type="submit" value="Confirmer" class="buttonGo submitName" id="buttonStart"/>
+                    <input type="submit" value="${UITXT[LANG].buttons.confirm}}" class="buttonGo submitName" id="buttonStart"/>
                 </form>`;
 
         gameDiv.innerHTML = monTxt;
@@ -75,6 +77,7 @@ function displayMainText(scene) {
                 localStorage.username = chosenName;
                 localStorage.shortName = nameShort;
                 localStorage.act = 0;
+                localStorage.lang = LANG;
 
                 MYGAME.player.username = chosenName;
                 MYGAME.player.shortName = nameShort;

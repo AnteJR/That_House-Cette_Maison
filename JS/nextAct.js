@@ -9,7 +9,7 @@ function nextActPlease(newAct, myTextToDisplay) {
 
     // set all items to not located for scenes after the 4th
     // BEWARE HERE, MAYBE NOT THE BEST (POSTCARD, MOON, ETC.)
-    MYGAME.scenes.forEach((scn, i) => {
+    MYGAME[LANG].scenes.forEach((scn, i) => {
         if (i > 3) scn.items.forEach((itm) => {
             if(itm.name!="leave" || itm.name!="carte" || itm.name!="lune" || itm.name!="jardin") itm.isLocated = false
         });
@@ -18,7 +18,7 @@ function nextActPlease(newAct, myTextToDisplay) {
     // hide the alert and insert the text normally planned in the alert into the gameDiv, which is centered
     monAlert.style.display = "none";
     txtToDisplay = `<br/><div class="textDiv whiteText">` + myTextToDisplay;
-    txtToDisplay += `</div><br/><br/><input type="button" value="Sauvegarder et continuer" class="buttonGoForward" id="buttonNewAct" style="opacity:0"/>`
+    txtToDisplay += `</div><br/><br/><input type="button" value="${UITXT[LANG].buttons.save}" class="buttonGoForward" id="buttonNewAct" style="opacity:0"/>`
     gameDiv.innerHTML = txtToDisplay;
     gameDiv.style.textAlign = "center";
 
