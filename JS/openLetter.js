@@ -16,9 +16,9 @@ function openLetter(text) {
     // établissement du style de la page
     isDefault = false;
 
-    if (text.length >= 1) document.getElementById("myLetterText").innerHTML = `<div class="textDiv" id="txtOfLetter${text.length}"></div><input type="button" value="Continuer" class="buttonLetter" id="buttonLetter"/>`
+    if (text.length >= 1) document.getElementById("myLetterText").innerHTML = `<div class="textDiv" id="txtOfLetter${text.length}"></div><input type="button" value="${UITXT[LANG].buttons.continue}" class="buttonLetter" id="buttonLetter"/>`
     else {
-        document.getElementById("myLetterText").innerHTML = `<div class="textDiv" id="txtOfLetter${text.length}"></div><br /><br /><input type="button" value="Fermer la lettre" class="buttonLetter" id="buttonLetter"/>`
+        document.getElementById("myLetterText").innerHTML = `<div class="textDiv" id="txtOfLetter${text.length}"></div><br /><br /><input type="button" value="${UITXT[LANG].buttons.letter}" class="buttonLetter" id="buttonLetter"/>`
         monTxt += MYGAME.player.username;
         txtFrag = monTxt.split("");
         i = txtFrag.length;

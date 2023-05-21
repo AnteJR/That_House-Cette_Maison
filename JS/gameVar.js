@@ -1,6 +1,136 @@
 let LANG = "ENG",
     today = getToday();
 
+const UITXT = {
+    FR: {
+        buttons: {
+            confirm: "confirmer",
+            next: "suivant",
+            back: "retour",
+            menu: "retour au menu",
+            continue: "continuer",
+            save: "sauvegarder et continuer",
+            del: "écraser et continuer",
+            play: "jouer",
+            end: "FIN ?",
+            letter: "Fermer la lettre"
+        },
+        home: {
+            title: "Cette Maison",
+            paragraph1: "est une aventure textuelle traitant du deuil et de la mort. Même si le jeu contient des thèmes sérieux et difficiles, il est accessible à tous les âges.",
+            paragraph2: "Ce jeu est une oeuvre de fiction. Toute ressemblance avec des événements ou des personnes réelles est fortuite."
+        },
+        menu: {
+            new: "Nouvelle partie",
+            cont: "Continuer",
+            info: "Informations"
+        },
+        credits: {
+            dev: "Développeur : Joël Rimaz",
+            others: "Musique, visuels, écriture : Joël Rimaz",
+            context: "Développé à l'Université de Lausanne",
+            git: "GitHub : AnteJR"
+        },
+        newGame: {
+            saveExists: "Il existe déjà une sauvegarde :",
+            deleteContinue: "Voulez-vous l'écraser et créer une nouvelle partie ?",
+            act: "Acte",
+            name: "Nom :"
+        },
+        HTMLUI: {
+            visuals: "Visuels",
+            titleGame: "CETTE MAISON",
+            titlePage: "Cette Maison",
+            input: "~ entrer commandes ici ~",
+            commandList: "~~~ LISTE DES COMMANDES ~~~",
+            commands: {
+                look: "VOIR",
+                use: "UTILISER",
+                go: "ALLER",
+                leave: "QUITTER",
+                hit: "FRAPPER",
+                inspect: "INSPECTER",
+                wait: "ATTENDRE",
+                accept: "ACCEPTER"
+            },
+            datasets: {
+                look: "voir",
+                use: "utiliser",
+                go: "aller",
+                leave: "quitter",
+                hit: "frapper",
+                inspect: "inspecter",
+                wait: "attendre",
+                accept: "accepter"
+            }
+        }
+    },
+    ENG: {
+        buttons: {
+            confirm: "confirm",
+            next: "next",
+            back: "back",
+            menu: "back to menu",
+            continue: "continue",
+            save: "save and continue",
+            del: "delete and continue",
+            play: "play",
+            end: "THE END?",
+            letter: "Close the letter"
+        },
+        home: {
+            title: "That House",
+            paragraph1: "is a text-based adventure dealing with grief and death. Although the game contains serious and challenging themes, it is suitable for all ages.",
+            paragraph2: "This game is a work of fiction. Any resemblance to real events or persons is purely coincidental."
+
+        },
+        menu: {
+            new: "New game",
+            cont: "Continue",
+            info: "Credits"
+        },
+        credits: {
+            dev: "Developer — Joël Rimaz",
+            others: "Music, visuals, writting — Joël Rimaz",
+            context: "Developped at the University of Lausanne",
+            git: "GitHub — AnteJR"
+        },
+        newGame: {
+            saveExists: "The following save already exists:",
+            deleteContinue: "Do you wish to erase the existing save and continue?",
+            act: "Act",
+            name: "Name:"
+        },
+        HTMLUI: {
+            visuals: "Graphics",
+            titleGame: "THAT HOUSE",
+            titlePage: "That House",
+            input: "~ enter commands here ~",
+            commandList: "~~~ COMMAND LIST ~~~",
+            commands: {
+                look: "LOOK",
+                use: "USE",
+                go: "GO",
+                leave: "LEAVE",
+                hit: "HIT",
+                inspect: "INSPECT",
+                wait: "WAIT",
+                accept: "ACCEPT"
+            },
+            datasets: {
+                look: "look",
+                use: "use",
+                go: "go",
+                leave: "leave",
+                hit: "hit",
+                inspect: "inspect",
+                wait: "wait",
+                accept: "accept"
+            }
+        }
+    }
+}
+
 const MYGAME = {
     FR: {
         scenes: [
@@ -5685,30 +5815,8 @@ const MYGAME = {
         shortName: "ef",
         currentAct: 0,
         count: 0,
-    }
-}
-
-const UITXT = {
-    FR: {
-        buttons: {
-            confirm: "confirmer",
-            next: "suivant",
-            back: "retour",
-            menu: "retour au menu",
-            continue: "continuer",
-            save: "sauvegarder et continuer"
-        }
     },
-    ENG: {
-        buttons: {
-            confirm: "confirm",
-            next: "next",
-            back: "back",
-            menu: "back to menu",
-            continue: "continue",
-            save: "save and continue"
-        }
-    }
+    state: "default"
 }
 
 const monBody = document.body,

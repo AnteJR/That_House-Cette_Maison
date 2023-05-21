@@ -306,9 +306,6 @@
 .red {
     animation: boxShadowAngry 1.033s infinite;
 }
-.flag:hover .white {
-    animation: boxShadowWhite 1.033s infinite;
-}
 .flag:active .white {
     animation: none;
 }

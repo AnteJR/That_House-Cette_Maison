@@ -9,13 +9,22 @@ function homePage() {
     bottomScreen.style.display = "none";
     title.style.fontSize = "2em";
     monAlert.innerHTML += `<input type="button" value="${UITXT[LANG].buttons.back}" class="buttonAlert" id="alertButton" />`;
+    MYGAME.state = "homepage";
+
+    // appliquer les anims partout
+    if (isDefault == true) deleteStyles(true);
+    else if (isDefault == false) putBackStyles(true);
+
+    //gestion de la langue
+    if (localStorage.lang) changeLang(localStorage.lang);
+    else changeLang(LANG);
 
     // on insère le texte à afficher
     gameDiv.innerHTML = `<br />
-        <div class= "wobblyTxt textDiv whiteText">Cette Maison</div>
-        <div class= "textDiv whiteText"> est une aventure textuelle traitant du deuil et de la mort. Même si le jeu contient des thèmes sérieux et difficiles, il est accessible à tous les âges.</div><br /><br />
-        <div class= "textDiv whiteText"> Ce jeu est une oeuvre de fiction. Toute ressemblance avec des événements ou des personnes réelles est fortuite.</div><br /><br />
-        <input type="button" value="Jouer" class="buttonGo" id="buttonStartGame" style="opacity:0;"/>`;
+        <div class= "wobblyTxt textDiv whiteText">${UITXT[LANG].home.title}</div>
+        <div class= "textDiv whiteText"> ${UITXT[LANG].home.paragraph1}</div><br /><br />
+        <div class= "textDiv whiteText">${UITXT[LANG].home.paragraph2}</div><br /><br />
+        <input type="button" value="${UITXT[LANG].buttons.play}" class="buttonGo" id="buttonStartGame" style="opacity:0;"/>`;
 
     let monBtn = document.getElementById("buttonStartGame");
 
@@ -37,8 +46,9 @@ function gameLaunch() {
     gameDiv.style.marginTop = "10%";
     bottomScreen.style.display = "none";
     title.style.fontSize = "1.50em";
+    MYGAME.state = "menu";
 
-    gameDiv.innerHTML = `<div class="startButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 0s">~~~ Nouvelle partie ~~~</div><br/><br/><div class="continueButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 1s">~~~ Continuer ~~~</div><br/><br/><div class="aboutButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 2s">~~~ Informations ~~~</div>`;
+    gameDiv.innerHTML = `<div class="startButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 0s">~~~ ${UITXT[LANG].menu.new} ~~~</div><br/><br/><div class="continueButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 1s">~~~ ${UITXT[LANG].menu.cont} ~~~</div><br/><br/><div class="aboutButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 2s">~~~ ${UITXT[LANG].menu.info} ~~~</div>`;
                     
     displayGameText();
 

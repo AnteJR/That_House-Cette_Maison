@@ -9,7 +9,7 @@
     <!-- FEUILLES DE STYLE -->
     <link rel="stylesheet" href="./CSS/jeu.css">
     <link rel="stylesheet" href="./CSS/jeu_animations.css">
-    <title>Cette Maison</title>
+    <title></title>
 </head>
 
 <body>
@@ -19,30 +19,26 @@
     <!-- DIV QUI CONTIENT L'ENTIER DE L'INTERFACE DE JEU -->
     <div class="gameContainer" id="gameContainer">
         <div class="topScreen">
-            <div class="wobblyTitle titleDiv whiteText" id="titleGame">CETTE MAISON</div>
+            <div class="wobblyTitle titleDiv whiteText" id="titleGame"></div>
             <div class="gameScreen" id="gameScreen"></div>
         </div>
         <div class="bottomScreen" id="screenBottom">
             <div class="enterTxt">
-                <input type="text" placeholder="~ entrer une commande ~" class="inputCommand" id="commandInput" />
+                <input type="text" placeholder="" class="inputCommand" id="commandInput" />
             </div>
             <div class="commandsList">
-                <div class="menuDiv whiteText" align="center">~~~ LISTE DES COMMANDES ~~~</div>
+                <div class="menuDiv whiteText" align="center" id="commandList"></div>
                 <div class="baseCommands">
-                    <div class="command whiteText lookC" id="lookC" data-command="voir"><span>VOIR</span></div>
-                    <div class="command whiteText useC" id="useC" data-command="utiliser"><span>UTILISER</span></div>
-                    <div class="command whiteText goC" id="goC" data-command="aller"><span>ALLER</span></div>
-                    <div class="command whiteText leaveC" id="leaveC" data-command="quitter"><span>QUITTER</span></div>
+                    <div class="command whiteText lookC" id="lookC" data-command="voir"><span></span></div>
+                    <div class="command whiteText useC" id="useC" data-command="utiliser"><span></span></div>
+                    <div class="command whiteText goC" id="goC" data-command="aller"><span></span></div>
+                    <div class="command whiteText leaveC" id="leaveC" data-command="quitter"><span></span></div>
                 </div>
                 <div class="baseCommands bonusCommands" id="bonusCommands">
-                    <div class="command hitC bonusC" id="hitC" data-command="frapper"><span
-                            class="iAmAngry">FRAPPER</span></div>
-                    <div class="command inspectC bonusC" id="inspectC" data-command="inspecter"><span
-                            class="iAmBargain">INSPECTER</span></div>
-                    <div class="command waitC bonusC" id="waitC" data-command="attendre"><span
-                            class="iAmSad">ATTENDRE</span></div>
-                    <div class="command acceptC bonusC" id="acceptC" data-command="accepter"><span
-                            class="iAmAccept">ACCEPTER</span></div>
+                    <div class="command hitC bonusC" id="hitC" data-command="frapper"><span class="iAmAngry"></span></div>
+                    <div class="command inspectC bonusC" id="inspectC" data-command="inspecter"><span class="iAmBargain"></span></div>
+                    <div class="command waitC bonusC" id="waitC" data-command="attendre"><span class="iAmSad"></span></div>
+                    <div class="command acceptC bonusC" id="acceptC" data-command="accepter"><span class="iAmAccept"></span></div>
                 </div>
             </div>
         </div>
@@ -59,7 +55,7 @@
     </div>
 
     <!-- DIV POUR LES GRAPHISMES -->
-    <div class="whiteText mesStyles hoverableText" id="monStyle">Visuels</div>
+    <div class="whiteText mesStyles hoverableText" id="monStyle"></div>
 
     <!-- DIV POUR LES ALERTS -->
     <div class="alertBox" id="boxAlert" style="display:none">
@@ -276,6 +272,7 @@
     <script type="text/javascript" src="JS/gameVar.js"></script>
     <script type="text/javascript" src="JS/musicManagement.js"></script>
     <script type="text/javascript" src="JS/changeStyle.js"></script>
+    <script type="text/javascript" src="JS/changeLanguage.js"></script>
     <script type="text/javascript" src="JS/textDisplay.js"></script>
     <script type="text/javascript" src="JS/endScreen.js"></script>
     <script type="text/javascript" src="JS/endCredits.js"></script>

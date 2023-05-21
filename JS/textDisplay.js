@@ -85,16 +85,3 @@ function inspectColor(monAct) {
         });
     }
 }
-
-// CETTE FONCTION AFFICHE LE TITRE
-function titleTxt(text) {
-    text = text.split("");
-    let textToAppend = text.map((x, idx) => {
-        if (x == " ") x = "&nbsp;"
-        let delay = (idx) * 500;
-        return `<span style="animation-delay: ${delay}ms">${x}</span>`;
-    });
-    title.innerHTML = textToAppend.join("");
-}
-
-titleTxt(titleText);

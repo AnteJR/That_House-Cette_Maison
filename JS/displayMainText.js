@@ -1,9 +1,11 @@
 //CETTE FONCTION SERT À AFFICHER UNE NOUVELLE SCÈNE
 function displayMainText(scene) {
-    mesFlags.style.display = "none";
     // on revient en haut de la page
     window.scrollTo(0, 0);
     title.style.fontSize = "1.25em";
+    mesFlags.style.display = "none";
+    gameDiv.style.marginTop = "1%";
+    MYGAME.state = "inGame";
 
     if (scene != undefined) MYGAME.currentScene = parseInt(scene);
 
@@ -61,7 +63,7 @@ function displayMainText(scene) {
                     <input type="text" placeholder="~~${maScene.text3}~~" class="inputCommand" id="monUsername"/>
                     <br/>
                     <br/>
-                    <input type="submit" value="${UITXT[LANG].buttons.confirm}}" class="buttonGo submitName" id="buttonStart"/>
+                    <input type="submit" value="${UITXT[LANG].buttons.confirm}" class="buttonGo submitName" id="buttonStart"/>
                 </form>`;
 
         gameDiv.innerHTML = monTxt;
