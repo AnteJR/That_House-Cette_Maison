@@ -16,8 +16,8 @@ function homePage() {
     else if (isDefault == false) putBackStyles(true);
 
     //gestion de la langue
-    if (localStorage.lang) changeLang(localStorage.lang);
-    else changeLang(LANG);
+    changeLang(LANG, true);
+    if (localStorage.lang) changeLang(localStorage.lang, true);
 
     // on insère le texte à afficher
     gameDiv.innerHTML = `<br />
@@ -47,6 +47,7 @@ function gameLaunch() {
     bottomScreen.style.display = "none";
     title.style.fontSize = "1.50em";
     MYGAME.state = "menu";
+    gameDiv.style.fontSize = "1em";
 
     gameDiv.innerHTML = `<div class="startButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 0s">~~~ ${UITXT[LANG].menu.new} ~~~</div><br/><br/><div class="continueButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 1s">~~~ ${UITXT[LANG].menu.cont} ~~~</div><br/><br/><div class="aboutButton textDiv bigTextDiv whiteText menuTxt" style="animation-delay: 2s">~~~ ${UITXT[LANG].menu.info} ~~~</div>`;
                     

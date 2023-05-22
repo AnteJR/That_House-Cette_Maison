@@ -1,8 +1,8 @@
-document.getElementById("uk_flag").addEventListener("click", (e) => changeLang("ENG"));
-document.getElementById("fr_flag").addEventListener("click", (e) => changeLang("FR"));
+document.getElementById("uk_flag").addEventListener("click", (e) => changeLang("ENG", false));
+document.getElementById("fr_flag").addEventListener("click", (e) => changeLang("FR", false));
 
-function changeLang(language) {
-    if (language == LANG) return;
+function changeLang(language, onLaunch) {
+    if (language == LANG && !onLaunch) return;
     
     // setting language vars (in the APP and the LOCALSTORAGE)
     LANG = language;
