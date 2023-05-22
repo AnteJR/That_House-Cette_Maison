@@ -88,8 +88,8 @@ function findText(commandItem) {
                     case "go":
                     case "aller":
                         const txtDepl = {
-                            FR: ["me déplace", "me rends", "vais", "me dirige"],
-                            ENG: ["move", "go", "walk", "navigate"]
+                            FR: ["Je me déplace", "Je me rends", "Je vais", "Je me dirige"],
+                            ENG: ["I move", "I go", "I walk", "I navigate"]
                         },
                             txtPrep = {
                                 FR: ["devant", "vers", "en direction de"],
@@ -101,7 +101,7 @@ function findText(commandItem) {
 
                         e.isLocated = true;
 
-                        return `Je ${txtDepl[LANG][Math.floor(Math.random() * txtDepl[LANG].length)]} ${txtPrep[LANG][Math.floor(Math.random() * txtPrep[LANG].length)]} ${e.determinant}${e.name}.`;
+                        return `${txtDepl[LANG][Math.floor(Math.random() * txtDepl[LANG].length)]} ${txtPrep[LANG][Math.floor(Math.random() * txtPrep[LANG].length)]} ${e.determinant}${e.name}.`;
                     default:
                         return `${UITXT[LANG].game.goTo} ${command} ${e.determinant}${e.name}.`;
                 }
