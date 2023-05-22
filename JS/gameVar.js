@@ -63,6 +63,12 @@ const UITXT = {
                 wait: "attendre",
                 accept: "accepter"
             }
+        },
+        game: {
+            goTo: "Je dois me rapprocher pour",
+            dunno: "Je ne comprends pas ce que je suis censé faire.",
+            dunnoPrecise1: "Qu'est-ce que",
+            dunnoPrecise2: "veut dire ?"
         }
     },
     ENG: {
@@ -127,6 +133,12 @@ const UITXT = {
                 wait: "wait",
                 accept: "accept"
             }
+        },
+        game: {
+            goTo: "I must get closer to",
+            dunno: "I don't get what I'm supposed to do.",
+            dunnoPrecise1: "What does",
+            dunnoPrecise2: "mean?"
         }
     }
 }
@@ -3094,15 +3106,15 @@ const MYGAME = {
                         act: "regular",
                         active: true
                     }, {
-                        text: "leads to the",
+                        text: "leads to the front",
                         act: "regular",
                         active: false
                     }, {
-                        text: "front door, under a porch.",
+                        text: "door",
                         act: "regular",
                         active: false
                     }, {
-                        text: "It's the",
+                        text: ", under a porch. It's the",
                         act: "accept",
                         active: false
                     }, {

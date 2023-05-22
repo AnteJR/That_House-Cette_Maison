@@ -67,7 +67,7 @@ function findText(commandItem) {
             ]
         };
 
-    if (!authorizedCommands[LANG][act].includes(command)) return "Je ne comprends pas ce que je suis censé faire.";
+    if (!authorizedCommands[LANG][act].includes(command)) return `${UITXT[LANG].game.dunno}`;
 
     if (command == "quitter" || command == "leave") {
         if ((scene > 2 && act < 5) || (scene == 3 && act == 5)) displayMainText(parseInt(scene - 1));
@@ -85,6 +85,7 @@ function findText(commandItem) {
             // SI L'OBJET N'EST PAS DIRECTEMENT ACCESSIBLE:
             if (!e.isLocated) {
                 switch (command) {
+                    case "go":
                     case "aller":
                         const txtDepl = {
                             FR: ["me déplace", "me rends", "vais", "me dirige"],
@@ -102,7 +103,7 @@ function findText(commandItem) {
 
                         return `Je ${txtDepl[LANG][Math.floor(Math.random() * txtDepl[LANG].length)]} ${txtPrep[LANG][Math.floor(Math.random() * txtPrep[LANG].length)]} ${e.determinant}${e.name}.`;
                     default:
-                        return `Je dois me rapprocher pour ${command} ${e.determinant}${e.name}.`;
+                        return `${UITXT[LANG].game.goTo} ${command} ${e.determinant}${e.name}.`;
                 }
             }
 
@@ -218,5 +219,5 @@ function findText(commandItem) {
             function getCommandENG(name) { return t[name] };
         }
     }
-    if (txt === "") return `Qu'est-ce que "${object}" veut dire ?`;
+    if (txt === "") return `${UITXT[LANG].game.dunnoPrecise1} "${object}" ${UITXT[LANG].game.dunnoPrecise1}`;
 }

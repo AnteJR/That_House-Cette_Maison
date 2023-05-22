@@ -64,7 +64,7 @@ window.addEventListener('keydown', (e) => {
 });
 
 function validateInput() {
-    if (monInput.value == "quitter") monInput.value = "quitter ";
+    if (monInput.value == "quitter" || monInput.value == "leave") monInput.value += " ";
     if (monInput.value.split(" ").length < 2 && monInput.value != "quitter") monInput.value = "false statement";
 
     let commandToSend = removeSpecialChars(monInput.value.split(""));
@@ -113,8 +113,8 @@ mesCommandes.forEach((element) => {
         // insérer le mot lié à la commande dans l'input
         if (canBeUsed) {
             document.getElementById('commandInput').value = maCommande + " ";
-            if (maCommande.toLowerCase() == "quitter") {
-                displayAlert("quitter ")
+            if (maCommande.toLowerCase() == "quitter" || maCommande.toLowerCase() == "leave") {
+                displayAlert(maCommande.toLowerCase() + " ");
                 document.getElementById('commandInput').value = "";
             }
         }
