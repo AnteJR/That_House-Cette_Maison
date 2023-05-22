@@ -3082,7 +3082,7 @@ const MYGAME = {
                         act: "sad",
                         active: false
                     }, {
-                        text: "Moon",
+                        text: "moon",
                         act: "sad",
                         active: true
                     }, {
