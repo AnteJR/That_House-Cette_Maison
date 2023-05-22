@@ -1679,7 +1679,7 @@ const MYGAME = {
                             }
                         },
                         five: {
-                            ifFinal: false,
+                            isFinal: false,
                             isOpened: false,
                             closed: {
                                 interaction: [{ command: "accepter", state: "open", target: [4] }, { command: "accepter", state: "open", target: [1] }],
@@ -4492,7 +4492,7 @@ const MYGAME = {
                             }
                         },
                         five: {
-                            ifFinal: false,
+                            isFinal: false,
                             isOpened: false,
                             closed: {
                                 interaction: [{ command: "accept", state: "open", target: [4] }, { command: "accept", state: "open", target: [1] }],
