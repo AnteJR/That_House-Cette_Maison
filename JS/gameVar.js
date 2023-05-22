@@ -263,7 +263,7 @@ const MYGAME = {
                         act: "sad",
                         active: false
                     }, {
-                        text: "Lune",
+                        text: "lune",
                         act: "sad",
                         active: true
                     }, {
