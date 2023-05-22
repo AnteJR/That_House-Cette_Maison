@@ -4685,7 +4685,7 @@ const MYGAME = {
                             opening: {
                                 interaction: [
                                     { command: "use", state: "open", target: [4] },
-                                    { command: "inspect", state: "opening", target: [1] }
+                                    { command: "inspect", state: "opening", target: [1], condition: "closed" }
                                 ],
                                 look: `Upon closer inspection, it resembles a smaller version of "Vanités".`,
                                 use: "I pick up the book and open it. I can now read a few passages.",
@@ -4695,7 +4695,10 @@ const MYGAME = {
                                 wait: "I would like to read what the book has to offer, immerse myself in its verses."
                             },
                             open: {
-                                interaction: [{ command: "look", state: "final", target: [4], condition: 5 }],
+                                interaction: [
+                                    { command: "look", state: "final", target: [4], condition: 5 },
+                                    { command: "inspect", state: "opening", target: [1], condition: "closed" }
+                                ],
                                 look: [
                                     `"We're dancing like flames, flickering in the night. We sway in time with the wind before melting away."`,
                                     `"You speak of a world I knew, before we lost the air. We all know the lie. You let it die."`,
@@ -4706,16 +4709,18 @@ const MYGAME = {
                                 use: "My hands tremble as I hold the book. It's as if it's forcing me to read it.",
                                 go: "I am in front of the book.",
                                 hit: "I don't feel like breaking this book.",
-                                inspect: "The book is finely illustrated with small black ink illuminations.",
+                                inspect: `On the back cover, at the very bottom, written in small letters, is "In honor of a Lost Paradise, 1667". Could this be the cabinet's code?`,
                                 wait: "I try to understand this book, its subject, its themes..."
                             },
                             final: {
-                                interaction: [{ command: "look", state: "open", target: [0] }],
+                                interaction: [{ command: "look", state: "open", target: [0] },
+                                { command: "inspect", state: "opening", target: [1], condition: "closed" }
+                                ],
                                 look: "My eyes blink, and I snap out of the book's grip. I realize that I've let go of it, and it has fallen to the ground.",
                                 use: "I dare not pick it up. I am disturbed by what I read...",
                                 go: "The book is at my feet.",
                                 hit: "Despite my unease, I don't feel like breaking this book.",
-                                inspect: "The book lies face down, its simple and refined cover pointing towards the ceiling.",
+                                inspect: `On the back cover, at the very bottom, written in small letters, is "In honor of a Lost Paradise, 1667". Could this be the cabinet's code?`,
                                 wait: "I prefer to move away from this book; I think I have seen everything there is to see."
                             }
                         },
@@ -4732,7 +4737,10 @@ const MYGAME = {
                                 accept: "If I remember correctly, my mother owned this book when I was a child. She would read it on the porch."
                             },
                             open: {
-                                interaction: [{ command: "accept", state: "opening", target: [0] }],
+                                interaction: [
+                                    { command: "accept", state: "opening", target: [0] },
+                                    { command: "inspect", state: "opening", target: [1], condition: "closed" }
+                                ],
                                 look: `I feel like I recognize this copy of "The Haze." Could it be my mother's?`,
                                 use: "The book feels small in my hands today; I remember it seemed big when I was a child.",
                                 go: "I am in front of the book.",
