@@ -1870,7 +1870,7 @@ const MYGAME = {
                                 wait: "J'attends devant le livre. Sa vue m'angoisse, et je n'ose pas le prendre pour le lire."
                             },
                             opening: {
-                                interaction: [{ command: "utiliser", state: "open", target: [4] }, { command: "inspecter", state: "opening", target: [1] }],
+                                interaction: [{ command: "utiliser", state: "open", target: [4] }, { command: "inspecter", state: "opening", target: [1], condition: "closed" }],
                                 look: `À y regarder de plus près, il ressemble à une version plus petite de "Vanités".`,
                                 use: "Je prends le livre en main, et l'ouvre. Je peux désormais en lire quelques passages.",
                                 go: "Je suis devant le livre.",
@@ -1879,7 +1879,7 @@ const MYGAME = {
                                 wait: "J'aimerais lire ce que le livre a à m'offrir, m'imprégnier de ses vers."
                             },
                             open: {
-                                interaction: [{ command: "voir", state: "final", target: [4], condition: 5 }],
+                                interaction: [{ command: "voir", state: "final", target: [4], condition: 5 }, { command: "inspecter", state: "opening", target: [1], condition: "closed" }],
                                 look: [
                                     `"Nous dansons comme des flammes, scintillant dans la nuit. Nous nous balançons au rythme du vent avant de fondre."`,
                                     `"Tu parles d'un monde que j'ai connu, avant de perdre l'air. Nous connaissons tous le mensonge. Tu l'as laissé mourir."`,
@@ -1890,16 +1890,16 @@ const MYGAME = {
                                 use: "Mes mains tremblent en tenant le livre. C'est comme s'il me forçait à le lire.",
                                 go: "Je suis devant le livre.",
                                 hit: "Je n'ai pas envie de casser ce livre.",
-                                inspect: "Le livre est finement illustré de petites enluminures dessinées à l'encre noire.",
+                                inspect: `Sur le quatrième de couverture, tout en bas, écrit en petit, "À la gloire d'un Paradis Perdu, 1667". Serait-ce le code du cabinet ?`,
                                 wait: "J'essaie de comprendre ce livre, son sujet, ses thèmes..."
                             },
                             final: {
-                                interaction: [{ command: "voir", state: "open", target: [0] }],
+                                interaction: [{ command: "voir", state: "open", target: [0] }, { command: "inspecter", state: "opening", target: [1], condition: "closed" }],
                                 look: "Mes yeux clignent, et je sors de l'emprise du livre. Je me rends compte que je l'ai lâché, et qu'il est tombé à terre.",
                                 use: "Je n'ose pas le ramasser. Je suis chamboulé par ce que j'ai lu...",
                                 go: "Le livre est à mes pieds.",
                                 hit: "Malgré mon malaise, je n'ai pas envie de casser ce livre.",
-                                inspect: "Le livre repose face contre terre, sa couverture simple et raffinée pointant le plafond.",
+                                inspect: `Sur le quatrième de couverture, tout en bas, écrit en petit, "À la gloire d'un Paradis Perdu, 1667". Serait-ce le code du cabinet ?`,
                                 wait: "Je préfère m'éloigner de ce livre, je crois avoir vu tout ce qu'il y avait à voir."
                             }
                         },
