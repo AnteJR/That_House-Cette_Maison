@@ -3112,7 +3112,7 @@ const MYGAME = {
                     }, {
                         text: "door",
                         act: "regular",
-                        active: false
+                        active: true
                     }, {
                         text: ", under a porch. It's the",
                         act: "accept",
@@ -5204,7 +5204,7 @@ const MYGAME = {
                         active: false
                     },
                     {
-                        text: "Moon",
+                        text: "moon",
                         act: "sad",
                         active: true
                     },
