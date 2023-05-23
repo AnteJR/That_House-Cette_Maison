@@ -112,7 +112,7 @@ function findText(commandItem) {
                 t = el.isFinal ? el.final : (el.isOpened ? el.open : (el.isOpening ? el.opening : el.closed)),
                 compteur = MYGAME.player.count;
 
-            txt = LANG == "FR" ? getCommandFR(command) : getCommandENG(command);
+            txt = t[command];
 
             // CONDITION POUR CHANGER DE SCENE ET D'ACTE :
             if (t.win != undefined && command == t.win.command) displayMainText(parseInt(scene + 1));
@@ -141,7 +141,7 @@ function findText(commandItem) {
                             if (typeof inter.condition === "number") {
                                 if (compteur >= inter.condition) continue;
 
-                                const whatCommand = LANG == "FR" ? getCommandFR(command) : getCommandENG(command);;
+                                const whatCommand = txt;
 
                                 if (compteur < (inter.condition - 1)) {
                                     MYGAME.player.count++;
@@ -171,10 +171,10 @@ function findText(commandItem) {
                                 let mesCollectibles = MYGAME.player.collectibles[sceneName];
 
                                 for (const [key, value] of Object.entries(mesCollectibles)) {
-                                    if (!value) return LANG == "FR" ? getCommandFR(command)[0] : getCommandENG(command)[0];
+                                    if (!value) return txt[0];
                                 }
 
-                                txt = LANG == "FR" ? getCommandFR(command)[1] : getCommandENG(command)[1];
+                                txt = txt[1];
                             }
                         }
                         if (inter.state == "final") tar.isFinal = true;
@@ -189,34 +189,18 @@ function findText(commandItem) {
             if (t.triggerEvent != undefined && command == t.triggerEvent.command) {
                 switch (t.triggerEvent.name) {
                     case "readingLetter":
-                        let maCommandLetter = LANG == "FR" ? getCommandFR(command) : getCommandENG(command);;
-                        openLetter(maCommandLetter);
+                        openLetter(txt);
                         return "";
                     case "endGame":
-                        let maCommandEnd = LANG == "FR" ? getCommandFR(command) : getCommandENG(command);;
-                        endScreen(maCommandEnd, maCommandEnd[0].length);
+                        endScreen(txt, txt[0].length);
                         return "";
                     case "theEnd":
-                        let maCommandFinish = LANG == "FR" ? getCommandFR(command) : getCommandENG(command);;
-                        theEnd(maCommandFinish);
+                        theEnd(txt);
                         return "";
                 }
             }
 
             return txt;
-
-            function getCommandFR(name) {
-                return {
-                    voir: t.look,
-                    utiliser: t.use,
-                    aller: t.go,
-                    frapper: t.hit,
-                    inspecter: t.inspect,
-                    attendre: t.wait,
-                    accepter: t.accept,
-                }[name];
-            }
-            function getCommandENG(name) { return t[name] };
         }
     }
     if (txt === "") return `${UITXT[LANG].game.dunnoPrecise1} "${object}" ${UITXT[LANG].game.dunnoPrecise1}`;
