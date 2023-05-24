@@ -9,12 +9,12 @@ function openLetter(text) {
         interval = 12;
 
     if (count == 0) {
-        getDefault = isDefault;
         document.getElementById("myLetter").style.animation = "divAppears 1s forwards";
+        getDefault = styleOn;
     }
 
     // établissement du style de la page
-    isDefault = false;
+    changeStyle(false);
 
     if (text.length >= 1) document.getElementById("myLetterText").innerHTML = `<div class="textDiv" id="txtOfLetter${text.length}"></div><input type="button" value="${UITXT[LANG].buttons.continue}" class="buttonLetter" id="buttonLetter"/>`
     else {
@@ -32,7 +32,7 @@ function openLetter(text) {
         if (text.length > 0) openLetter(text);
         else {
             MYGAME.isSilent = false;
-            isDefault = getDefault;
+            changeStyle(getDefault);
             document.getElementById("myLetter").style.animation = "divDisappears 1s forwards"
         }
     });

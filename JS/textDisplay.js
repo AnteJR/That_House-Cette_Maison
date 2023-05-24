@@ -1,5 +1,6 @@
 // FONCTION POUR AFFICHER DU TEXTE PHRASE APRÈS PHRASE
 function displayGameText() {
+    applyStyles(styleOn);
     txtDisplay();
     let textsToAppear = document.querySelectorAll('.textDiv'),
         texts = [],
@@ -55,9 +56,6 @@ function displayGameText() {
                     else if (maClass == "sadWobble") element.innerHTML += `<span style="animation-delay: ${j * 500}ms">${txtFrag[j]}</span>`;
                     else if (maClass == "acceptWobble") element.innerHTML += `<span style="animation-delay: ${j * 1000}ms">${txtFrag[j]}</span>`;
                     else element.innerHTML += txtFrag[j];
-
-                    if (isDefault == true) putBackStyles(false);
-                    else if (isDefault == false) deleteStyles(false);
 
                     j++;
                     i--;

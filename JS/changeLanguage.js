@@ -3,6 +3,7 @@ document.getElementById("fr_flag").addEventListener("click", (e) => changeLang("
 
 function changeLang(language, onLaunch) {
     if (language == LANG && !onLaunch) return;
+    if (localStorage.lang != undefined && onLaunch) language = localStorage.lang;
     
     // setting language vars (in the APP and the LOCALSTORAGE)
     LANG = language;

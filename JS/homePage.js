@@ -12,8 +12,7 @@ function homePage() {
     MYGAME.state = "homepage";
 
     // appliquer les anims partout
-    if (isDefault == true) deleteStyles(true);
-    else if (isDefault == false) putBackStyles(true);
+    applyStyles(styleOn);
 
     //gestion de la langue
     changeLang(LANG, true);

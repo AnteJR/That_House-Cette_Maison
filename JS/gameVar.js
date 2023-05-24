@@ -5854,8 +5854,8 @@ let mesMots = [],
     titleText = title.textContent,
     counterCommands = 0,
     clearInt = false,
-    isDefault = true,
-    getDefault = isDefault;
+    styleOn = true,
+    getDefault = styleOn;
 
 // OBTENIR LA DATE ACTUELLE
 function getToday() {
