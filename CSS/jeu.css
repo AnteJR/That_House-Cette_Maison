@@ -15,7 +15,6 @@ body {
     height: 100%;
     font-family: "retroGame";
     color: white;
-    font-size: 1.5em;
 }
 
 body {
@@ -500,9 +499,11 @@ body {
 .white {
     background-color: rgba(0, 0, 0, 0);
 }
+
 .flag:hover .white {
     background-color: rgba(255, 255, 255, 1);
 }
+
 .flag:active .white {
     background-color: rgba(0, 0, 0, 0);
 }
@@ -513,4 +514,34 @@ body {
 
 .red {
     background-color: rgb(230, 97, 45);
+}
+
+@media screen and (max-width: 1920px) {
+    body {
+        font-size: 2.9em;
+    }
+}
+
+@media screen and (max-width: 1750px) {
+    body {
+        font-size: 2.6em;
+    }
+}
+
+@media screen and (max-width: 1675px) {
+    body {
+        font-size: 2.3em;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    body {
+        font-size: 2.2em;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    body {
+        font-size: 2.1em;
+    }
 }

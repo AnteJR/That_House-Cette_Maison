@@ -14,7 +14,7 @@ function openLetter(text) {
     }
 
     // établissement du style de la page
-    changeStyle(false);
+    applyStyles(false);
 
     if (text.length >= 1) document.getElementById("myLetterText").innerHTML = `<div class="textDiv" id="txtOfLetter${text.length}"></div><input type="button" value="${UITXT[LANG].buttons.continue}" class="buttonLetter" id="buttonLetter"/>`
     else {
@@ -32,7 +32,7 @@ function openLetter(text) {
         if (text.length > 0) openLetter(text);
         else {
             MYGAME.isSilent = false;
-            changeStyle(getDefault);
+            applyStyles(getDefault);
             document.getElementById("myLetter").style.animation = "divDisappears 1s forwards"
         }
     });

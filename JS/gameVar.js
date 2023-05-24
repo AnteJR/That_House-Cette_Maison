@@ -1507,31 +1507,25 @@ const MYGAME = {
                         four: {
                             isFinal: false,
                             isOpened: false,
-                            isOpening: false,
                             closed: {
                                 voir: "L'escalier est nettement mieux défini, en un bois sombre et massif. Il a l'air solide. La porte en haut également.",
                                 utiliser: "J'appuie sur la poignée. Rien. La porte est fermée à clef encore une fois...",
                                 aller: "Je suis en haut des escaliers, devant la porte.",
                                 frapper: "Je prends mon élan depuis les marches et je fonce contre la porte. Elle ne bouge pas.",
                                 inspecter: "Sur la porte, un dessin à la peinture colorée, fait avec les doigts. Il représente un enfant qui joue dans l'herbe.",
-                                attendre: "J'attends devant la porte, au sommet de l'escalier. Je ne sais pas si ça me sert à quoi que ce soit."
-                            },
-                            opening: {
-                                voir: "J'ai la clef qui devrait ouvrir la porte. Pourtant, j'ai l'impression qu'il me manque quelque chose.",
-                                utiliser: `J'ai l'impression d'oublier quelque chose. Ce livre... "La Brume"... De quoi parle-t-il ?.`,
-                                aller: "Je suis en haut des escaliers, devant la porte.",
-                                frapper: "Je ne pense pas que ça me soit utile. J'ai déjà la clef pour l'ouvrir.",
-                                inspecter: "Malgré la clef que j'ai en main, mon esprit divague ailleurs, je ne peux me résoudre à ouvrir la porte.",
-                                attendre: `Mes pensées sont absorbées par le livre "La Brume". J'ai l'impression que je dois le livre avant de continuer.`
+                                attendre: "J'attends devant la porte, au sommet de l'escalier. La clef est-elle une nouvelle fois dans le tiroir du bureau ?"
                             },
                             open: {
-                                interaction: [{ command: "utiliser", state: "final", target: [0] }],
+                                interaction: [{ command: "utiliser", state: "final", target: [0], condition: true }],
                                 voir: "La clef que j'ai en main semble correspondre à la porte.",
-                                utiliser: "Je mets la clef dans la serrure et la tourne. La porte s'ouvre face à moi.",
+                                utiliser: [
+                                    `Avant d'insérer la clef, je me pose soudain la question : ai-je bien lu le livre`,
+                                    "Je mets la clef dans la serrure et la tourne. La porte s'ouvre face à moi."
+                                ],
                                 aller: "Je suis en haut des escaliers, devant la porte.",
                                 frapper: "Je ne pense pas que ça me soit utile. J'ai déjà la clef pour l'ouvrir.",
                                 inspecter: "La clef est encore une fois différente. Cette fois plus petite et moderne. La marque est KABA.",
-                                attendre: "La clef ne va pas se mettre dans la serrure toute seule en attendant..."
+                                attendre: `Mes pensées sont absorbées par le livre "La Brume". J'ai l'impression que je dois le livre avant de continuer.`
                             },
                             final: {
                                 win: { command: "aller" },
@@ -1661,7 +1655,7 @@ const MYGAME = {
                                 attendre: "J'attends devant le bureau. Comment ouvrir le cabinet cette fois-ci ? Je remarque qu'il faut un code."
                             },
                             opening: {
-                                interaction: [{ command: "utiliser", state: "opening", target: [0] }, { command: "utiliser", state: "open", target: [1] }],
+                                interaction: [{ command: "utiliser", state: "open", target: [0, 1] }],
                                 voir: "Le cabinet est accompagné d'un système de blocage par un code, situé au-dessus de sa poignée.",
                                 utiliser: `J'entre le code 1667, l'année de publication du "Paradis Perdu" de Milton. Le tiroir s'ouvre et je récupère la clef qu'il contient.`,
                                 aller: "Je suis devant le bureau.",
@@ -1894,7 +1888,8 @@ const MYGAME = {
                                 attendre: "J'essaie de comprendre ce livre, son sujet, ses thèmes..."
                             },
                             final: {
-                                interaction: [{ command: "voir", state: "open", target: [0] }, { command: "inspecter", state: "opening", target: [1], condition: "closed" }],
+                                interaction: [{ command: "inspecter", state: "opening", target: [1], condition: "closed" }],
+                                collectible: { command: "voir", coll: "readBook" },
                                 voir: "Mes yeux clignent, et je sors de l'emprise du livre. Je me rends compte que je l'ai lâché, et qu'il est tombé à terre.",
                                 utiliser: "Je n'ose pas le ramasser. Je suis chamboulé par ce que j'ai lu...",
                                 aller: "Le livre est à mes pieds.",
@@ -2054,7 +2049,7 @@ const MYGAME = {
                         five: {
                             isOpened: false,
                             closed: {
-                                interaction: [{ command: "accepter", state: "opening", target: [4] }],
+                                interaction: [{ command: "accepter", state: "open", target: [4] }],
                                 voir: "C'est un lit nettement plus moderne qu'avant. D'un coup d'oeil, on dirait mon lit, celui de mon appartement.",
                                 utiliser: "Les draps sont faits, frais et changés. Ils sont propres et doux au toucher.",
                                 aller: "Je suis devant le lit. Je ne suis pas fatigué, donc je n'ai pas de raison d'aller dedans.",
@@ -2436,7 +2431,7 @@ const MYGAME = {
                         five: {
                             isOpened: false,
                             closed: {
-                                interaction: [{ commande: "attendre", state: "open", target: [0], condition: true }],
+                                interaction: [{ command: "attendre", state: "open", target: [0], condition: true }],
                                 voir: "La lune trône au milieu du ciel, sa beauté n'a d'égal que sa taille.",
                                 utiliser: "Toucher la lune... Je ne suis malheureusement pas un astronaute.",
                                 aller: "Impossible, c'est la lune.",
@@ -2664,7 +2659,7 @@ const MYGAME = {
                             }
                         }
                     }, {    // cheminée
-                        name: "cheminée",
+                        name: "cheminee",
                         determinant: "la ",
                         isLocated: false,
                         four: {
@@ -4320,7 +4315,6 @@ const MYGAME = {
                         four: {
                             isFinal: false,
                             isOpened: false,
-                            isOpening: false,
                             closed: {
                                 look: "The staircase is much more defined, made of dark and solid wood. It looks sturdy. The door at the top too.",
                                 use: "I press the handle. Nothing. The door is locked again...",
@@ -4329,22 +4323,17 @@ const MYGAME = {
                                 inspect: "On the door, there's a colorful finger-painted drawing. It depicts a child playing in the grass.",
                                 wait: "I wait in front of the door, at the top of the staircase. I'm not sure if it serves any purpose."
                             },
-                            opening: {
-                                look: "I have the key that should open the door. Yet, it feels like something is missing.",
-                                use: "I feel like I'm forgetting something. This book... 'The Mist'... What is it about?",
-                                go: "I'm at the top of the stairs, in front of the door.",
-                                hit: "I don't think it's useful. I already have the key to open it.",
-                                inspect: "Despite the key in my hand, my mind wanders elsewhere, and I can't bring myself to open the door.",
-                                wait: "My thoughts are consumed by the book 'The Mist'. I feel like I need to read it before continuing."
-                            },
                             open: {
-                                interaction: [{ command: "use", state: "final", target: [0] }],
+                                interaction: [{ command: "use", state: "final", target: [0], condition: true }],
                                 look: "The key in my hand seems to correspond to the door.",
-                                use: "I put the key in the lock and turn it. The door opens in front of me.",
+                                use: [
+                                    "I don't know why, but despite having the key, I feel like I should first read 'The Haze'",
+                                    "I put the key in the lock and turn it. The door opens in front of me."
+                                ],
                                 go: "I'm at the top of the stairs, in front of the door.",
                                 hit: "I don't think it's useful. I already have the key to open it.",
                                 inspect: "Once again, the key is different. This time smaller and modern. The brand is KABA.",
-                                wait: "The key won't put itself in the lock while I wait..."
+                                wait: "My thoughts are consumed by the book 'The Haze'. I feel like I need to read it before continuing."
                             },
                             final: {
                                 win: { command: "go" },
@@ -4474,7 +4463,7 @@ const MYGAME = {
                                 wait: "I wait in front of the desk. How do I open the cabinet this time? I notice that a code is needed."
                             },
                             opening: {
-                                interaction: [{ command: "use", state: "opening", target: [0] }, { command: "use", state: "open", target: [1] }],
+                                interaction: [{ command: "use", state: "open", target: [0, 1] }],
                                 look: "The cabinet is accompanied by a locking system with a code, located above its handle.",
                                 use: "I enter the code 1667, the year of the publication of Milton's 'Paradise Lost.' The drawer opens, and I retrieve the key it contains.",
                                 go: "I'm in front of the desk.",
@@ -4713,9 +4702,8 @@ const MYGAME = {
                                 wait: "I try to understand this book, its subject, its themes..."
                             },
                             final: {
-                                interaction: [{ command: "look", state: "open", target: [0] },
-                                { command: "inspect", state: "opening", target: [1], condition: "closed" }
-                                ],
+                                interaction: [{ command: "inspect", state: "opening", target: [1], condition: "closed" }],
+                                collectible: { command: "look", coll: "readBook" },
                                 look: "My eyes blink, and I snap out of the book's grip. I realize that I've let go of it, and it has fallen to the ground.",
                                 use: "I dare not pick it up. I am disturbed by what I read...",
                                 go: "The book is at my feet.",
@@ -4892,7 +4880,7 @@ const MYGAME = {
                         five: {
                             isOpened: false,
                             closed: {
-                                interaction: [{ command: "accept", state: "opening", target: [4] }],
+                                interaction: [{ command: "accept", state: "open", target: [4] }],
                                 look: "It's a much more modern-looking bed than before. At first glance, it looks like my bed, the one in my apartment.",
                                 use: "The sheets are made, fresh, and changed. They are clean and soft to the touch.",
                                 go: "I'm in front of the bed. I'm not tired, so I have no reason to get in.",
@@ -5819,6 +5807,9 @@ const MYGAME = {
     previousInput: [],
     player: {
         collectibles: {
+            desk: {
+                readBook: false,
+            },
             roof: {
                 drankWater: false,
                 litCandle: false,

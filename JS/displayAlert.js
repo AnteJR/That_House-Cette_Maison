@@ -178,9 +178,20 @@ function findText(commandItem) {
                             }
                         }
                         if (inter.state == "final") tar.isFinal = true;
-                        else if (inter.state == "open") tar.isOpened = true;
-                        else if (inter.state == "opening") tar.isOpening = true;
-                        else if (inter.state == "closed") tar.isOpened = false;
+                        else if (inter.state == "open") {
+                            tar.isOpened = true;
+                            tar.isFinal = false;
+                        }
+                        else if (inter.state == "opening") {
+                            tar.isOpening = true;
+                            tar.isOpened = false;
+                            tar.isFinal = false;
+                        }
+                        else if (inter.state == "closed") {
+                            tar.isOpening = false;
+                            tar.isOpened = false;
+                            tar.isFinal = false;
+                        }
                     }
                 }
             }
