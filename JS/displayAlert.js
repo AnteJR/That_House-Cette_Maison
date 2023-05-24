@@ -124,6 +124,7 @@ function findText(commandItem) {
 
             // CONDITIONS POUR PUSH LE BON TEXTE DANS LES INPUTS PRECEDENTS :
             if (command === "aller") MYGAME.previousInput.push(command + " vers " + e.determinant + e.name);
+            else if (command === "go") MYGAME.previousInput.push(command + " to " + e.determinant + e.name);
             else MYGAME.previousInput.push(command + " " + e.determinant + e.name);
 
             // CONDITION POUR LES "COLLECTIBLES" :

@@ -24,7 +24,7 @@ function endScreen(text, textLength) {
             MYGAME.isSilent = false;
             gameContainer.style.animation = "gameDivAppears 1.5s forwards";
             document.getElementById("endSection").style.animation = "divDisappears 1.5s forwards";
-            nextActPlease(6, "La vie est un cycle qui ne s'arrête jamais. J'ai fermé les yeux, mais le monde m'est plus visible que jamais. Je vole avec le reste des éléments. L'univers est à ma portée. Je suis tout. Je ne suis rien. Je suis mort. Je suis vivant.");
+            nextActPlease(6, UITXT[LANG].game.finalTxt);
         }
     });
 

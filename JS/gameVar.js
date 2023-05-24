@@ -68,7 +68,8 @@ const UITXT = {
             goTo: "Je dois me rapprocher pour",
             dunno: "Je ne comprends pas ce que je suis censé faire.",
             dunnoPrecise1: "Qu'est-ce que",
-            dunnoPrecise2: "veut dire ?"
+            dunnoPrecise2: "veut dire ?",
+            finalTxt: "La vie est un cycle qui ne s'arrête jamais. J'ai fermé les yeux, mais le monde m'est plus visible que jamais. Je vole avec le reste des éléments. L'univers est à ma portée. Je suis tout. Je ne suis rien. Je suis mort. Je suis vivant."
         }
     },
     ENG: {
@@ -138,7 +139,8 @@ const UITXT = {
             goTo: "I must get closer to",
             dunno: "I don't get what I'm supposed to do.",
             dunnoPrecise1: "What does",
-            dunnoPrecise2: "mean?"
+            dunnoPrecise2: "mean?",
+            finalTxt: "Life is a cycle that never ends. I closed my eyes, yet, the world is more visible to me now than it ever was. I float with the reste of the elements. The universe is within my reach. I am everything; I am nothing. I am dead; I am alive."
         }
     }
 }
@@ -3109,7 +3111,11 @@ const MYGAME = {
                         act: "regular",
                         active: true
                     }, {
-                        text: ", under a porch. It's the",
+                        text: ", under a porch.",
+                        act: "regular",
+                        active: false
+                    }, {
+                        text: "It's the",
                         act: "accept",
                         active: false
                     }, {
