@@ -353,7 +353,7 @@ const MYGAME = {
                         act: "end",
                         active: false
                     }, {
-                        text: `L'horizon est vaste, invisible tant il est grand. L'univers est partout, tout comme mes électons, et mes atomes.`,
+                        text: `L'horizon est vaste, invisible tant il est grand. L'univers est partout, tout comme mes électrons, et mes atomes.`,
                         act: "end",
                         active: false
                     }
@@ -764,7 +764,7 @@ const MYGAME = {
                             isOpened: false,
                             closed: {
                                 interaction: [{ command: "accepter", state: "open", target: [6] }],
-                                accepter: "Cette maison qui est la mienne est maintenant lointaine. Un souvenir. Elle est aussi omniprésente. Une énergie"
+                                accepter: "Cette maison qui est la mienne est maintenant lointaine. Un souvenir. Elle est aussi omniprésente. Une énergie."
                             },
                             open: {
                                 triggerEvent: { command: "accepter", name: "theEnd" },
@@ -2846,9 +2846,9 @@ const MYGAME = {
                                     "Son état de ruine est dû au fait qu'on ait cessé d'y penser durant notre vie d'adulte. Nous vivions notre vie, nous n'avions pas besoin de nous souvenir. Nous avions plein de préoccupations ; le travail, l'amour, nos amies et amis, notre famille...",
                                     "C'est quelque chose de regrettable, l'oubli. L'absence de pensée envers ce qu'on a vécu, ce qui nous a construit. Nos préoccupations sont maintenant derrière nous, et nous avons enfin pu nous souvenir. Nous n'avons plus à nous préoccuper de ce qui nous distrayait.",
                                     "J'ai une nouvelle importante et déchirante à t'annoncer. Tu ne respires plus, l'air t'as été dérobé. Tu es en train de mourir.",
-                                    "Enfin, nous le sommes, tous les deux, en même temps. Tu as eu un accident de voiture. Les médecins et la polices diront que tu es mort sur le coup.",
+                                    "Enfin, nous le sommes, tous les deux, en même temps. Tu as eu un accident de voiture. Les médecins et la police diront que tu es mort sur le coup.",
                                     "Mais en ce moment, tu n'es pas encore mort. Alors que le monde autour de toi disparaît et se contorsionne, tes neurones s'activent une dernière fois dans une explosion d'endorphines, de souvenirs, de regrets, de pensées, qui s'entrechoquent et se mêlent les unes aux autres.",
-                                    "Les électrons de ton corps se mettent à danser avec ceux du sol sous nos pieds et du ciel au-dessus de nous. On pourrait penser que c'est le fin de tout.",
+                                    "Les électrons de ton corps se mettent à danser avec ceux du sol sous nos pieds et du ciel au-dessus de nous. On pourrait penser que c'est la fin de tout.",
                                     "Mais il n'y a aucun moment où nous commençons et nous finissons. Nous sommes de l'énergie, pas juste un souvenir. Nos choix, notre nom, notre personnalité, tout ça est venu après nous. Nous étions là avant tout ça, et nous continuerons d'exister après.",
                                     "L'oubli est regrettable, mais n'est pas la fin de nous, de notre existence, de notre présence.",
                                     "Il n'y a pas de temps. Il n'y a pas de mort non plus, du moins, pas comme on l'entend. La vie est un rêve. C'est un voeu. Réalisé encore et encore, et encore, et encore, et ainsi de suite, pour l'éternité.",
@@ -2942,7 +2942,7 @@ const MYGAME = {
                                 attendre: "Plus j'attends, plus je disparais.",
                                 accepter: [
                                     [
-                                        "Je disaparaît et rejoins le reste de l'univers. Je ne suis plus. Ma conscience est partout.",
+                                        "Je disparaît et rejoins le reste de l'univers. Je ne suis plus. Ma conscience est partout.",
                                         "Me voila, à la fin de mon voyage.",
                                         "Cette maison, d'abord étrangère, m'est maintenant familière.",
                                         "Je l'accepte à bras ouvert.",

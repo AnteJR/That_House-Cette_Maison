@@ -12,6 +12,7 @@ function nextActPlease(newAct, myTextToDisplay) {
     MYGAME[LANG].scenes.forEach((scn, i) => {
         if (i > 3) scn.items.forEach((itm) => {
             if(itm.name!="leave" || itm.name!="carte" || itm.name!="lune" || itm.name!="jardin") itm.isLocated = false
+            if(itm.name!="leave" || itm.name!="postcard" || itm.name!="moon" || itm.name!="garden") itm.isLocated = false
         });
     });
 
