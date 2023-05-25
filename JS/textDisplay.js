@@ -84,6 +84,7 @@ function inspectColor(monAct) {
     }
 }
 
+// CETTE FONCTION AFFICHE UN TEXTE LETTRE PAR LETTRE. EST UTILISE PAR LES ALERT, LA LETTR ET LA FIN DU JEU
 function displayLetterByLetter(txt, nbr, int, idTxt) {
     setTimeout(() => {
         if (nbr > 0) {
