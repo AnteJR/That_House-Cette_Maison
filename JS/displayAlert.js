@@ -99,12 +99,11 @@ function findText(commandItem) {
             if (t.newAct != undefined && command == t.newAct.command) return nextActPlease(act + 1, txt);
 
             // CONDITIONS POUR MOMENTS SPECIFIQUES :
-            if (command === "inspecter" && object === "portail" && !el.isOpened && !el.isOpening && (act == 3 || act == 4)) txt += `"` + MYGAME.player.shortName + `".`;
-            if (command === "inspecter" && object === "cierge" && el.isOpened && act == 5) txt += `"` + MYGAME.player.name.toUpperCase().split("").shift() + `".`;
+            if ((command === "inspecter" || command === "inspect") && (object === "portail" || object === "gate") && !el.isOpened && !el.isOpening && (act == 3 || act == 4)) txt += `"` + MYGAME.player.shortName + `".`;
+            if ((command === "inspecter" || command === "inspect") && (object === "cierge" || object === "candle") && el.isOpened && act == 5) txt += `"` + MYGAME.player.name.toUpperCase().split("").shift() + `".`;
 
             // CONDITIONS POUR PUSH LE BON TEXTE DANS LES INPUTS PRECEDENTS :
-            if (command === "aller") MYGAME.previousInput.push(command + " vers " + e.determinant + e.name);
-            else if (command === "go") MYGAME.previousInput.push(command + " to " + e.determinant + e.name);
+            if (command === "aller" || command === "go") MYGAME.previousInput.push(command + " " + UITXT[LANG].game.direction + " " + e.determinant + e.name);
             else MYGAME.previousInput.push(command + " " + e.determinant + e.name);
 
             // CONDITION POUR LES "COLLECTIBLES" :

@@ -65,6 +65,7 @@ const UITXT = {
             }
         },
         game: {
+            direction: "vers",
             goTo: "Je dois me rapprocher pour",
             dunno: "Je ne comprends pas ce que je suis censé faire.",
             dunnoPrecise1: "Qu'est-ce que",
@@ -145,6 +146,7 @@ const UITXT = {
             }
         },
         game: {
+            direction: "to",
             goTo: "I must get closer to",
             dunno: "I don't get what I'm supposed to do.",
             dunnoPrecise1: "What does",
