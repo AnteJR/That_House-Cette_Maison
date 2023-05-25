@@ -6028,4 +6028,4 @@ function printTxt() {
     return txt;
 }
 
-setTimeout(() => console.log(printTxt()), 30000);
+// setTimeout(() => console.log(printTxt()), 30000);

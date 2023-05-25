@@ -37,15 +37,5 @@ function openLetter(text) {
         }
     });
 
-    displayTxtLetter(txtFrag, i, interval, text.length);
-}
-
-function displayTxtLetter(txt, nbr, int, idTxt) {
-    setTimeout(() => {
-        if (nbr > 0) {
-            document.getElementById(`txtOfLetter${idTxt}`).innerHTML += txt[txt.length - nbr];
-            nbr--;
-            displayTxtLetter(txt, nbr, int, idTxt);
-        }
-    }, int);
+    displayLetterByLetter(txtFrag, i, interval, `txtOfLetter${text.length}`);
 }

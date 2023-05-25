@@ -13,7 +13,7 @@ function displayAlert(text) {
 
     monTxt.length > 160 ? monAlert.style.fontSize = "0.75em" : (monTxt.length > 140 ? monAlert.style.fontSize = "0.8em" : (monTxt.length > 120 ? monAlert.style.fontSize = "0.85em" : monAlert.style.fontSize = "0.9em"));
 
-    txtDisplay();
+    displayLetterByLetter(txtFrag, i, interval, "alertTxt");
 
     document.getElementById("alertButton").addEventListener("click", () => {
         clickButton();
@@ -22,18 +22,6 @@ function displayAlert(text) {
         monAlert.style.display = "none";
     });
     document.getElementById("alertButton").addEventListener("mouseover", () => hoverButton());
-
-    // afficher le texte lettre après lettre
-    function txtDisplay() {
-        setTimeout(function () {
-            if (i > 0 && !clearInt) {
-                monAlertTxt.innerHTML += txtFrag[txtFrag.length - i];
-                i--;
-                txtDisplay();
-            }
-        }, interval);
-    }
-    
 }
 
 // CETTE FONCTION TROUVE LE TEXTE A AFFICHER

@@ -83,3 +83,13 @@ function inspectColor(monAct) {
         });
     }
 }
+
+function displayLetterByLetter(txt, nbr, int, idTxt) {
+    setTimeout(() => {
+        if (nbr > 0) {
+            document.getElementById(`${idTxt}`).innerHTML += txt[txt.length - nbr];
+            nbr--;
+            displayLetterByLetter(txt, nbr, int, idTxt);
+        }
+    }, int);
+}

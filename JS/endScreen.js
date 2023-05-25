@@ -28,15 +28,5 @@ function endScreen(text, textLength) {
         }
     });
 
-    txtDisplayEnd (monTxtFrag, i, interval, `endTxt${index}`);
-}
-
-function txtDisplayEnd(txt, nbr, int, idTxt) {
-    setTimeout(() => {
-        if (nbr > 0) {
-            document.getElementById(`${idTxt}`).innerHTML += txt[txt.length - nbr];
-            nbr--;
-            txtDisplayEnd(txt, nbr, int, idTxt);
-        }
-    }, int);
+    displayLetterByLetter (monTxtFrag, i, interval, `endTxt${index}`);
 }

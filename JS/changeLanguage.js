@@ -8,6 +8,7 @@ function changeLang(language, onLaunch) {
     // setting language vars (in the APP and the LOCALSTORAGE)
     LANG = language;
     localStorage.lang = language;
+    today = getToday()
 
     changeTxtOfPage(language);
 }
