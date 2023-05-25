@@ -70,7 +70,16 @@ const UITXT = {
             dunnoPrecise1: "Qu'est-ce que",
             dunnoPrecise2: "veut dire ?",
             finalTxt: "La vie est un cycle qui ne s'arrête jamais. J'ai fermé les yeux, mais le monde m'est plus visible que jamais. Je vole avec le reste des éléments. L'univers est à ma portée. Je suis tout. Je ne suis rien. Je suis mort. Je suis vivant."
-        }
+        },
+        authorizedCommands: [
+            ["voir", "utiliser", "aller", "quitter"],
+            ["voir", "utiliser", "aller", "quitter"],
+            ["voir", "utiliser", "aller", "quitter", "frapper"],
+            ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter"],
+            ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter", "attendre"],
+            ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter", "attendre", "accepter"],
+            ["accepter"]
+        ]
     },
     ENG: {
         buttons: {
@@ -141,7 +150,16 @@ const UITXT = {
             dunnoPrecise1: "What does",
             dunnoPrecise2: "mean?",
             finalTxt: "Life is a cycle that never ends. I closed my eyes, yet, the world is more visible to me now than it ever was. I float with the reste of the elements. The universe is within my reach. I am everything; I am nothing. I am dead; I am alive."
-        }
+        },
+        authorizedCommands: [
+            ["look", "use", "go", "leave"],
+            ["look", "use", "go", "leave"],
+            ["look", "use", "go", "leave", "hit"],
+            ["look", "use", "go", "leave", "hit", "inspect"],
+            ["look", "use", "go", "leave", "hit", "inspect", "wait"],
+            ["look", "use", "go", "leave", "hit", "inspect", "wait", "accept"],
+            ["accept"]
+        ]
     }
 }
 

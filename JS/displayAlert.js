@@ -45,29 +45,9 @@ function findText(commandItem) {
         item = MYGAME[LANG].scenes[scene].items,
         command = commandItem[0].toLowerCase(),
         object = commandItem[(commandItem.length - 1)].toLowerCase(),
-        acts = ["zero", "one", "two", "three", "four", "five", "six"],
-        authorizedCommands = {
-            FR: [
-                ["voir", "utiliser", "aller", "quitter"],
-                ["voir", "utiliser", "aller", "quitter"],
-                ["voir", "utiliser", "aller", "quitter", "frapper"],
-                ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter"],
-                ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter", "attendre"],
-                ["voir", "utiliser", "aller", "quitter", "frapper", "inspecter", "attendre", "accepter"],
-                ["accepter"]
-            ],
-            ENG: [
-                ["look", "use", "go", "leave"],
-                ["look", "use", "go", "leave"],
-                ["look", "use", "go", "leave", "hit"],
-                ["look", "use", "go", "leave", "hit", "inspect"],
-                ["look", "use", "go", "leave", "hit", "inspect", "wait"],
-                ["look", "use", "go", "leave", "hit", "inspect", "wait", "accept"],
-                ["accept"]
-            ]
-        };
+        acts = ["zero", "one", "two", "three", "four", "five", "six"];
 
-    if (!authorizedCommands[LANG][act].includes(command)) return `${UITXT[LANG].game.dunno}`;
+    if (!UITXT[LANG].authorizedCommands[act].includes(command)) return `${UITXT[LANG].game.dunno}`;
 
     if (command == "quitter" || command == "leave") {
         if ((scene > 2 && act < 5) || (scene == 3 && act == 5)) displayMainText(parseInt(scene - 1));
