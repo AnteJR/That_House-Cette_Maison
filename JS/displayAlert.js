@@ -88,7 +88,7 @@ function findText(commandItem) {
 
             // CONDITIONS POUR MOMENTS SPECIFIQUES :
             if ((command === "inspecter" || command === "inspect") && (object === "portail" || object === "gate") && !el.isOpened && !el.isOpening && (act == 3 || act == 4)) txt += `"` + MYGAME.player.shortName + `".`;
-            if ((command === "inspecter" || command === "inspect") && (object === "cierge" || object === "candle") && el.isOpened && act == 5) txt += `"` + MYGAME.player.name.toUpperCase().split("").shift() + `".`;
+            if ((command === "inspecter" || command === "inspect") && (object === "cierge" || object === "candle") && el.isOpened && act == 5) txt += `"` + MYGAME.player.username.toUpperCase().split("").shift() + `".`;
 
             // CONDITIONS POUR PUSH LE BON TEXTE DANS LES INPUTS PRECEDENTS :
             if (command === "aller" || command === "go") MYGAME.previousInput.push(command + " " + UITXT[LANG].game.direction + " " + e.determinant + e.name);

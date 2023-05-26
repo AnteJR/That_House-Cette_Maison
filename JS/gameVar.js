@@ -5891,141 +5891,101 @@ function getToday() {
 
 function printTxt() {
     let txt = "";
-    MYGAME.FR.scenes.forEach((scn, idx) => {
-        if (idx == 0) {
-            scn.texts.forEach((txts) => {
-                txts.text.forEach((t) => {
-                    txt += t[0] + " "
-                });
-            });
-        }
-        if (idx > 1) {
-            scn.texts.forEach((txts) => {
-                txt += txts.text + " "
-            });
-            scn.items.forEach((itms) => {
-                if (itms.name == "leave") {
-                    if (itms.one != undefined) txt += itms.one.text + " ";
-                    if (itms.two != undefined) txt += itms.two.text + " ";
-                    if (itms.three != undefined) txt += itms.three.text + " ";
-                    if (itms.four != undefined) txt += itms.four.text + " ";
-                    if (itms.five != undefined) txt += itms.five.text + " ";
+    const commandZ = {
+        FR: [
+            "voir",
+            "utiliser",
+            "aller",
+            "quitter",
+            "frapper",
+            "inspecter",
+            "attendre",
+            "accepter"
+        ],
+        ENG: [
+            "look",
+            "use",
+            "go",
+            "leave",
+            "hit",
+            "inspect",
+            "wait",
+            "accept"
+        ]
+    }
+    for (const [key, value] of Object.entries(MYGAME)) {
+        if (key == "ENG" || key == "FR") {
+            
+            value.scenes.forEach((scn, idx) => {
+                if (idx == 0) {
+                    scn.texts.forEach((txts) => {
+                        txts.text.forEach((t) => {
+                            txt += t[0] + " "
+                        });
+                    });
                 }
-                else {
-                    if (itms.zero != undefined) {
-                        if (itms.zero.closed != undefined) txt += itms.zero.closed.look + " " + itms.zero.closed.use + " " + itms.zero.closed.go + " ";
-                        if (itms.zero.opening != undefined) txt += itms.zero.opening.look + " " + itms.zero.opening.use + " " + itms.zero.opening.go + " ";
-                        if (itms.zero.open != undefined) txt += itms.zero.open.look + " " + itms.zero.open.use + " " + itms.zero.open.go + " ";
-                        if (itms.zero.final != undefined) txt += itms.zero.final.look + " " + itms.zero.final.use + " " + itms.zero.final.go + " ";
-                    }
-                    if (itms.one != undefined) {
-                        if (itms.one.closed != undefined) txt += itms.one.closed.look + " " + itms.one.closed.use + " " + itms.one.closed.go + " ";
-                        if (itms.one.opening != undefined) txt += itms.one.opening.look + " " + itms.one.opening.use + " " + itms.one.opening.go + " ";
-                        if (itms.one.open != undefined) txt += itms.one.open.look + " " + itms.one.open.use + " " + itms.one.open.go + " ";
-                        if (itms.one.final != undefined) txt += itms.one.final.look + " " + itms.one.final.use + " " + itms.one.final.go + " ";
-                    }
-                    if (itms.two != undefined) {
-                        if (itms.two.closed != undefined) txt += itms.two.closed.look + " " + itms.two.closed.use + " " + itms.two.closed.go + " " + itms.two.closed.hit + " ";
-                        if (itms.two.opening != undefined) txt += itms.two.opening.look + " " + itms.two.opening.use + " " + itms.two.opening.go + " " + itms.two.opening.hit + " ";
-                        if (itms.two.open != undefined) txt += itms.two.open.look + " " + itms.two.open.use + " " + itms.two.open.go + " " + itms.two.open.hit + " ";
-                        if (itms.two.final != undefined) txt += itms.two.final.look + " " + itms.two.final.use + " " + itms.two.final.go + " " + itms.two.final.hit + " ";
-                    }
-                    if (itms.three != undefined) {
-                        if (itms.three.closed != undefined) txt += itms.three.closed.look + " " + itms.three.closed.use + " " + itms.three.closed.go + " " + itms.three.closed.hit + " " + itms.three.closed.inspect + " ";
-                        if (itms.three.opening != undefined) txt += itms.three.opening.look + " " + itms.three.opening.use + " " + itms.three.opening.go + " " + itms.three.opening.hit + " " + itms.three.opening.inspect + " ";
-                        if (itms.three.open != undefined) txt += itms.three.open.look + " " + itms.three.open.use + " " + itms.three.open.go + " " + itms.three.open.hit + " " + itms.three.open.inspect + " ";
-                        if (itms.three.final != undefined) txt += itms.three.final.look + " " + itms.three.final.use + " " + itms.three.final.go + " " + itms.three.final.hit + " " + itms.three.final.inspect + " ";
-                    }
-                    if (itms.four != undefined) {
-                        if (itms.four.closed != undefined) txt += itms.four.closed.look + " " + itms.four.closed.use + " " + itms.four.closed.go + " " + itms.four.closed.hit + " " + itms.four.closed.inspect + " " + itms.four.closed.wait + " ";
-                        if (itms.four.opening != undefined) txt += itms.four.opening.look + " " + itms.four.opening.use + " " + itms.four.opening.go + " " + itms.four.opening.hit + " " + itms.four.opening.inspect + " " + itms.four.opening.wait + " ";
-                        if (itms.four.open != undefined) txt += itms.four.open.look + " " + itms.four.open.use + " " + itms.four.open.go + " " + itms.four.open.hit + " " + itms.four.open.inspect + " " + itms.four.open.wait + " ";
-                        if (itms.four.final != undefined) txt += itms.four.final.look + " " + itms.four.final.use + " " + itms.four.final.go + " " + itms.four.final.hit + " " + itms.four.final.inspect + " " + itms.four.final.wait + " ";
-                    }
-                    if (itms.five != undefined) {
-                        if (itms.five.closed != undefined) txt += itms.five.closed.look + " " + itms.five.closed.use + " " + itms.five.closed.go + " " + itms.five.closed.hit + " " + itms.five.closed.inspect + " " + itms.five.closed.wait + " " + itms.five.closed.accept + " ";
-                        if (itms.five.opening != undefined) txt += itms.five.opening.look + " " + itms.five.opening.use + " " + itms.five.opening.go + " " + itms.five.opening.hit + " " + itms.five.opening.inspect + " " + itms.five.opening.wait + " " + itms.five.opening.accept + " ";
-                        if (itms.five.open != undefined) txt += itms.five.open.look + " " + itms.five.open.use + " " + itms.five.open.go + " " + itms.five.open.hit + " " + itms.five.open.inspect + " " + itms.five.open.wait + " " + itms.five.open.accept + " ";
-                        if (itms.five.final != undefined) txt += itms.five.final.look + " " + itms.five.final.use + " " + itms.five.final.go + " " + itms.five.final.hit + " " + itms.five.final.inspect + " " + itms.five.final.wait + " " + itms.five.final.accept + " ";
-                    }
-                    if (itms.six != undefined) {
-                        if (itms.six.closed != undefined) txt += itms.six.closed.look + " " + itms.six.closed.use + " " + itms.six.closed.go + " " + itms.six.closed.hit + " " + itms.six.closed.inspect + " " + itms.six.closed.wait + " " + itms.six.closed.accept + " ";
-                        if (itms.six.opening != undefined) txt += itms.six.opening.look + " " + itms.six.opening.use + " " + itms.six.opening.go + " " + itms.six.opening.hit + " " + itms.six.opening.inspect + " " + itms.six.opening.wait + " " + itms.six.opening.accept + " ";
-                        if (itms.six.open != undefined) txt += itms.six.open.look + " " + itms.six.open.use + " " + itms.six.open.go + " " + itms.six.open.hit + " " + itms.six.open.inspect + " " + itms.six.open.wait + " " + itms.six.open.accept + " ";
-                        if (itms.six.final != undefined) txt += itms.six.final.look + " " + itms.six.final.use + " " + itms.six.final.go + " " + itms.six.final.hit + " " + itms.six.final.inspect + " " + itms.six.final.wait + " " + itms.six.final.accept + " ";
-                    }
-                }
-            });
-        }
-    });
-    MYGAME.ENG.scenes.forEach((scn, idx) => {
-        if (idx == 0) {
-            scn.texts.forEach((txts) => {
-                txts.text.forEach((t) => {
-                    txt += t[0] + " "
-                });
-            });
-        }
-        if (idx > 1) {
-            scn.texts.forEach((txts) => {
-                txt += txts.text + " "
-            });
-            scn.items.forEach((itms) => {
-                if (itms.name == "leave") {
-                    if (itms.one != undefined) txt += itms.one.text + " ";
-                    if (itms.two != undefined) txt += itms.two.text + " ";
-                    if (itms.three != undefined) txt += itms.three.text + " ";
-                    if (itms.four != undefined) txt += itms.four.text + " ";
-                    if (itms.five != undefined) txt += itms.five.text + " ";
-                }
-                else {
-                    if (itms.zero != undefined) {
-                        if (itms.zero.closed != undefined) txt += itms.zero.closed.look + " " + itms.zero.closed.use + " " + itms.zero.closed.go + " ";
-                        if (itms.zero.opening != undefined) txt += itms.zero.opening.look + " " + itms.zero.opening.use + " " + itms.zero.opening.go + " ";
-                        if (itms.zero.open != undefined) txt += itms.zero.open.look + " " + itms.zero.open.use + " " + itms.zero.open.go + " ";
-                        if (itms.zero.final != undefined) txt += itms.zero.final.look + " " + itms.zero.final.use + " " + itms.zero.final.go + " ";
-                    }
-                    if (itms.one != undefined) {
-                        if (itms.one.closed != undefined) txt += itms.one.closed.look + " " + itms.one.closed.use + " " + itms.one.closed.go + " ";
-                        if (itms.one.opening != undefined) txt += itms.one.opening.look + " " + itms.one.opening.use + " " + itms.one.opening.go + " ";
-                        if (itms.one.open != undefined) txt += itms.one.open.look + " " + itms.one.open.use + " " + itms.one.open.go + " ";
-                        if (itms.one.final != undefined) txt += itms.one.final.look + " " + itms.one.final.use + " " + itms.one.final.go + " ";
-                    }
-                    if (itms.two != undefined) {
-                        if (itms.two.closed != undefined) txt += itms.two.closed.look + " " + itms.two.closed.use + " " + itms.two.closed.go + " " + itms.two.closed.hit + " ";
-                        if (itms.two.opening != undefined) txt += itms.two.opening.look + " " + itms.two.opening.use + " " + itms.two.opening.go + " " + itms.two.opening.hit + " ";
-                        if (itms.two.open != undefined) txt += itms.two.open.look + " " + itms.two.open.use + " " + itms.two.open.go + " " + itms.two.open.hit + " ";
-                        if (itms.two.final != undefined) txt += itms.two.final.look + " " + itms.two.final.use + " " + itms.two.final.go + " " + itms.two.final.hit + " ";
-                    }
-                    if (itms.three != undefined) {
-                        if (itms.three.closed != undefined) txt += itms.three.closed.look + " " + itms.three.closed.use + " " + itms.three.closed.go + " " + itms.three.closed.hit + " " + itms.three.closed.inspect + " ";
-                        if (itms.three.opening != undefined) txt += itms.three.opening.look + " " + itms.three.opening.use + " " + itms.three.opening.go + " " + itms.three.opening.hit + " " + itms.three.opening.inspect + " ";
-                        if (itms.three.open != undefined) txt += itms.three.open.look + " " + itms.three.open.use + " " + itms.three.open.go + " " + itms.three.open.hit + " " + itms.three.open.inspect + " ";
-                        if (itms.three.final != undefined) txt += itms.three.final.look + " " + itms.three.final.use + " " + itms.three.final.go + " " + itms.three.final.hit + " " + itms.three.final.inspect + " ";
-                    }
-                    if (itms.four != undefined) {
-                        if (itms.four.closed != undefined) txt += itms.four.closed.look + " " + itms.four.closed.use + " " + itms.four.closed.go + " " + itms.four.closed.hit + " " + itms.four.closed.inspect + " " + itms.four.closed.wait + " ";
-                        if (itms.four.opening != undefined) txt += itms.four.opening.look + " " + itms.four.opening.use + " " + itms.four.opening.go + " " + itms.four.opening.hit + " " + itms.four.opening.inspect + " " + itms.four.opening.wait + " ";
-                        if (itms.four.open != undefined) txt += itms.four.open.look + " " + itms.four.open.use + " " + itms.four.open.go + " " + itms.four.open.hit + " " + itms.four.open.inspect + " " + itms.four.open.wait + " ";
-                        if (itms.four.final != undefined) txt += itms.four.final.look + " " + itms.four.final.use + " " + itms.four.final.go + " " + itms.four.final.hit + " " + itms.four.final.inspect + " " + itms.four.final.wait + " ";
-                    }
-                    if (itms.five != undefined) {
-                        if (itms.five.closed != undefined) txt += itms.five.closed.look + " " + itms.five.closed.use + " " + itms.five.closed.go + " " + itms.five.closed.hit + " " + itms.five.closed.inspect + " " + itms.five.closed.wait + " " + itms.five.closed.accept + " ";
-                        if (itms.five.opening != undefined) txt += itms.five.opening.look + " " + itms.five.opening.use + " " + itms.five.opening.go + " " + itms.five.opening.hit + " " + itms.five.opening.inspect + " " + itms.five.opening.wait + " " + itms.five.opening.accept + " ";
-                        if (itms.five.open != undefined) txt += itms.five.open.look + " " + itms.five.open.use + " " + itms.five.open.go + " " + itms.five.open.hit + " " + itms.five.open.inspect + " " + itms.five.open.wait + " " + itms.five.open.accept + " ";
-                        if (itms.five.final != undefined) txt += itms.five.final.look + " " + itms.five.final.use + " " + itms.five.final.go + " " + itms.five.final.hit + " " + itms.five.final.inspect + " " + itms.five.final.wait + " " + itms.five.final.accept + " ";
-                    }
-                    if (itms.six != undefined) {
-                        if (itms.six.closed != undefined) txt += itms.six.closed.look + " " + itms.six.closed.use + " " + itms.six.closed.go + " " + itms.six.closed.hit + " " + itms.six.closed.inspect + " " + itms.six.closed.wait + " " + itms.six.closed.accept + " ";
-                        if (itms.six.opening != undefined) txt += itms.six.opening.look + " " + itms.six.opening.use + " " + itms.six.opening.go + " " + itms.six.opening.hit + " " + itms.six.opening.inspect + " " + itms.six.opening.wait + " " + itms.six.opening.accept + " ";
-                        if (itms.six.open != undefined) txt += itms.six.open.look + " " + itms.six.open.use + " " + itms.six.open.go + " " + itms.six.open.hit + " " + itms.six.open.inspect + " " + itms.six.open.wait + " " + itms.six.open.accept + " ";
-                        if (itms.six.final != undefined) txt += itms.six.final.look + " " + itms.six.final.use + " " + itms.six.final.go + " " + itms.six.final.hit + " " + itms.six.final.inspect + " " + itms.six.final.wait + " " + itms.six.final.accept + " ";
-                    }
+                if (idx > 1) {
+                    scn.texts.forEach((txts) => {
+                        txt += txts.text + " "
+                    });
+                    scn.items.forEach((itms) => {
+                        if (itms.name == "leave") {
+                            if (itms.one != undefined) txt += itms.one.text + " ";
+                            if (itms.two != undefined) txt += itms.two.text + " ";
+                            if (itms.three != undefined) txt += itms.three.text + " ";
+                            if (itms.four != undefined) txt += itms.four.text + " ";
+                            if (itms.five != undefined) txt += itms.five.text + " ";
+                        }
+                        else {
+                            if (itms.zero != undefined) {
+                                if (itms.zero.closed != undefined) txt += itms.zero.closed[commandZ[key][0]] + " " + itms.zero.closed[commandZ[key][1]] + " " + itms.zero.closed[commandZ[key][2]] + " ";
+                                if (itms.zero.opening != undefined) txt += itms.zero.opening[commandZ[key][0]] + " " + itms.zero.opening[commandZ[key][1]] + " " + itms.zero.opening[commandZ[key][2]] + " ";
+                                if (itms.zero.open != undefined) txt += itms.zero.open[commandZ[key][0]] + " " + itms.zero.open[commandZ[key][1]] + " " + itms.zero.open[commandZ[key][2]] + " ";
+                                if (itms.zero.final != undefined) txt += itms.zero.final[commandZ[key][0]] + " " + itms.zero.final[commandZ[key][1]] + " " + itms.zero.final[commandZ[key][2]] + " ";
+                            }
+                            if (itms.one != undefined) {
+                                if (itms.one.closed != undefined) txt += itms.one.closed[commandZ[key][0]] + " " + itms.one.closed[commandZ[key][1]] + " " + itms.one.closed[commandZ[key][2]] + " ";
+                                if (itms.one.opening != undefined) txt += itms.one.opening[commandZ[key][0]] + " " + itms.one.opening[commandZ[key][1]] + " " + itms.one.opening[commandZ[key][2]] + " ";
+                                if (itms.one.open != undefined) txt += itms.one.open[commandZ[key][0]] + " " + itms.one.open[commandZ[key][1]] + " " + itms.one.open[commandZ[key][2]] + " ";
+                                if (itms.one.final != undefined) txt += itms.one.final[commandZ[key][0]] + " " + itms.one.final[commandZ[key][1]] + " " + itms.one.final[commandZ[key][2]] + " ";
+                            }
+                            if (itms.two != undefined) {
+                                if (itms.two.closed != undefined) txt += itms.two.closed[commandZ[key][0]] + " " + itms.two.closed[commandZ[key][1]] + " " + itms.two.closed[commandZ[key][2]] + " " + itms.two.closed[commandZ[key][4]] + " ";
+                                if (itms.two.opening != undefined) txt += itms.two.opening[commandZ[key][0]] + " " + itms.two.opening[commandZ[key][1]] + " " + itms.two.opening[commandZ[key][2]] + " " + itms.two.opening[commandZ[key][4]] + " ";
+                                if (itms.two.open != undefined) txt += itms.two.open[commandZ[key][0]] + " " + itms.two.open[commandZ[key][1]] + " " + itms.two.open[commandZ[key][2]] + " " + itms.two.open[commandZ[key][4]] + " ";
+                                if (itms.two.final != undefined) txt += itms.two.final[commandZ[key][0]] + " " + itms.two.final[commandZ[key][1]] + " " + itms.two.final[commandZ[key][2]] + " " + itms.two.final[commandZ[key][4]] + " ";
+                            }
+                            if (itms.three != undefined) {
+                                if (itms.three.closed != undefined) txt += itms.three.closed[commandZ[key][0]] + " " + itms.three.closed[commandZ[key][1]] + " " + itms.three.closed[commandZ[key][2]] + " " + itms.three.closed[commandZ[key][4]] + " " + itms.three.closed[commandZ[key][5]] + " ";
+                                if (itms.three.opening != undefined) txt += itms.three.opening[commandZ[key][0]] + " " + itms.three.opening[commandZ[key][1]] + " " + itms.three.opening[commandZ[key][2]] + " " + itms.three.opening[commandZ[key][4]] + " " + itms.three.opening[commandZ[key][5]] + " ";
+                                if (itms.three.open != undefined) txt += itms.three.open[commandZ[key][0]] + " " + itms.three.open[commandZ[key][1]] + " " + itms.three.open[commandZ[key][2]] + " " + itms.three.open[commandZ[key][4]] + " " + itms.three.open[commandZ[key][5]] + " ";
+                                if (itms.three.final != undefined) txt += itms.three.final[commandZ[key][0]] + " " + itms.three.final[commandZ[key][1]] + " " + itms.three.final[commandZ[key][2]] + " " + itms.three.final[commandZ[key][4]] + " " + itms.three.final[commandZ[key][5]] + " ";
+                            }
+                            if (itms.four != undefined) {
+                                if (itms.four.closed != undefined) txt += itms.four.closed[commandZ[key][0]] + " " + itms.four.closed[commandZ[key][1]] + " " + itms.four.closed[commandZ[key][2]] + " " + itms.four.closed[commandZ[key][4]] + " " + itms.four.closed[commandZ[key][5]] + " " + itms.four.closed[commandZ[key][6]] + " ";
+                                if (itms.four.opening != undefined) txt += itms.four.opening[commandZ[key][0]] + " " + itms.four.opening[commandZ[key][1]] + " " + itms.four.opening[commandZ[key][2]] + " " + itms.four.opening[commandZ[key][4]] + " " + itms.four.opening[commandZ[key][5]] + " " + itms.four.opening[commandZ[key][6]] + " ";
+                                if (itms.four.open != undefined) txt += itms.four.open[commandZ[key][0]] + " " + itms.four.open[commandZ[key][1]] + " " + itms.four.open[commandZ[key][2]] + " " + itms.four.open[commandZ[key][4]] + " " + itms.four.open[commandZ[key][5]] + " " + itms.four.open[commandZ[key][6]] + " ";
+                                if (itms.four.final != undefined) txt += itms.four.final[commandZ[key][0]] + " " + itms.four.final[commandZ[key][1]] + " " + itms.four.final[commandZ[key][2]] + " " + itms.four.final[commandZ[key][4]] + " " + itms.four.final[commandZ[key][5]] + " " + itms.four.final[commandZ[key][6]] + " ";
+                            }
+                            if (itms.five != undefined) {
+                                if (itms.five.closed != undefined) txt += itms.five.closed[commandZ[key][0]] + " " + itms.five.closed[commandZ[key][1]] + " " + itms.five.closed[commandZ[key][2]] + " " + itms.five.closed[commandZ[key][4]] + " " + itms.five.closed[commandZ[key][5]] + " " + itms.five.closed[commandZ[key][6]] + " " + itms.five.closed[commandZ[key][7]] + " ";
+                                if (itms.five.opening != undefined) txt += itms.five.opening[commandZ[key][0]] + " " + itms.five.opening[commandZ[key][1]] + " " + itms.five.opening[commandZ[key][2]] + " " + itms.five.opening[commandZ[key][4]] + " " + itms.five.opening[commandZ[key][5]] + " " + itms.five.opening[commandZ[key][6]] + " " + itms.five.opening[commandZ[key][7]] + " ";
+                                if (itms.five.open != undefined) txt += itms.five.open[commandZ[key][0]] + " " + itms.five.open[commandZ[key][1]] + " " + itms.five.open[commandZ[key][2]] + " " + itms.five.open[commandZ[key][4]] + " " + itms.five.open[commandZ[key][5]] + " " + itms.five.open[commandZ[key][6]] + " " + itms.five.open[commandZ[key][7]] + " ";
+                                if (itms.five.final != undefined) txt += itms.five.final[commandZ[key][0]] + " " + itms.five.final[commandZ[key][1]] + " " + itms.five.final[commandZ[key][2]] + " " + itms.five.final[commandZ[key][4]] + " " + itms.five.final[commandZ[key][5]] + " " + itms.five.final[commandZ[key][6]] + " " + itms.five.final[commandZ[key][7]] + " ";
+                            }
+                            if (itms.six != undefined) {
+                                if (itms.six.closed != undefined) txt += itms.six.closed[commandZ[key][7]] + " ";
+                                if (itms.six.opening != undefined) txt += itms.six.opening[commandZ[key][7]] + " ";
+                                if (itms.six.open != undefined) txt += itms.six.open[commandZ[key][7]] + " ";
+                                if (itms.six.final != undefined) txt += itms.six.final[commandZ[key][7]] + " ";
+                            }
+                        }
+                    });
                 }
             });
         }
-    });
+    }
     return txt;
 }
 
-// setTimeout(() => console.log(printTxt()), 30000);
+setTimeout(() => console.log(printTxt()), 30000);
