@@ -1,6 +1,10 @@
 # _That House_ | _Cette Maison_
 This is the main repository for the text-adventure game _That House_, called _Cette Maison_ in French.
 
+It is available on [itch.io](https://jrante.itch.io/that-house-v20) to play for free.
+
+The game has been tested on Firefox, but should work on any other browser. It is designed to be experienced on desktop.
+
 ## What is _That House_?
 _That House_ is a text-adventure developped in pure JavaScript. No plugins, no frameworks. Its themes are death, how we cope with it, as well as remembrance and the past.
 
